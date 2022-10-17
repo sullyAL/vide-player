@@ -1,0 +1,164 @@
+// --------------------------------------------------------------
+// Control buttons
+// --------------------------------------------------------------
+
+.plyr__control {
+    background: transparent;
+    border: 0;
+    border-radius: $plyr-control-radius;
+    color: inherit;
+    cursor: pointer;
+    padding: $plyr-control-padding;
+    position: relative;
+    min-width: $plyr-control-icon-size;
+
+    use {
+
+        .fa-secondary {
+            opacity: .4
+        }
+    }
+
+    @media (max-width: ($plyr-bp-md - 1px)) {
+        padding: 5px
+    }
+
+    &[data-vide="captions-menu-menu"] {
+        margin: 0 8px;
+    }
+
+    &[data-vide="language"] {
+        max-width: 200px;
+
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+        }
+    }
+
+    &[data-vide="speed-menu"] {
+
+        svg {
+            height: 26px;
+            width: auto;
+        }
+    }
+
+    &[data-vide="quality-menu"] {
+        margin: 0 2px;
+        position: relative;
+
+        .plyr__menu__value {
+            position: absolute;
+            //top: 50%;
+            //left: 50%;
+            //transform: translate(-50%, -50%);
+            background: $plyr-color-main;
+            color: #fff;
+            top: -5px;
+            right: 0;
+            padding: 1px 3px;
+            border-radius: 2px;
+            font-size: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            z-index: 10;
+            display: block;
+        }
+    }
+
+    &:hover, &[aria-expanded=true] {
+        background: 0 0;
+
+        svg {
+            transform: scale(1.2);
+        }
+    }
+
+    &--overlaid {
+
+        &:hover, &[aria-expanded=true] {
+            background: 0 0;
+
+            svg {
+                transform: translate(-50%,-50%) scale(1.2);
+            }
+        }
+    }
+
+    svg {
+        display: block;
+        fill: currentColor;
+        height: $plyr-control-icon-size;
+        pointer-events: none;
+        width: auto;
+        transition: transform 0.3s ease;
+        transform-origin: center;
+
+        @media (max-width: ($plyr-bp-md - 1px)) {
+            height: 18px;
+            width: auto;
+        }
+    }
+
+    // Default focus
+    &:focus {
+        outline: 0;
+    }
+
+    // Tab focus
+    &.plyr__tab-focus {
+        @include plyr-tab-focus;
+    }
+
+    &.skipButton {
+        position: absolute;
+        bottom: 10rem;
+        right: 1.5rem;
+        z-index: 500;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: all 0.3s;
+        font-size: 0.8rem;
+        background: rgba(#1F2937, 70%);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 5px;
+        font-weight: 600;
+        padding: 12px 20px;
+
+        svg {
+            height: 20px;
+            width: auto;
+            position: relative;
+        }
+
+        &:hover {
+
+            svg {
+                transform: scale(1) translateX(10px);
+            }
+        }
+    }
+}
+
+// Remove any link styling
+a.plyr__control {
+    text-decoration: none;
+
+    &::after,
+    &::before {
+        display: none;
+    }
+}
+
+// Change icons on state change
+.plyr__control:not(.plyr__control--pressed) .icon--pressed,
+.plyr__control.plyr__control--pressed .icon--not-pressed,
+.plyr__control:not(.plyr__control--pressed) .label--pressed,
+.plyr__control.plyr__control--pressed .label--not-pressed {
+    display: none;
+}

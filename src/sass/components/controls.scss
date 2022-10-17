@@ -1,0 +1,187 @@
+// --------------------------------------------------------------
+// Controls
+// --------------------------------------------------------------
+
+// Hide native controls
+.plyr--full-ui ::-webkit-media-controls {
+    display: none;
+}
+
+// Playback controls
+.plyr__controls {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    flex-wrap: wrap;
+
+    .plyr__progress__container {
+        flex: auto;
+        min-width: 0; // Fix for Edge issue where content would overflow
+        width: 100%;
+        margin: 0 0 1rem;
+        transition: all 0.3s ease;
+    }
+
+    // Spacing
+    .plyr__controls__item {
+        margin-left: calc(#{$plyr-control-spacing} / 4);
+
+        &:first-child {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        &.plyr__progress__container {
+            padding: 0;
+            margin-left: 0;
+        }
+
+        &.plyr__time {
+            padding: 0 calc(#{$plyr-control-spacing} / 2);
+        }
+
+        &.vide__brand {
+            //width: 100px;
+            padding: 0;
+
+            &:hover {
+
+                svg {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        &.plyr__progress__container:first-child,
+        &.plyr__time:first-child,
+        &.plyr__time + .plyr__time {
+            padding-left: 0;
+        }
+    }
+
+    // Hide empty controls
+    &:empty {
+        display: none;
+    }
+
+    &__top {
+
+        .plyr__menu__container {
+            bottom: auto;
+            top: 100%;
+            margin: 0;
+
+            @media (max-width: ($plyr-bp-md - 1px)) {
+                top: 37px;
+            }
+
+            &--speedMenu {
+                top: 4rem;
+
+                @media (max-width: ($plyr-bp-md - 1px)) {
+                    top: 50px;
+                    left: 10px;
+                    right: 10px;
+                }
+            }
+        }
+    }
+}
+
+// Some options are hidden by default
+.vide [data-vide='captions'],
+.vide [data-vide='pip'],
+.vide [data-vide='airplay'],
+.vide [data-vide='fullscreen'] {
+    display: none;
+}
+
+.plyr--captions-enabled [data-vide='captions'],
+.plyr--pip-supported [data-vide='pip'],
+.plyr--airplay-supported [data-vide='airplay'],
+.plyr--fullscreen-enabled [data-vide='fullscreen'] {
+    display: inline-block;
+}
+
+
+.plyr, .plyr .vide, .vide {
+
+    &__seekButton {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 50;
+        color: #fff;
+        padding: 5px 20px;
+        cursor: auto;
+        transition: all 0.6s ease;
+        border-radius: 0;
+        width: 200px;
+
+        svg {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        &--left {
+            left: 0;
+            text-align: right;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+
+            svg {
+                margin-right: 20px;
+                margin-left: auto;
+            }
+        }
+
+        &--right {
+            right: 0;
+            text-align: left;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+
+            svg {
+                margin-left: 20px;
+                margin-right: auto;
+            }
+        }
+    }
+
+    &--tempScale {
+        animation: showBG 0.6s ease;
+
+        svg {
+            animation: tempScale 0.6s ease;
+        }
+    }
+}
+
+@keyframes showBG {
+    0% {
+        background: transparent;
+    }
+    50% {
+        background: rgba(#fff, 1%);
+    }
+    100% {
+        background: transparent;
+    }
+}
+
+@keyframes tempScale {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}

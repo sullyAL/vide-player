@@ -1,0 +1,258 @@
+// --------------------------------------------------------------
+// Playback progress
+// --------------------------------------------------------------
+
+// Offset the range thumb in order to be able to calculate the relative progress (#954)
+$plyr-progress-offset: $plyr-range-thumb-height;
+
+.vide__progress {
+    left: 0;
+    margin-right: 0;
+    position: relative;
+    border-radius: 0;
+    margin-left: 10px;
+    height: 30px;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 6px;
+        background: rgba(#fff, 35%);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        box-shadow: 0 0 6px 0 rgba(#fff, 5%);
+        transition: height 0.3s ease;
+        left: 0;
+        right: 0;
+        will-change: height;
+        z-index: 10;
+    }
+
+    input[type='range'],
+    &__buffer {
+        margin: 0;
+        width: 100%;
+    }
+
+    input[type='range'] {
+        position: absolute;
+        z-index: 50;
+        opacity: 0;
+        height: 30px;
+        transition: all 0.3s ease;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+        &::-webkit-slider-runnable-track {
+            background: 0 0;
+            opacity: 0;
+        }
+
+        &::-webkit-slider-thumb {
+            opacity: 0;
+        }
+
+        // Mozilla
+        &::-moz-range-track {
+            opacity: 0;
+        }
+
+        &::-moz-range-thumb {
+            opacity: 0;
+        }
+
+        &::-moz-range-progress {
+            opacity: 0;
+        }
+
+        // Microsoft
+        &::-ms-track {
+            opacity: 0;
+            color: transparent;
+        }
+
+        &::-ms-fill-upper {
+            opacity: 0;
+        }
+
+        &::-ms-fill-lower {
+            opacity: 0;
+        }
+
+        &::-ms-thumb {
+            opacity: 0;
+            margin-top: 0;
+        }
+    }
+
+    // Seek tooltip to show time
+    .vide__tooltip {
+        left: 0;
+        max-width: 120px;
+        overflow-wrap: break-word;
+        white-space: normal;
+        position: absolute;
+        bottom: 100%;
+        margin: 0 0 10px;
+        background: rgba(#000, 70%);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 3px 5px;
+        border-radius: 2px;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 10;
+        display: block;
+        opacity: 0;
+        transition: transform 0.3s ease;
+        transform-origin: center;
+        transform: scale(0);
+    }
+
+    .vide__progress {
+        width: 0%;
+        border-radius: 0;
+        background: $plyr-color-main;
+        //background: rgba(#00b2ff, 40%);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        z-index: 35;
+        margin-left: 0;
+        position: relative;
+        height: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+        transition: height 0.3s ease;
+        will-change: height;
+
+        &:after {
+            content: "";
+            width: 6px;
+            height: 12px;
+            background: $plyr-color-main;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px 0 rgba(#fff, 20%);
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            left: auto;
+            border-radius: 6px;
+            transform: scale(1) translateY(-50%);
+            //transition: transform 0.3s ease;
+        }
+    }
+
+    &--seek {
+        display: none;
+    }
+
+    &:hover {
+
+        &:after {
+            height: 8px;
+        }
+
+        .vide__tooltip {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .vide__progress, .vide__progress__buffer {
+            height: 8px;
+        }
+    }
+}
+
+.vide__progress__buffer {
+    -webkit-appearance: none; /* stylelint-disable-line */
+    border: 0;
+    border-radius: 0;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    height: 6px;
+    transition: height 0.3s ease;
+    transform: translateY(-50%);
+    z-index: 30;
+    will-change: height;
+
+    &::-webkit-progress-bar {
+        background: transparent;
+    }
+
+    &::-webkit-progress-value {
+        background: rgba(white, 40%);
+        border-radius: 100px;
+        min-width: $plyr-range-track-height;
+        transition: width 0.2s ease;
+    }
+
+    // Mozilla
+    &::-moz-progress-bar {
+        background: transparent;
+        border-radius: 100px;
+        min-width: $plyr-range-track-height;
+        transition: width 0.2s ease;
+    }
+
+    // Microsoft
+    &::-ms-fill {
+        border-radius: 100px;
+        transition: width 0.2s ease;
+    }
+}
+
+// Loading state
+.plyr--loading .vide__progress__buffer {
+    animation: plyr-progress 1s linear infinite;
+    background-image: linear-gradient(
+                    -45deg,
+                    $plyr-progress-loading-background 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    $plyr-progress-loading-background 50%,
+                    $plyr-progress-loading-background 75%,
+                    transparent 75%,
+                    transparent
+    );
+    background-repeat: repeat-x;
+    background-size: $plyr-progress-loading-size $plyr-progress-loading-size;
+    color: transparent;
+}
+
+.plyr--video.plyr--loading .vide__progress__buffer {
+    background-color: $plyr-video-progress-buffered-background;
+}
+
+.plyr--audio.plyr--loading .vide__progress__buffer {
+    background-color: $plyr-audio-progress-buffered-background;
+}
+
+// Markers
+.plyr__progress__marker {
+    background-color: $plyr-progress-marker-background;
+    border-radius: 0;
+    height: $plyr-range-track-height;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: $plyr-progress-marker-width;
+    z-index: 3;
+}
+
+
+@keyframes progress-animation {
+    0% {
+        background-position: 100%;
+    }
+    100% {
+        background-position: 0
+    }
+}

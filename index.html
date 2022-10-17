@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vide Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="dist/main.css" rel="stylesheet" media="all" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+
+        #container {
+            width: 100%;
+            height: 100vh;
+        }
+
+        #container video, .vide {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <video
+            controls
+            crossorigin
+            playsinline
+            data-poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg"
+            id="player"
+            preload="none"
+    >
+        <!-- Video files -->
+<!--        <source-->
+<!--                src="https://vhfs1.dood.video/34jvjsh3a7h7iz6oharl5um3qewtj7hn6p3zi3e5a63hsm6k4wiv7kxziyqa/h.mp4"-->
+<!--                type="video/mp4"-->
+<!--                size="720"-->
+<!--        />-->
+<!--        <source-->
+<!--                src="https://vhfs1.dood.video/34jvjsh3a7h7iz6oharl5um3qewtj7hn6p3zi3e5aethwm6k4wiythjc4mna/n.mp4"-->
+<!--                type="video/mp4"-->
+<!--                size="480"-->
+<!--        />-->
+
+        <source
+                src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
+                type="video/mp4"
+                size="1080"
+        />
+
+        <source
+                src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
+                type="video/mp4"
+                size="720"
+        />
+
+<!--        <source src="https://vhfs1.dood.video/34jvjw73a7h7iz6oharl5wonrg2tswwb7n2kykxobj26xrjodbp3elottbtq/n.mp4" type="video/mp4" size="480" />-->
+<!--        <source src="https://vhfs1.dood.video/34jvjw73a7h7iz6oharl5wonrg2tswwb7n2kykxobts6trjodbptj2zhxchq/h.mp4" type="video/mp4" size="720" />-->
+<!--        <source src="https://vhfs1.dood.video/34jvjw73a7h7iz6oharl5wonrg2tswwb7n2kykxodrj6trjodbp4kjmplvza/x.mp4" type="video/mp4" size="1080" />-->
+        <!-- Caption files -->
+        <track
+                kind="captions"
+                label="English"
+                srclang="en"
+                src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
+                default
+        />
+        <track
+                kind="captions"
+                label="Français"
+                srclang="fr"
+                src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt"
+        />
+
+        <!-- Fallback for browsers that don't support the <video> element -->
+        <a href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" download>Download</a>
+    </video>
+</div>
+
+<script src="dist/vide.js"></script>
+</body>
+</html>

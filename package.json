@@ -1,0 +1,39 @@
+{
+    "name": "vide-player",
+    "version": "0.7.6",
+    "private": false,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack --env production --progress",
+        "watch": "webpack --env development --progress"
+    },
+    "main": "dist/vide.js",
+    "types": "src/js/vide.d.ts",
+    "module": "src/js/vide.js",
+    "browser": "dist/vide.js",
+    "sass": "src/sass/vide.scss",
+    "style": "dist/main.css",
+    "keywords": [],
+    "author": "Sully",
+    "license": "MIT",
+    "devDependencies": {
+        "autoprefixer": "^10.4.7",
+        "babel-loader": "^8.2.5",
+        "css-loader": "^6.7.1",
+        "file-loader": "^6.2.0",
+        "html-webpack-plugin": "^5.5.0",
+        "mini-css-extract-plugin": "^2.6.1",
+        "rangetouch": "^2.0.1",
+        "sass": "^1.53.0",
+        "sass-loader": "^13.0.1",
+        "style-loader": "^3.3.1",
+        "webpack": "^5.73.0",
+        "webpack-cli": "^4.10.0"
+    },
+    "dependencies": {
+        "core-js": "^3.23.2",
+        "install": "^0.13.0",
+        "loadjs": "^4.2.0",
+        "npm": "^8.19.2"
+    }
+}

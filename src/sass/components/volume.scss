@@ -1,0 +1,51 @@
+// --------------------------------------------------------------
+// Volume
+// --------------------------------------------------------------
+
+.plyr__volume {
+    align-items: center;
+    display: flex;
+    position: relative;
+    width: auto;
+    margin: 0 auto;
+    max-width: initial;
+    min-width: initial;
+    z-index: 50;
+
+    input[data-vide="volume"] {
+        width: 7rem;
+        position: absolute;
+        left: 100%;
+        opacity: 0;
+        z-index: -10;
+        transition: all .2s;
+        visibility: hidden;
+        background: transparent;
+        margin: 0;
+        padding: 20px 10px;
+    }
+
+    &:hover {
+
+        input[data-vide="volume"] {
+            opacity: 1;
+            visibility: visible;
+            z-index: 30;
+        }
+    }
+
+    svg {
+        transition: none;
+        transform: none;
+    }
+
+    &:hover svg {
+        transform: none;
+    }
+}
+
+// Auto size on iOS as there's no slider
+.plyr--is-ios .plyr__volume {
+    min-width: 0;
+    width: auto;
+}

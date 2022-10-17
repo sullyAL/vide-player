@@ -1,0 +1,116 @@
+// --------------------------------------------------------------
+// Preview Thumbnails
+// --------------------------------------------------------------
+
+@import './settings';
+
+.plyr__preview-thumb {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(#1F2937, 70%);
+    border-radius: 5px;
+    bottom: 100%;
+    box-shadow: $plyr-preview-shadow;
+    margin-bottom: calc(#{$plyr-preview-padding} * 2);
+    opacity: 0;
+    padding: 0;
+    pointer-events: none;
+    position: absolute;
+    transform: translate(0, 10px) scale(0.8);
+    transform-origin: 50% 100%;
+    transition: transform 0.2s 0.1s ease, opacity 0.2s 0.1s ease;
+    z-index: 2;
+
+    &--is-shown {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+
+    // The background triangle
+
+    &__image-container {
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        z-index: 0;
+        width: 250px;
+        height: 150px;
+
+        img,
+        &::after {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        &::after {
+            border-radius: inherit;
+            box-shadow: inset 0 0 0 1px rgba(#000, 15%);
+            content: '';
+            pointer-events: none;
+        }
+
+        img {
+            // Non sprite images are 100%. Sprites will have their size applied by JavaScript
+            max-height: none;
+            max-width: none;
+            border-radius: 5px;
+        }
+    }
+
+    // Seek time text
+    &__time-container {
+        background: rgba(#000, 10%);
+        border-bottom-left-radius: calc(#{$plyr-preview-radius} - 1px);
+        border-bottom-right-radius: calc(#{$plyr-preview-radius} - 1px);
+        bottom: 0;
+        left: 0;
+        line-height: 1.1;
+        position: absolute;
+        right: 0;
+        z-index: 3;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        padding: 5px 10px;
+
+        span {
+            color: $plyr-preview-time-color;
+            font-size: $plyr-preview-time-font-size;
+            font-weight: 600;
+        }
+    }
+}
+
+.plyr__preview-scrubbing {
+    bottom: 0;
+    filter: blur(1px);
+    height: 100%;
+    left: 0;
+    margin: auto; // Required when video is different dimensions to container (e.g. fullscreen)
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity 0.3s ease;
+    width: 100%;
+    z-index: 1;
+
+    &--is-shown {
+        opacity: 1;
+    }
+
+    img {
+        height: 100%;
+        left: 0;
+        max-height: none;
+        max-width: none;
+        object-fit: contain;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
