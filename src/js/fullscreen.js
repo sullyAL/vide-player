@@ -17,7 +17,7 @@ class Fullscreen {
         this.property = Fullscreen.property;
 
         // orientation polyfill
-        o9n.install()
+        //o9n.install()
 
         // Scroll position
         this.scrollPosition = { x: 0, y: 0 };
@@ -286,7 +286,7 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        orientation.lock('landscape-primary')
+        //orientation.lock('landscape-primary')
     };
 
     // Bail from fullscreen
@@ -309,7 +309,7 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        orientation.lock('portrait')
+        //orientation.lock('portrait')
     };
 
     // Toggle state
