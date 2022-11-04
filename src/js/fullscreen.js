@@ -1,4 +1,5 @@
-import o9n from 'o9n'
+const o9n = require('o9n')
+const orientation =  o9n.getOrientation()
 
 import browser from './utils/browser';
 import { closest, getElements, hasClass, toggleClass } from './utils/elements';
@@ -285,7 +286,7 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        //o9n.orientation.lock('landscape-primary')
+        orientation.lock('landscape-primary')
     };
 
     // Bail from fullscreen
@@ -308,7 +309,7 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        //o9n.orientation.lock('portrait')
+        orientation.lock('portrait')
     };
 
     // Toggle state
