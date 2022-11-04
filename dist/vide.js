@@ -26,7 +26,7 @@ return /******/ (() => { // webpackBootstrap
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src */ \"./src/index.js\");\n //import svgSprite from './src/sprite/spriteFA.svg'\n\ndocument.addEventListener('DOMContentLoaded', () => {\n  const selector = '#player'; // Setup the player\n\n  const player = new _src__WEBPACK_IMPORTED_MODULE_0__[\"default\"](selector, {\n    controls: ['current-time', 'duration', 'progress', 'play', 'rewind', 'play-large', 'fast-forward', 'mute', 'volume', 'brand', 'pip', 'cast', 'captionsMenu', //'audioTracksMenu',\n    'qualityMenu', 'speedMenu', 'settings', 'airplay', //'download',\n    'fullscreen', 'title', 'logo', 'watchedBefore'],\n    clientLogo: 'http://localhost:3001/player-logo/1667331020743-257789047.png',\n    toggleInvert: true,\n    length: 183,\n    iconUrl: '/src/sprite/spriteFA.svg',\n    loadSprite: false,\n    seekTime: 10,\n    //debug: true,\n    title: 'View From A Blue Moon',\n    keyboard: {\n      global: true\n    },\n    captions: {\n      active: true,\n      languages: [{\n        label: 'Test',\n        srclang: 'al',\n        src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt'\n      }]\n    },\n    previewThumbnails: {\n      enabled: true,\n      //frames: preview,\n      image: 'https://img-vh.doodcdn.co/slides/b152cb0c0e39e020.jpg',\n      cells: 49,\n      rows: 7,\n      imageWidth: 0,\n      imageHeight: 0\n    },\n    skipIntro: {\n      enabled: true,\n      seconds: 10\n    },\n    continueWatching: {\n      enabled: true\n    }\n  });\n  player.on('fontchange', event => {\n    const captionsSize = player.storage.get('captionsSize') || 14; //console.log(event, captionsSize)\n  }); // Expose for tinkering in the console\n\n  window.player = player;\n});\n\n//# sourceURL=webpack://Vide/./demo.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src */ \"./src/index.js\");\n/* harmony import */ var _src_sprite_spriteFA_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/sprite/spriteFA.svg */ \"./src/sprite/spriteFA.svg\");\n\n\ndocument.addEventListener('DOMContentLoaded', () => {\n  const selector = '#player'; // Setup the player\n\n  const player = new _src__WEBPACK_IMPORTED_MODULE_0__[\"default\"](selector, {\n    controls: ['current-time', 'duration', 'progress', 'play', 'rewind', 'play-large', 'fast-forward', 'mute', 'volume', 'brand', 'pip', 'cast', 'captionsMenu', //'audioTracksMenu',\n    'qualityMenu', 'speedMenu', 'settings', 'airplay', //'download',\n    'fullscreen', 'title', 'logo', 'watchedBefore'],\n    clientLogo: 'http://localhost:3001/player-logo/1667331020743-257789047.png',\n    toggleInvert: true,\n    length: 183,\n    iconUrl: _src_sprite_spriteFA_svg__WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n    loadSprite: false,\n    seekTime: 10,\n    //debug: true,\n    title: 'View From A Blue Moon',\n    keyboard: {\n      global: true\n    },\n    captions: {\n      active: true,\n      languages: [{\n        label: 'Test',\n        srclang: 'al',\n        src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt'\n      }]\n    },\n    previewThumbnails: {\n      enabled: true,\n      //frames: preview,\n      image: 'https://img-vh.doodcdn.co/slides/b152cb0c0e39e020.jpg',\n      cells: 49,\n      rows: 7,\n      imageWidth: 0,\n      imageHeight: 0\n    },\n    skipIntro: {\n      enabled: true,\n      seconds: 10\n    },\n    continueWatching: {\n      enabled: true\n    }\n  });\n  player.on('fontchange', event => {\n    const captionsSize = player.storage.get('captionsSize') || 14; //console.log(event, captionsSize)\n  }); // Expose for tinkering in the console\n\n  window.player = player;\n});\n\n//# sourceURL=webpack://Vide/./demo.js?");
 
 /***/ }),
 
@@ -511,6 +511,17 @@ eval("\n\nmodule.exports = function (i) {\n  return i[1];\n};\n\n//# sourceURL=w
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + \"5b6557f8f3a148962197ce46d44733e3.svg\");\n\n//# sourceURL=webpack://Vide/./src/sprite/sprite.svg?");
+
+/***/ }),
+
+/***/ "./src/sprite/spriteFA.svg":
+/*!*********************************!*\
+  !*** ./src/sprite/spriteFA.svg ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + \"734225cfdc45785255a14e1d260903f7.svg\");\n\n//# sourceURL=webpack://Vide/./src/sprite/spriteFA.svg?");
 
 /***/ }),
 
