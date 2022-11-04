@@ -285,7 +285,7 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        o9n.orientation.lock('landscape-primary')
+        //o9n.orientation.lock('landscape-primary')
     };
 
     // Bail from fullscreen
@@ -308,7 +308,7 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        o9n.orientation.lock('portrait')
+        //o9n.orientation.lock('portrait')
     };
 
     // Toggle state
