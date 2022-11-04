@@ -251,8 +251,8 @@ const ui = {
         clearTimeout(this.timers.loading);
 
         // show poster when loading
-        const poster = this.elements.container.querySelector('.plyr__poster')
-        poster.style.opacity = this.loading ? 1 : 0
+        //const poster = this.elements.container.querySelector('.plyr__poster')
+        //poster.style.opacity = this.loading ? 1 : 0
 
         // Timer to prevent flicker when seeking
         this.timers.loading = setTimeout(

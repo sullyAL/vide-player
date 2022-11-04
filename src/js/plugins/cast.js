@@ -123,7 +123,7 @@ class Cast {
      * @returns {*|{enabled: boolean}|Cast}
      */
     get isSupported() {
-        return window.chrome && window.chrome.cast && window.cast
+        return window?.chrome && window?.chrome.cast && window?.cast
     }
 
     /**

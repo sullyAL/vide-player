@@ -223,6 +223,19 @@ $embed-padding: (math.div(100, 16) * 9);
         padding: $plyr-control-spacing;
     }
 
+    .clientLogo {
+        position: absolute;
+        top: calc(#{$plyr-control-spacing} / 2);
+        right: calc(#{$plyr-control-spacing} / 2);
+        height: 100%;
+        width: auto;
+        max-height: 38px;
+
+        @media (min-width: $plyr-bp-sm) {
+            top: $plyr-control-spacing;
+            right: $plyr-control-spacing;
+        }
+    }
 
     &__top {
         top: 0;
@@ -375,13 +388,6 @@ $embed-padding: (math.div(100, 16) * 9);
 
         &__center {
             //transform: scale(0);
-        }
-    }
-
-    .plyr__control {
-
-        &.skipButton {
-            bottom: 2rem;
         }
     }
 }

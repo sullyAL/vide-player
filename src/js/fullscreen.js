@@ -1,8 +1,4 @@
-// ==========================================================================
-// Fullscreen wrapper
-// https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API#prefixing
-// https://webkit.org/blog/7929/designing-websites-for-iphone-x/
-// ==========================================================================
+import o9n from 'o9n'
 
 import browser from './utils/browser';
 import { closest, getElements, hasClass, toggleClass } from './utils/elements';
@@ -18,6 +14,9 @@ class Fullscreen {
         // Get prefix
         this.prefix = Fullscreen.prefix;
         this.property = Fullscreen.property;
+
+        // orientation polyfill
+        o9n.install()
 
         // Scroll position
         this.scrollPosition = { x: 0, y: 0 };
@@ -286,13 +285,7 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        screen.orientation.lock('landscape')
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        o9n.orientation.lock('landscape-primary')
     };
 
     // Bail from fullscreen
@@ -315,13 +308,7 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        screen.orientation.lock('portrait')
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        o9n.orientation.lock('portrait')
     };
 
     // Toggle state

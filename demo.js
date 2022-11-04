@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'logo',
             'watchedBefore'
         ],
+        clientLogo: 'http://localhost:3001/player-logo/1667331020743-257789047.png',
         toggleInvert: true,
         length: 183,
         iconUrl: svgSprite,

@@ -50,9 +50,9 @@ const captions = {
             insertAfter(this.elements.captions, this.elements.wrapper);
 
             if (this.storage.get('showCaptionsBG')) {
-                this.elements?.captions?.classList.add('plyr__captions--noBackground')
-            } else {
                 this.elements?.captions?.classList.remove('plyr__captions--noBackground')
+            } else {
+                this.elements?.captions?.classList.add('plyr__captions--noBackground')
             }
 
             const captionsSize = this.storage.get('captionsSize') || 15

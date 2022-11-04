@@ -29,7 +29,7 @@ class Listeners {
     handleKey(event) {
         const { player } = this;
         const { elements } = player;
-        const { key, type, altKey, ctrlKey, metaKey, shiftKey } = event;
+        const { key, type, altKey, ctrlKey, metaKey, shiftKey, code } = event;
         const pressed = type === 'keydown';
         const repeat = pressed && key === this.lastKey;
 
@@ -118,8 +118,7 @@ class Listeners {
                     }
                     break;
 
-                //case 'Space':
-                case ' ':
+                case 'Space':
                 case 'k':
                     if (!repeat) {
                         silencePromise(player.togglePlay());
@@ -142,10 +141,12 @@ class Listeners {
 
                 case 'ArrowRight':
                     player.forward();
+                    this.tempScale(elements.buttons.forwardLarge)
                     break;
 
                 case 'ArrowLeft':
-                    player.rewind();
+                    player.rewind()
+                    this.tempScale(elements.buttons.backwardLarge)
                     break;
 
                 case 'f':
@@ -164,6 +165,10 @@ class Listeners {
 
                 default:
                     break;
+            }
+
+            if (key !== 'Space' && code === 'Space' && !repeat) {
+                silencePromise(player.togglePlay())
             }
 
             // Escape is handle natively when in full screen
@@ -262,7 +267,31 @@ class Listeners {
         }
 
         // Click anywhere closes menu
-        toggleListener.call(player, document.body, 'click', this.toggleMenu, toggle);
+        toggleListener.call(player, document.body, 'click', (event) => {
+            const element = event.target
+
+            // check if clicked element is menu button
+            if (element === player.elements.buttons.settings)
+                return
+
+            if (element === player.elements.buttons.captionsMenu)
+                return
+
+            if (element === player.elements.buttons.qualityMenu)
+                return
+
+            // check if clicked element is not inside a menu
+            if (player?.elements?.settings?.popup?.contains(element))
+                return
+
+            if (player?.elements?.captionsMenu?.popup?.contains(element))
+                return
+
+            if (player?.elements?.qualityMenu?.popup?.contains(element))
+                return
+
+            this.toggleMenu(event)
+        }, toggle)
 
         // Detect touch by events
         once.call(player, document.body, 'touchstart', this.firstTouch);
@@ -567,9 +596,12 @@ class Listeners {
 
     // Custom large seek buttons animation
     tempScale = (element, time = 1000) => {
-        element.classList.add('vide--tempScale')
+        if (!element)
+            return
+
+        element?.classList?.add('vide--tempScale')
         setTimeout(() => {
-            element.classList.remove('vide--tempScale')
+            element?.classList?.remove('vide--tempScale')
         }, time)
     }
 
@@ -592,7 +624,7 @@ class Listeners {
     controls = () => {
         const { player } = this;
         const { elements } = player;
-        // IE doesn't support input event, so we fallback to change
+        // IE doesn't support input event, so we fall back to change
         const inputEvent = browser.isIE ? 'change' : 'input';
 
         // Play/pause toggle
@@ -630,6 +662,7 @@ class Listeners {
                 this.tempScale(elements.buttons.backwardLarge)
             },
             'rewind',
+            false
         );
 
         // Brand
@@ -660,6 +693,7 @@ class Listeners {
                 this.tempScale(elements.buttons.forwardLarge)
             },
             'fastForward',
+            false
         );
 
         // forward large
@@ -677,6 +711,7 @@ class Listeners {
                 this.tempScale(elements.buttons.forwardLarge)
             },
             'forwardLarge',
+            false
         );
 
         // backward large
@@ -694,6 +729,7 @@ class Listeners {
                 this.tempScale(elements.buttons.backwardLarge)
             },
             'backwardLarge',
+            false
         );
 
         // Mute toggle
@@ -745,37 +781,7 @@ class Listeners {
         // Settings menu - click toggle
         this.bind(
             elements.buttons.settings,
-            'touchstart',
-            (event) => {
-                // Prevent the document click listener closing
-                event.stopPropagation()
-                event.preventDefault()
-
-                this.toggleMenu(event, 'settings')
-            },
-            null,
-            false,
-        ); // Can't be passive as we're preventing default
-
-        // Captions menu - click toggle
-        this.bind(
-            elements.buttons.captionsMenu,
-            'touchstart',
-            (event) => {
-                // Prevent the document click listener closing the menu
-                event.stopPropagation()
-                event.preventDefault()
-
-                this.toggleMenu(event, 'captionsMenu')
-            },
-            null,
-            false,
-        ); // Can't be passive as we're preventing default
-
-        // Settings menu - click toggle
-        this.bind(
-            elements.buttons.settings,
-            'mouseover',
+            'mouseover touchstart',
             (event) => {
                 // Prevent the document click listener closing the menu
                 event.stopPropagation()
@@ -789,7 +795,6 @@ class Listeners {
                 const { popup } = elements.settings
 
                 // Hide other menus
-                toggleHidden(elements.speedMenu.popup, true)
                 toggleHidden(elements.qualityMenu.popup, true)
                 toggleHidden(elements.captionsMenu.popup, true)
 
@@ -817,7 +822,7 @@ class Listeners {
                 const { popup } = elements.settings
 
                 player.timers.settingsMenu = setTimeout(() => {
-                    if (elements.speedMenu.popup.hidden && elements.qualityMenu.popup.hidden && elements.captionsMenu.popup.hidden)
+                    if (elements.qualityMenu.popup.hidden && elements.captionsMenu.popup.hidden)
                         elements.container.classList.remove(player.config.classNames.menu.open)
                     toggleHidden(popup, true)
                 }, 500)
@@ -829,7 +834,7 @@ class Listeners {
         // Captions menu - click toggle
         this.bind(
             elements.buttons.captionsMenu,
-            'mouseover',
+            'mouseover touchstart',
             (event) => {
                 // Prevent the document click listener closing the menu
                 event.stopPropagation()
@@ -843,7 +848,6 @@ class Listeners {
                 const { popup } = elements.captionsMenu
 
                 // Hide other menus
-                toggleHidden(elements.speedMenu.popup, true)
                 toggleHidden(elements.qualityMenu.popup, true)
                 toggleHidden(elements.settings.popup, true)
 
@@ -871,7 +875,7 @@ class Listeners {
                 const { popup } = elements.captionsMenu
 
                 player.timers.captionsMenu = setTimeout(() => {
-                    if (elements.speedMenu.popup.hidden && elements.qualityMenu.popup.hidden && elements.settings.popup.hidden)
+                    if (elements.qualityMenu.popup.hidden && elements.settings.popup.hidden)
                         elements.container.classList.remove(player.config.classNames.menu.open)
                     toggleHidden(popup, true)
                 }, 500)
@@ -880,111 +884,10 @@ class Listeners {
             false,
         ); // Can't be passive as we're preventing default
 
-
-        // Speed menu - click toggle
-        this.bind(
-            elements.buttons.speedMenu,
-            'touchstart',
-            (event) => {
-                // Prevent the document click listener closing the menu
-                event.stopPropagation()
-                event.preventDefault()
-
-                this.toggleMenu(event, 'speedMenu')
-            },
-            null,
-            false,
-        ); // Can't be passive as we're preventing default
-
-        // Captions menu - click toggle
-        this.bind(
-            elements.buttons.speedMenu,
-            'mouseover',
-            (event) => {
-                // Prevent the document click listener closing the menu
-                event.stopPropagation()
-                event.preventDefault()
-
-                clearTimeout(player.timers.speedMenu)
-                clearTimeout(player.timers.speedMenuOpen)
-
-                elements.container.classList.add(player.config.classNames.menu.open)
-
-                const { popup } = elements.speedMenu
-
-                // Hide other menus
-                toggleHidden(elements.captionsMenu.popup, true)
-                toggleHidden(elements.qualityMenu.popup, true)
-                toggleHidden(elements.settings.popup, true)
-
-                player.timers.speedMenuOpen = setTimeout(() => {
-                    elements.container.classList.add(player.config.classNames.menu.open)
-                    toggleHidden(popup, false)
-                }, 200)
-            },
-            null,
-            false,
-        ); // Can't be passive as we're preventing default
-
-        // Captions menu - click toggle
-        this.bind(
-            elements.speedMenu.menu,
-            'mouseleave',
-            (event) => {
-                // Prevent the document click listener closing the menu
-                event.stopPropagation()
-                event.preventDefault()
-
-                clearTimeout(player.timers.speedMenu)
-                clearTimeout(player.timers.speedMenuOpen)
-
-                const { popup } = elements.speedMenu
-
-                player.timers.speedMenu = setTimeout(() => {
-                    if (elements.qualityMenu.popup.hidden && elements.captionsMenu.popup.hidden && elements.settings.popup.hidden)
-                        elements.container.classList.remove(player.config.classNames.menu.open)
-
-                    toggleHidden(popup, true)
-                }, 500)
-            },
-            null,
-            false,
-        ); // Can't be passive as we're preventing default
-
-        // Audio tracks menu - click toggle
-        this.bind(
-            elements.buttons.audioTracksMenu,
-            'touchstart',
-            (event) => {
-                // Prevent the document click listener closing the menu
-                event.stopPropagation()
-                event.preventDefault()
-
-                this.toggleMenu(event, 'audioTracksMenu')
-            },
-            null,
-            false,
-        ); // Can't be passive as we're preventing default
-
-        // Quality  menu - click toggle
+        // Quality menu - click toggle
         this.bind(
             elements.buttons.qualityMenu,
-            'touchstart',
-            (event) => {
-                // Prevent the document click listener closing the menu
-                //event.stopPropagation()
-                event.preventDefault()
-
-                this.toggleMenu(event, 'qualityMenu')
-            },
-            null,
-            false,
-        ); // Can't be passive as we're preventing default
-
-        // Captions menu - click toggle
-        this.bind(
-            elements.buttons.qualityMenu,
-            'mouseover',
+            'mouseover touchstart',
             (event) => {
                 // Prevent the document click listener closing the menu
                 //event.stopPropagation()
@@ -999,7 +902,6 @@ class Listeners {
 
                 // Hide other menus
                 toggleHidden(elements.captionsMenu.popup, true)
-                toggleHidden(elements.speedMenu.popup, true)
 
                 player.timers.qualityMenuOpen = setTimeout(() => {
                     elements.container.classList.add(player.config.classNames.menu.open)
@@ -1025,7 +927,7 @@ class Listeners {
                 const { popup } = elements.qualityMenu
 
                 player.timers.qualityMenu = setTimeout(() => {
-                    if (elements.speedMenu.popup.hidden && elements.captionsMenu.popup.hidden && elements.settings.popup.hidden)
+                    if (elements.captionsMenu.popup.hidden && elements.settings.popup.hidden)
                         elements.container.classList.remove(player.config.classNames.menu.open)
 
                     toggleHidden(popup, true)
@@ -1262,7 +1164,15 @@ class Listeners {
         this.bind(elements.controls, 'focusin', () => {
             const { config, timers } = player;
 
-            // Skip transition to prevent focus from scrolling the parent element
+            // Check if has menu opened
+            const hasMenuOpened = !elements.qualityMenu.popup.hidden || !elements.captionsMenu.popup.hidden || !!elements.settings.popup.hidden
+
+            if (hasMenuOpened) {
+                clearTimeout(timers.controls)
+                return
+            }
+
+            // Skip transitions to prevent focus from scrolling the parent element
             toggleClass(elements.controls, config.classNames.noTransition, true);
 
             // Toggle
@@ -1284,9 +1194,17 @@ class Listeners {
         });
 
         this.bind(elements.bottomControls, 'focusin', () => {
-            const { config, timers } = player;
+            const { config, timers } = player
 
-            // Skip transition to prevent focus from scrolling the parent element
+            // Check if has menu opened
+            const hasMenuOpened = !elements.qualityMenu.popup.hidden || !elements.captionsMenu.popup.hidden || !elements.settings.popup.hidden
+
+            if (hasMenuOpened) {
+                clearTimeout(timers.bottomControls)
+                return
+            }
+
+            // Skip transitions to prevent focus from scrolling the parent element
             toggleClass(elements.bottomControls, config.classNames.noTransition, true);
 
             // Toggle
@@ -1309,6 +1227,14 @@ class Listeners {
 
         this.bind(elements.topControls, 'focusin', () => {
             const { config, timers } = player;
+
+            // Check if has menu opened
+            const hasMenuOpened = !elements.qualityMenu.popup.hidden || !elements.captionsMenu.popup.hidden || !!elements.settings.popup.hidden
+
+            if (hasMenuOpened) {
+                clearTimeout(timers.topControls)
+                return
+            }
 
             // Skip transition to prevent focus from scrolling the parent element
             toggleClass(elements.topControls, config.classNames.noTransition, true);

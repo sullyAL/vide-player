@@ -27,7 +27,7 @@
         position: absolute;
         text-align: left;
         white-space: nowrap;
-        z-index: 200;
+        z-index: 500;
         bottom: 100%;
         color: #ffffff;
         transform: translateX(-50%);
@@ -36,11 +36,11 @@
         padding: 0;
 
         @media (max-width: ($plyr-bp-md - 1px)) {
-            left: 2px;
-            right: 2px;
+            left: 0 !important;
+            right: 0 !important;
             bottom: 3rem;
             position: fixed;
-            transform: none;
+            transform: none !important;
         }
 
         > div {
@@ -60,11 +60,17 @@
             @media all and (min-width: 1200px) {
                 font-size: 20px;
             }
+
+            @media (max-width: ($plyr-bp-md - 1px)) {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
         }
 
         &--settings {
-            left: 0;
-            transform: translateX(-50px);
+            right: 0;
+            left: auto;
+            transform: translateX(50px);
 
             > div {
                 min-width: 200px;
@@ -76,6 +82,11 @@
                 width: 60px;
                 height: 34px;
                 margin: 0;
+
+                @media (max-width: ($plyr-bp-md - 1px)) {
+                    width: 40px;
+                    height: 24px;
+                }
 
                 input[type=checkbox]{
                     height: 0;
@@ -95,6 +106,10 @@
                     transition: .4s;
                     border-radius: 34px;
 
+                    @media (max-width: ($plyr-bp-md - 1px)) {
+                        border-radius: 24px;
+                    }
+
                     &:before {
                         position: absolute;
                         content: "";
@@ -106,6 +121,11 @@
                         -webkit-transition: .4s;
                         transition: .4s;
                         border-radius: 50%;
+
+                        @media (max-width: ($plyr-bp-md - 1px)) {
+                            height: 16px;
+                            width: 16px;
+                        }
                     }
                 }
 
@@ -121,6 +141,12 @@
                     -webkit-transform: translateX(26px);
                     -ms-transform: translateX(26px);
                     transform: translateX(26px);
+
+                    @media (max-width: ($plyr-bp-md - 1px)) {
+                        -webkit-transform: translateX(16px);
+                        -ms-transform: translateX(16px);
+                        transform: translateX(16px);
+                    }
                 }
             }
 
@@ -169,7 +195,7 @@
             }
         }
 
-        &--captionsMenu {
+        &--captionsMenu, &--settings {
 
             > div {
                 display: flex;
@@ -181,7 +207,7 @@
 
             .menuInnerContent {
                 position: relative;
-                padding: 35px 0 0;
+                padding: 0;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
@@ -191,7 +217,8 @@
                 }
 
                 span.title {
-                    position: absolute;
+                    position: relative;
+                    display: block;
                     top: 0;
                     left: 0;
                     right: 0;
@@ -221,7 +248,8 @@
             }
 
             @media (max-width: ($plyr-bp-md - 1px)) {
-                max-height: calc(100% - 40px)
+                max-height: calc(100% - 40px);
+                padding: 15px;
             }
 
             &::-webkit-scrollbar {
@@ -258,6 +286,11 @@
 
             @media all and (min-width: 1200px) {
                 font-size: 16px;
+            }
+
+            @media (max-width: ($plyr-bp-md - 1px)) {
+                font-size: 14px;
+                padding: 6px 8px;
             }
 
             &:hover {

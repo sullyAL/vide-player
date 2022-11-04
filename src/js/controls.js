@@ -739,12 +739,34 @@ const controls = {
                 })
                 decline.innerHTML += '<span>Close</span>'
 
+                const keyShortcuts = (event) => {
+                    if (event.isComposing || event.keyCode === 229)
+                        return
+
+                    event.stopPropagation()
+                    event.preventDefault()
+
+                    if (['Space', 'Enter'].includes(event.code) || [32, 13].includes(event.keyCode) ) {
+                        controls.closeWatched.call(player, watchedBefore, watchedBeforeElement)
+                        off.call(player, document, 'keydown', keyShortcuts, false)
+                    }
+
+                    if (event.code === 'Escape' || event.keyCode === 27) {
+                        controls.closeWatched.call(player, 0, watchedBeforeElement)
+                        off.call(player, document, 'keydown', keyShortcuts, false)
+                    }
+                }
+
+                on.call(player, document, 'keydown', keyShortcuts, false)
+
                 on.call(player, accept, 'click', (event) => {
                     event.stopPropagation()
                     event.preventDefault()
 
                     controls.closeWatched.call(player, watchedBefore, watchedBeforeElement)
                     player.elements.container.classList.remove('hasWatchHistory')
+
+                    off.call(player, document, 'keydown', keyShortcuts, false)
                 }, false)
 
                 on.call(player, decline, 'click', (event) => {
@@ -753,27 +775,9 @@ const controls = {
 
                     controls.closeWatched.call(player, 0, watchedBeforeElement)
                     player.elements.container.classList.remove('hasWatchHistory')
+
+                    off.call(player, document, 'keydown', keyShortcuts, false)
                 }, false)
-
-                const keyShortcuts = (event) => {
-                    if (event.isComposing || event.keyCode === 229)
-                        return
-
-                    event.stopPropagation()
-                    event.preventDefault()
-
-                    if ([' ', 'Space', 'Enter'].includes(event.code) || [32, 13].includes(event.keyCode) ) {
-                        controls.closeWatched.call(player, watchedBefore, watchedBeforeElement)
-                        off.call(player, document, 'keydown', keyShortcuts, false)
-                    }
-
-                    if (event.key === 'Escape' || event.keyCode === 27) {
-                        controls.closeWatched.call(player, 0, watchedBeforeElement)
-                        off.call(player, document, 'keydown', keyShortcuts)
-                    }
-                }
-
-                on.call(player, document, 'keydown', keyShortcuts)
 
                 buttons.appendChild(accept)
                 watchedBeforeElement.appendChild(decline)
@@ -1567,7 +1571,7 @@ const controls = {
         const captionsSize = this.storage.get('captionsSize') || 15
         const range = controls.createRange.call(this, 'size', {
             min: 0,
-            max: 100,
+            max: 50,
             step: 1,
             value: captionsSize,
             id: `plyr-seek-size`
@@ -1624,7 +1628,7 @@ const controls = {
         const bsLabel = createElement('span', {
             class: 'backgroundSwitch__label label'
         })
-        bsLabel.innerText = 'Captions text background'
+        bsLabel.innerText = 'Subtitle background'
 
         const backgroundSwitchInput = controls.createSwitch.call(this, this.storage.get('showCaptionsBG') ? {
             checked: true
@@ -1730,16 +1734,14 @@ const controls = {
         });
 
         // Add seek buttons
-        if (is.array(this.config.controls) && this.config.controls.includes('speedMenu')) {
-            this.elements.container.appendChild(createButton.call(this, 'forward-large', {
-                class: 'vide__seekButton vide__seekButton--right',
-                icon: 'chevrons'
-            }))
-            this.elements.container.appendChild(createButton.call(this, 'backward-large', {
-                class: 'vide__seekButton vide__seekButton--left',
-                icon: 'chevrons-left'
-            }))
-        }
+        this.elements.container.appendChild(createButton.call(this, 'forward-large', {
+            class: 'vide__seekButton vide__seekButton--right',
+            icon: 'chevrons'
+        }))
+        this.elements.container.appendChild(createButton.call(this, 'backward-large', {
+            class: 'vide__seekButton vide__seekButton--left',
+            icon: 'chevrons-left'
+        }))
 
         // Create bottom container
         const bottomContainer = createElement('div', {
@@ -2041,8 +2043,6 @@ const controls = {
 
                     // Add upload subtitles
                     if (this.config.captions.upload && type === 'captions') {
-                        // current tracks
-                        const tracks = captions.getTracks.call(this)
 
                         // upload wrapper
                         const upload = createElement('div', {
@@ -2079,6 +2079,9 @@ const controls = {
                                 event.preventDefault();
                                 event.stopPropagation();
 
+                                // current tracks
+                                const tracks = captions.getTracks.call(this)
+
                                 const file = event.target.files[0]
                                 const index = tracks.length + 1
 
@@ -2088,6 +2091,12 @@ const controls = {
                                     return
 
                                 const list = container.querySelector('[role="menu"]')
+
+                                // Empty the menu
+                                emptyElement(list)
+
+                                // Check if we need to toggle the parent
+                                controls.checkMenu.call(this, 'captionsMenu')
 
                                 const reader = new FileReader()
                                 reader.onload = () => {
@@ -2105,6 +2114,7 @@ const controls = {
                                         list,
                                         type: 'language',
                                         title: file.name,
+                                        checked: true,
                                         badge: 'local',
                                         key: 'captionsMenu'
                                     })
@@ -2142,115 +2152,115 @@ const controls = {
             }
 
             // Speed button
-            if (control === 'speedMenu' && !is.empty(this.config.speedMenu)) {
-                const wrapper = createElement(
-                    'div',
-                    extend({}, defaultAttributes, {
-                        class: `${defaultAttributes.class} plyr__menu`.trim(),
-                        hidden: '',
-                    }),
-                );
-
-                wrapper.appendChild(
-                    createButton.call(this, 'speed-menu', {
-                        'aria-haspopup': true,
-                        'aria-controls': `plyr-speedMenu-${data.id}`,
-                        'aria-expanded': false,
-                    }),
-                );
-
-                const popup = createElement('div', {
-                    class: 'plyr__menu__container plyr__menu__container--speedMenu',
-                    id: `plyr-speedMenu-${data.id}`,
-                    hidden: '',
-                });
-
-                const inner = createElement('div');
-
-                // Create the menu
-                const menu = createElement('div', {
-                    role: 'menu',
-                });
-
-                // Build the menu items
-                this.config.speedMenu.forEach((type) => {
-                    // TODO: bundle this with the createMenuItem helper and bindings
-                    const menuItem = createElement(
-                        'button',
-                        extend(getAttributesFromSelector(this.config.selectors.buttons.speedMenu), {
-                            type: 'button',
-                            class: `${this.config.classNames.control} ${this.config.classNames.control}--forward`,
-                            role: 'menuitem',
-                            'aria-haspopup': true
-                        }),
-                    );
-
-                    // Bind menu shortcuts for keyboard users
-                    bindMenuItemShortcuts.call(this, menuItem, type);
-
-                    const flex = createElement('span', null, i18n.get(type, this.config));
-
-                    const value = createElement('span', {
-                        class: this.config.classNames.menu.value,
-                    });
-
-                    // Speed contains HTML entities
-                    value.innerHTML = data[type];
-
-                    flex.appendChild(value);
-                    menuItem.appendChild(flex);
-                    menu.appendChild(menuItem);
-
-                    // Build the panes
-                    const pane = createElement('div', {
-                        id: `plyr-speedMenu-${data.id}-${type}`
-                    });
-
-                    // Create title
-                    const title = createElement('span', {
-                        class: 'title',
-                    })
-                    title.innerText = 'Playback speed'
-                    pane.appendChild(title)
-
-                    // Go back via keyboard
-                    on.call(
-                        this,
-                        pane,
-                        'keydown',
-                        (event) => {
-                            if (event.key !== 'ArrowLeft') return;
-
-                            // Prevent seek
-                            event.preventDefault();
-                            event.stopPropagation();
-
-                            // hide menu
-                            controls.toggleMenu.call(this, false, 'speedMenu');
-                        },
-                        false,
-                    );
-
-                    // Menu
-                    pane.appendChild(
-                        createElement('div', {
-                            role: 'menu',
-                        }),
-                    );
-
-                    inner.appendChild(pane);
-
-                    this.elements.speedMenu.buttons[type] = menuItem;
-                    this.elements.speedMenu.panels[type] = pane;
-                });
-
-                popup.appendChild(inner);
-                wrapper.appendChild(popup);
-                bottomControls.appendChild(wrapper);
-
-                this.elements.speedMenu.popup = popup;
-                this.elements.speedMenu.menu = wrapper;
-            }
+            // if (control === 'speedMenu' && !is.empty(this.config.speedMenu)) {
+            //     const wrapper = createElement(
+            //         'div',
+            //         extend({}, defaultAttributes, {
+            //             class: `${defaultAttributes.class} plyr__menu`.trim(),
+            //             hidden: '',
+            //         }),
+            //     );
+            //
+            //     wrapper.appendChild(
+            //         createButton.call(this, 'speed-menu', {
+            //             'aria-haspopup': true,
+            //             'aria-controls': `plyr-speedMenu-${data.id}`,
+            //             'aria-expanded': false,
+            //         }),
+            //     );
+            //
+            //     const popup = createElement('div', {
+            //         class: 'plyr__menu__container plyr__menu__container--speedMenu',
+            //         id: `plyr-speedMenu-${data.id}`,
+            //         hidden: '',
+            //     });
+            //
+            //     const inner = createElement('div');
+            //
+            //     // Create the menu
+            //     const menu = createElement('div', {
+            //         role: 'menu',
+            //     });
+            //
+            //     // Build the menu items
+            //     this.config.speedMenu.forEach((type) => {
+            //         // TODO: bundle this with the createMenuItem helper and bindings
+            //         const menuItem = createElement(
+            //             'button',
+            //             extend(getAttributesFromSelector(this.config.selectors.buttons.speedMenu), {
+            //                 type: 'button',
+            //                 class: `${this.config.classNames.control} ${this.config.classNames.control}--forward`,
+            //                 role: 'menuitem',
+            //                 'aria-haspopup': true
+            //             }),
+            //         );
+            //
+            //         // Bind menu shortcuts for keyboard users
+            //         bindMenuItemShortcuts.call(this, menuItem, type);
+            //
+            //         const flex = createElement('span', null, i18n.get(type, this.config));
+            //
+            //         const value = createElement('span', {
+            //             class: this.config.classNames.menu.value,
+            //         });
+            //
+            //         // Speed contains HTML entities
+            //         value.innerHTML = data[type];
+            //
+            //         flex.appendChild(value);
+            //         menuItem.appendChild(flex);
+            //         menu.appendChild(menuItem);
+            //
+            //         // Build the panes
+            //         const pane = createElement('div', {
+            //             id: `plyr-speedMenu-${data.id}-${type}`
+            //         });
+            //
+            //         // Create title
+            //         const title = createElement('span', {
+            //             class: 'title',
+            //         })
+            //         title.innerText = 'Playback speed'
+            //         pane.appendChild(title)
+            //
+            //         // Go back via keyboard
+            //         on.call(
+            //             this,
+            //             pane,
+            //             'keydown',
+            //             (event) => {
+            //                 if (event.key !== 'ArrowLeft') return;
+            //
+            //                 // Prevent seek
+            //                 event.preventDefault();
+            //                 event.stopPropagation();
+            //
+            //                 // hide menu
+            //                 controls.toggleMenu.call(this, false, 'speedMenu');
+            //             },
+            //             false,
+            //         );
+            //
+            //         // Menu
+            //         pane.appendChild(
+            //             createElement('div', {
+            //                 role: 'menu',
+            //             }),
+            //         );
+            //
+            //         inner.appendChild(pane);
+            //
+            //         this.elements.speedMenu.buttons[type] = menuItem;
+            //         this.elements.speedMenu.panels[type] = pane;
+            //     });
+            //
+            //     popup.appendChild(inner);
+            //     wrapper.appendChild(popup);
+            //     bottomControls.appendChild(wrapper);
+            //
+            //     this.elements.speedMenu.popup = popup;
+            //     this.elements.speedMenu.menu = wrapper;
+            // }
 
             // Quality button
             if (control === 'qualityMenu' && !is.empty(this.config.qualityMenu)) {
@@ -2493,25 +2503,59 @@ const controls = {
 
                 const inner = createElement('div');
 
-                const home = createElement('div', {
-                    id: `plyr-settings-${data.id}-home`,
-                });
+                const panels = ['speed', 'options']
+                const labels = {
+                    speed: 'Playback speed',
+                    options: 'Settings'
+                }
 
-                // Create the menu
-                const menu = createElement('div', {
-                    role: 'menu',
-                });
+                panels.forEach(type => {
+                    // Create the menu
+                    const menu = createElement('div', {
+                        role: 'menu',
+                    })
 
-                home.appendChild(menu);
-                inner.appendChild(home);
-                this.elements.settings.panels.home = home;
+                    // Build the panes
+                    const pane = createElement('div', {
+                        class: 'menuInnerContent',
+                        id: `plyr-settings-${data.id}-${type}`,
+                    })
 
-                // Build the settings options
-                controls.createSettingsOptions.call(this, menu)
+                    // Create title
+                    const title = createElement('span', {
+                        class: 'title',
+                    })
+                    title.innerText = labels[type]
+                    pane.appendChild(title)
+
+                    pane.appendChild(menu)
+                    inner.appendChild(pane)
+
+                    // Build speed menu
+                    if (type === 'speed') {
+                        const menuItem = createElement(
+                            'button',
+                            extend(getAttributesFromSelector(this.config.selectors.buttons.speedMenu), {
+                                type: 'button',
+                                class: `${this.config.classNames.control} ${this.config.classNames.control}--forward`,
+                                role: 'menuitem',
+                                'aria-haspopup': true
+                            }),
+                        )
+
+                        this.elements.speedMenu.buttons[type] = menuItem;
+                        this.elements.speedMenu.panels[type] = pane;
+                    }
+
+                    // Build the settings options
+                    if (type === 'options') {
+                        controls.createSettingsOptions.call(this, menu)
+                    }
+                })
 
                 popup.appendChild(inner);
                 wrapper.appendChild(popup);
-                topContainer.appendChild(wrapper);
+                bottomControls.appendChild(wrapper);
 
                 this.elements.settings.popup = popup;
                 this.elements.settings.menu = wrapper;
@@ -2600,6 +2644,16 @@ const controls = {
             }, false)
 
             this.elements.container.appendChild(skipButton)
+        }
+
+        // Client logo
+        if (this.config?.clientLogo) {
+            const logo = createElement('img', {
+                class: 'clientLogo',
+                src: this.config.clientLogo
+            })
+
+            topContainer.appendChild(logo)
         }
 
         bottomContainer.appendChild(bottomControls)
