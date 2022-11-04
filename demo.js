@@ -1,4 +1,4 @@
-//import Vide from './src'
+import Vide from './src'
 //import svgSprite from './src/sprite/spriteFA.svg'
 
 document.addEventListener('DOMContentLoaded', () => {
