@@ -1,5 +1,5 @@
-import Vide from './src'
-import svgSprite from './src/sprite/spriteFA.svg'
+//import Vide from './src'
+//import svgSprite from './src/sprite/spriteFA.svg'
 
 document.addEventListener('DOMContentLoaded', () => {
     const selector = '#player';
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clientLogo: 'http://localhost:3001/player-logo/1667331020743-257789047.png',
         toggleInvert: true,
         length: 183,
-        iconUrl: svgSprite,
+        iconUrl: '/src/sprite/spriteFA.svg',
         loadSprite: false,
         seekTime: 10,
         //debug: true,
