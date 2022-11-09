@@ -84,7 +84,7 @@ class PreviewThumbnails {
             const { image } = this.player.config.previewThumbnails
 
             if (is.empty(image)) {
-                throw new Error('Missing previewThumbnails.src config attribute');
+                throw new Error('Missing previewThumbnails.image config attribute');
             }
 
             // Resolve promise

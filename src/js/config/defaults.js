@@ -44,6 +44,12 @@ const defaults = {
     // The format must be `'w:h'` (e.g. `'16:9'`)
     ratio: null,
 
+    // Playlist
+    playlist: {
+        enabled: false,
+        list: []
+    },
+
     // Click video container to play/pause
     clickToPlay: true,
 

@@ -1,6 +1,3 @@
-const o9n = require('o9n')
-const orientation =  o9n.getOrientation()
-
 import browser from './utils/browser';
 import { closest, getElements, hasClass, toggleClass } from './utils/elements';
 import { on, triggerEvent } from './utils/events';
@@ -15,9 +12,6 @@ class Fullscreen {
         // Get prefix
         this.prefix = Fullscreen.prefix;
         this.property = Fullscreen.property;
-
-        // orientation polyfill
-        //o9n.install()
 
         // Scroll position
         this.scrollPosition = { x: 0, y: 0 };
@@ -286,7 +280,13 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        //orientation.lock('landscape-primary')
+        screen.orientation.lock('landscape')
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     };
 
     // Bail from fullscreen
@@ -309,7 +309,13 @@ class Fullscreen {
         }
 
         // Turn mobile screen
-        //orientation.lock('portrait')
+        screen.orientation.lock('portrait')
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     };
 
     // Toggle state

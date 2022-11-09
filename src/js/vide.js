@@ -11,6 +11,7 @@ import media from './media';
 import Ads from './plugins/ads';
 import PreviewThumbnails from './plugins/preview-thumbnails';
 import Cast from './plugins/cast'
+import Playlist from './plugins/playlist'
 import source from './source';
 import Storage from './storage';
 import support from './support';
@@ -329,6 +330,11 @@ class Vide {
         // setup Cast if enabled
         if (this.config.cast.enabled) {
             this.cast = new Cast(this);
+        }
+
+        // setup playlist if enabled
+        if (this?.config?.playlist?.enabled && this?.config?.playlist?.list?.length > 0) {
+            this.playlist = new Playlist(this)
         }
 
         // Autoplay if required
