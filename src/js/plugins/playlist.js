@@ -50,13 +50,22 @@ class Playlist {
     }
 
     toggleList = (toggle = false) => {
-        const { player } = this
+        const { player, slider, config: data } = this
         const { elements: { playlist, container }, config } = player
 
         this.show = toggle
         toggleHidden(playlist, !toggle)
 
         toggleClass(container, config.classNames.menu.open, toggle)
+
+        // Move to active slide
+        if (slider && toggle) {
+            const index = data.list.findIndex(item => !!item?.playing)
+
+            console.log(index)
+
+            slider.go(index)
+        }
     }
 
     createList = () => {
@@ -158,17 +167,21 @@ class Playlist {
             drag: 'free',
             autoHeight: true,
             //autoWidth: true,
+            pagination: false,
             gap: 30,
-            start,
             wheel: true,
+            start,
             perPage: 5,
+            cloneStatus: false,
+            slideFocus: true,
+            updateOnMove: true,
             //padding: '20%',
             //trimSpace: false,
             breakpoints: {
                768: {
                    //destroy: true,
                    direction: 'ttb',
-                   height: '100%',
+                   height: 'calc(100vh - 200px)',
                    perPage: 3,
                    autoWidth: true
                }
@@ -177,6 +190,8 @@ class Playlist {
 
         splide.mount()
         this.slider = splide
+
+        window._slide = splide
     }
 }
 

@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }, {
                     type: 'video',
-                    title: 'Example video #2',
+                    title: 'Example video #9',
                     length: 120,
                     poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
                     sources: [
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }, {
                     type: 'video',
-                    title: 'Example video #2',
+                    title: 'Example video #10',
                     length: 120,
                     poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
                     sources: [
