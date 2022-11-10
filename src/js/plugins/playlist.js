@@ -61,9 +61,6 @@ class Playlist {
         // Move to active slide
         if (slider && toggle) {
             const index = data.list.findIndex(item => !!item?.playing)
-
-            console.log(index)
-
             slider.go(index)
         }
     }
@@ -75,7 +72,7 @@ class Playlist {
 
         const playlist = createElement('div', {
             class: 'playList',
-            //hidden: true
+            hidden: true
         })
 
         // const header = createElement('span', {
