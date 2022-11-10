@@ -206,7 +206,7 @@ class Playlist {
         // Initiate slider
         const splide = new Splide('.splide', {
             focus: 'center',
-            type: config.list.length > 5 ? 'loop' : 'slide',
+            type: config.list.length > 3 ? 'loop' : 'slide',
             drag: 'free',
             autoHeight: true,
             pagination: false,
@@ -220,14 +220,12 @@ class Playlist {
             trimSpace: true,
             breakpoints: {
                 1024: {
-                    type: config.list.length > 3 ? 'loop' : 'slide',
                     direction: 'ttb',
-                    height: 'calc(100vh - 20px)',
                     perPage: 3,
-                    autoWidth: true
+                    autoWidth: true,
+                    height: '100%'
                 },
                 600: {
-                    height: 'calc(100vh - 200px)'
                 }
             }
         })
