@@ -31,6 +31,7 @@
         "webpack-cli": "^4.10.0"
     },
     "dependencies": {
+        "@splidejs/splide": "^4.1.4",
         "core-js": "^3.23.2",
         "install": "^0.13.0",
         "loadjs": "^4.2.0",

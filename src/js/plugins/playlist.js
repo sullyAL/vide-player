@@ -1,3 +1,6 @@
+import '@splidejs/splide/css'
+import Splide from '@splidejs/splide'
+
 import controls from '../controls'
 import { createElement, toggleHidden, toggleClass } from '../utils/elements'
 
@@ -12,6 +15,7 @@ class Playlist {
             list: player?.config?.playlist?.list || []
         }
         this.show = false
+        this.slider = null
 
         this.load()
     }
@@ -39,7 +43,7 @@ class Playlist {
             const { show } = this
 
             this.toggleList(!show)
-        }, false)
+        })
 
         // Create playlist list
         this.createList()
@@ -62,25 +66,51 @@ class Playlist {
 
         const playlist = createElement('div', {
             class: 'playList',
-            hidden: true
+            //hidden: true
         })
 
-        const header = createElement('span', {
-            class: 'title'
+        // const header = createElement('span', {
+        //     class: 'title'
+        // })
+        // header.innerText = 'Playlist'
+
+        const closeButton = controls.createButton.call(player, 'close', {
+            class: 'close'
         })
-        header.innerText = 'Playlist'
+        closeButton.innerHTML += '<span>Close</span>'
+
+        on.call(player, closeButton, 'click', () => {
+            this.toggleList(false)
+        })
+
+        const slider = createElement('div', {
+            class: 'splide'
+        })
+
+        const tracks = createElement('div', {
+            class: 'splide__track'
+        })
 
         const list = createElement('div', {
-            class: 'playList__list'
+            class: 'playList__list splide__list'
         })
 
-        config.list.forEach(item => {
+        let start = 0
+        config.list.forEach((item, index) => {
             const video = createElement('div', {
-                class: `playList__item ${item?.playing ? 'playList__item--isPlaying' : ''}`
+                class: `playList__item splide__slide ${item?.playing ? 'playList__item--isPlaying' : ''}`
+            })
+
+            const innerContent = createElement('div', {
+                class: 'playList__item__inner'
             })
 
             const image = createElement('img', {
                 src: item.poster
+            })
+
+            const content = createElement('div', {
+                class: 'playList__item__content'
             })
 
             const title = createElement('h4')
@@ -96,21 +126,57 @@ class Playlist {
             })
 
             title.appendChild(length)
-
-            video.appendChild(image)
-            video.appendChild(title)
+            content.appendChild(title)
 
             playButton.appendChild(playIcon)
-            video.appendChild(playButton)
+            content.appendChild(playButton)
 
+            innerContent.appendChild(image)
+            innerContent.appendChild(content)
+
+            video.appendChild(innerContent)
             list.appendChild(video)
+
+            if (item?.playing)
+                start = index
         })
 
-        playlist.appendChild(header)
-        playlist.appendChild(list)
+        //playlist.appendChild(header)
+        tracks.appendChild(list)
+        slider.appendChild(tracks)
+
+        playlist.appendChild(slider)
+        playlist.appendChild(closeButton)
 
         container.appendChild(playlist)
         elements.playlist = playlist
+
+        // Initiate slider
+        const splide = new Splide('.splide', {
+            focus: 'center',
+            type: 'loop',
+            drag: 'free',
+            autoHeight: true,
+            //autoWidth: true,
+            gap: 30,
+            start,
+            wheel: true,
+            perPage: 5,
+            //padding: '20%',
+            //trimSpace: false,
+            breakpoints: {
+               768: {
+                   //destroy: true,
+                   direction: 'ttb',
+                   height: '100%',
+                   perPage: 3,
+                   autoWidth: true
+               }
+            }
+        })
+
+        splide.mount()
+        this.slider = splide
     }
 }
 

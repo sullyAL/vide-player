@@ -1,0 +1,183 @@
+
+.playList {
+    position: absolute;
+    z-index: 9999;
+    bottom: 4rem;
+    right: 1rem;
+    width: 100%;
+    max-width: 300px;
+    overflow: hidden;
+    height: 100%;
+    max-height: 400px;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    background: rgba(#1F2937, 50%);
+
+    &:before {
+        content: '';
+        transition: opacity 0.3s ease;
+        opacity: 1;
+        backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(1px);
+        background: rgba(#1F2937, 5%);
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .title {
+        display: block;
+        padding: 15px;
+        color: #fff;
+        z-index: 50;
+        position: relative;
+        background: rgba(#1F2937, 70%);
+        font-weight: 600;
+    }
+
+    &__list {
+        z-index: 50;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: flex-end;
+        padding: 10px 10px 60px;
+        height: 100%;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+        &::-webkit-scrollbar-track {
+            background-color: rgba(#1f2937b3, 30%);
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(#1f2937b3, 70%);
+            border-radius: 0;
+        }
+
+        &:before, &:after {
+            //content: '';
+            position: fixed;
+            right: 7px;
+            width: 100%;
+            max-width: 288px;
+            height: 50px;
+            display: block;
+            z-index: 51;
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+        }
+
+        &:after {
+            bottom: 0;
+            background: linear-gradient(rgba(#fff, 0%), rgba(#fff, 20%));
+        }
+
+        &:before {
+            top: 0;
+            background: linear-gradient(rgba(#fff, 20%), rgba(#fff, 0%));
+        }
+    }
+
+    &__item {
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        background: rgba(#000, 20%);
+        border-radius: 5px;
+        margin: 0 0 10px;
+        padding: 10px 0 10px 10px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        transform: scale(1);
+        animation: scaleIn 0.3s ease-in-out;
+        opacity: 0.8;
+        justify-content: space-between;
+
+        &:hover {
+            background: rgba(#000, 30%);
+            opacity: 1;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            opacity: 0.7;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        h4 {
+            font-size: 14px;
+            margin: 0;
+            white-space: nowrap;
+            color: #fff;
+            font-weight: 600;
+            width: 100%;
+
+            span {
+                font-size: 10px;
+                font-weight: 400;
+                opacity: 0.7;
+                display: none;
+            }
+        }
+
+        .plyr__control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            width: 30px;
+
+            svg {
+                height: 10px;
+                width: auto;
+            }
+        }
+
+        &--isPlaying {
+
+            img {
+                width: 50px;
+                height: 50px;
+            }
+
+            h4 {
+                font-size: 16px;
+
+                span {
+                    display: block;
+                    font-size: 12px;
+                }
+            }
+
+            .plyr__control {
+                width: 60px;
+
+                svg {
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+}
