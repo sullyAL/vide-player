@@ -81,7 +81,7 @@ class Playlist {
 
         const playlist = createElement('div', {
             class: 'playList',
-            //hidden: true
+            hidden: true
         })
 
         on.call(player, playlist, 'click dblclick', (event) => {

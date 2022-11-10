@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
             seconds: 10
         },
         continueWatching: {
-            enabled: false
+            enabled: true
         },
         cast: {
-            enabled: false
+            enabled: true
         },
         code: 'test',
         playlist: {
