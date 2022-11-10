@@ -13,7 +13,11 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    padding: 100px 0;
+    padding: 10px 0;
+
+    @media (max-width: ($plyr-bp-md - 1px)) {
+        padding: 100px 0;
+    }
 
     &:before {
         content: '';
@@ -35,19 +39,20 @@
         padding: 25px 0;
         width: 100%;
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($plyr-bp-lg - 1px)) {
             font-size: 0.7rem;
             height: 100%;
             padding: 0 25px;
+            max-width: 400px;
         }
 
         .splide__track {
 
-            @media (min-width: $plyr-bp-md) {
+            @media (min-width: $plyr-bp-lg) {
                 padding: 25% 0;
             }
 
-            @media (max-width: ($plyr-bp-md - 1px)) {
+            @media (max-width: ($plyr-bp-lg - 1px)) {
                 padding: 0 50px;
             }
         }
@@ -108,7 +113,7 @@
             .playList__item__inner {
                 transform: scale(1.4);
 
-                @media (max-width: ($plyr-bp-md - 1px)) {
+                @media (max-width: ($plyr-bp-lg - 1px)) {
                     transform: scale(1.35);
                 }
             }

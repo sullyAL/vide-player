@@ -172,12 +172,15 @@ class Playlist {
             slideFocus: true,
             updateOnMove: true,
             breakpoints: {
-               768: {
-                   direction: 'ttb',
-                   height: 'calc(100vh - 200px)',
-                   perPage: 3,
-                   autoWidth: true
-               }
+                1024: {
+                    direction: 'ttb',
+                    height: 'calc(100vh - 20px)',
+                    perPage: 3,
+                    autoWidth: true
+                },
+                600: {
+                    height: 'calc(100vh - 200px)'
+                }
             }
         })
 
