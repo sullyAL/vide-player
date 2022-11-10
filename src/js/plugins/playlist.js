@@ -247,10 +247,10 @@ class Playlist {
             if (player.config.code === item.code)
                 return
 
-            player.config.code = item.code
-            player.source = item
-
-            this.toggleList(false)
+            // player.config.code = item.code
+            // player.source = item
+            //
+            // this.toggleList(false)
         })
     }
 
