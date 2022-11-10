@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
         continueWatching: {
             enabled: false
         },
+        cast: {
+            enabled: false
+        },
         code: 'test',
         playlist: {
             enabled: true,
