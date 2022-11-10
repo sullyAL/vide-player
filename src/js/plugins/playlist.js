@@ -166,7 +166,6 @@ class Playlist {
             type: 'loop',
             drag: 'free',
             autoHeight: true,
-            //autoWidth: true,
             pagination: false,
             gap: 30,
             wheel: true,
@@ -175,11 +174,8 @@ class Playlist {
             cloneStatus: false,
             slideFocus: true,
             updateOnMove: true,
-            //padding: '20%',
-            //trimSpace: false,
             breakpoints: {
                768: {
-                   //destroy: true,
                    direction: 'ttb',
                    height: 'calc(100vh - 200px)',
                    perPage: 3,
@@ -190,8 +186,6 @@ class Playlist {
 
         splide.mount()
         this.slider = splide
-
-        window._slide = splide
     }
 }
 
