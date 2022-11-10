@@ -198,6 +198,7 @@ class Playlist {
                 headline.innerText = 'Currently playing'
 
                 title.appendChild(headline)
+                start = index
             }
 
             title.innerHTML += item.title
@@ -228,9 +229,6 @@ class Playlist {
             list.appendChild(video)
 
             elements.playlist.playButtons.push(playButton)
-
-            if (item?.code === player?.config?.code)
-                start = index
         })
 
         tracks.appendChild(list)
@@ -244,6 +242,8 @@ class Playlist {
         elements.playlist.container = playlist
         elements.playlist.closeButton = closeButton
 
+        console.log(start)
+
         // Initiate slider
         const splide = new Splide('.splide', {
             focus: 'center',
@@ -255,10 +255,10 @@ class Playlist {
             wheel: true,
             start,
             perPage: 5,
-            cloneStatus: false,
             slideFocus: true,
             updateOnMove: true,
             trimSpace: true,
+            wheelSleep: 600,
             breakpoints: {
                 1024: {
                     direction: 'ttb',
@@ -291,8 +291,11 @@ class Playlist {
         const { config, player } = this
         const item = config.list.find((item, index) => index === itemIndex)
 
-        if (player.config.code === item.code)
+        if (player.config.code === item.code) {
+            this.toggleList(false)
+            player.play()
             return
+        }
 
         player.config.code = item.code
 
@@ -313,6 +316,10 @@ class Playlist {
 
         if (event.code === 'ArrowLeft' || event.key === 'ArrowLeft' || event.keyCode === 37)
             slider.go('<')
+
+        if (event.code === 'Escape' || event.keyCode === 27) {
+            this.toggleList(false)
+        }
 
         return false
     }
