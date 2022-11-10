@@ -17,10 +17,17 @@
     z-index: 1;
 }
 
-.plyr--stopped.plyr__poster-enabled, .vide.hasWatchHistory  {
+.plyr--stopped.plyr__poster-enabled, .vide.hasWatchHistory, .vide.playlistOpened  {
 
     .plyr__poster {
         opacity: 1;
+    }
+}
+
+.vide.hasWatchHistory, .vide.playlistOpened {
+
+    .plyr__poster {
+        z-index: 1000;
     }
 }
 

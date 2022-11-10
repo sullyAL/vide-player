@@ -55,9 +55,10 @@ class Playlist {
         const { elements: { playlist, container }, config } = player
 
         this.show = toggle
-        toggleHidden(playlist, !toggle)
+        toggleHidden(playlist.container, !toggle)
 
         toggleClass(container, config.classNames.menu.open, toggle)
+        toggleClass(container, 'playlistOpened', toggle)
 
         // Move to active slide
         if (slider && toggle) {
@@ -74,6 +75,46 @@ class Playlist {
         }
     }
 
+    playlistEvent = (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+
+        const { elements: { playlist } } = player
+
+        if (event.target !== playlist.container)
+            return false
+
+        if (!playlist.container.includes(event.target))
+            return false
+    }
+
+    play = (event, index) => {
+        event.preventDefault()
+        event.stopPropagation()
+
+        this.playVideo(index)
+    }
+
+    destroyEvents = () => {
+        const { player, slider } = this
+        const { elements: { playlist } } = player
+
+        off.call(player, playlist.container, 'click dblclick', this.playlistEvent, false)
+        off.call(player, playlist.closeButton, 'click', () => {
+            this.toggleList(false)
+        })
+
+        playlist.playButtons.forEach((item, index) => {
+            off.call(player, item, 'click dblclick', (event) => this.play(event, index), false)
+        })
+
+        player.elements.playlist = {}
+        playlist.container.remove()
+
+        slider.destroy(true)
+        this.slider = null
+    }
+
     createList = () => {
         const { player, config } = this
         const { elements  } = player
@@ -84,18 +125,10 @@ class Playlist {
             hidden: true
         })
 
-        on.call(player, playlist, 'click dblclick', (event) => {
-            event.preventDefault()
-            event.stopPropagation()
+        on.call(player, playlist, 'click dblclick', this.playlistEvent, false)
 
-            const { elements: { playlist } } = player
-
-            if (event.target !== playlist)
-                return false
-
-            if (!playlist.includes(event.target))
-                return false
-        }, false)
+        elements.playlist = {}
+        elements.playlist.playButtons = []
 
         const header = createElement('h2', {
             class: 'title'
@@ -152,11 +185,13 @@ class Playlist {
             const length = createElement('span')
             length.innerText = `${formattedWatched} / ${formattedLength}`
 
-            //const playIcon = controls.createIcon.call(player, item?.playing ? 'pause' : 'play-alt')
+            const playIcon = controls.createIcon.call(player, 'play-alt')
             const playButton = createElement('button', {
                 type: 'button',
                 class: 'plyr__control'
             })
+
+            on.call(player, playButton, 'click dblclick', (event) => this.play(event, index), false)
 
             if (item.code === player?.config?.code) {
                 const headline = createElement('small')
@@ -176,18 +211,23 @@ class Playlist {
 
             innerProgress.style.width = percentageValue + '%'
 
+            playButton.appendChild(playIcon)
+
             progress.appendChild(innerProgress)
             title.appendChild(length)
 
             content.appendChild(title)
-            content.appendChild(playButton)
             content.appendChild(progress)
 
             innerContent.appendChild(image)
             innerContent.appendChild(content)
 
             video.appendChild(innerContent)
+            video.appendChild(playButton)
+
             list.appendChild(video)
+
+            elements.playlist.playButtons.push(playButton)
 
             if (item?.code === player?.config?.code)
                 start = index
@@ -201,7 +241,8 @@ class Playlist {
         playlist.appendChild(closeButton)
 
         container.appendChild(playlist)
-        elements.playlist = playlist
+        elements.playlist.container = playlist
+        elements.playlist.closeButton = closeButton
 
         // Initiate slider
         const splide = new Splide('.splide', {
@@ -236,22 +277,29 @@ class Playlist {
         on.call(player, document, 'keydown', this.keyShortcuts, false)
 
         splide.on('click', (slide, event) => {
-            const { slider, config, player } = this
+            const { slider } = this
 
             if (slider)
                 slider.go(slide.index)
-
-            const itemIndex = slide.isClone ? slide.slideIndex : slide.index
-            const item = config.list.find((item, index) => index === itemIndex)
-
-            if (player.config.code === item.code)
-                return
-
-            // player.config.code = item.code
-            // player.source = item
-            //
-            // this.toggleList(false)
         })
+    }
+
+    playVideo = (itemIndex = -1) => {
+        if (itemIndex < 0)
+            return
+
+        const { config, player } = this
+        const item = config.list.find((item, index) => index === itemIndex)
+
+        if (player.config.code === item.code)
+            return
+
+        player.config.code = item.code
+
+        this.toggleList(false)
+        this.destroyEvents()
+
+        player.source = item
     }
 
     keyShortcuts = (event) => {

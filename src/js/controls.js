@@ -659,6 +659,7 @@ const controls = {
             button.hidden = false
         })
 
+        this.elements.container.classList.remove('hasWatchHistory')
         target.remove()
     },
 
