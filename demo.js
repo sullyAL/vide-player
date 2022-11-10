@@ -42,14 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         keyboard: {
             global: true,
         },
-        captions: {
-            active: true,
-            languages: [{
-                label: 'Test',
-                srclang: 'al',
-                src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt'
-            }]
-        },
         previewThumbnails: {
             enabled: true,
             //frames: preview,
@@ -64,15 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
             seconds: 10
         },
         continueWatching: {
-            enabled: false
+            enabled: true
         },
+        code: 'test',
         playlist: {
             enabled: true,
             list: [
                 {
                     type: 'video',
-                    title: 'Example video #1',
-                    length: 120,
+                    title: 'View From A Blue Moon',
+                    length: 183,
                     poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
                     sources: [
                         {
@@ -85,15 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             size: '1080'
                         }
                     ],
+                    code: 'test',
                     tracks: [],
                     previewThumbnails: {
-                        image: ''
+                        image: 'https://img-vh.doodcdn.co/slides/b152cb0c0e39e020.jpg',
                     }
                 }, {
                     type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
+                    title: 'Thor - The movie',
+                    length: 183,
+                    code: 'thor',
+                    poster: 'https://carousel-slider.uiinitiative.com/images/guardians-of-the-galaxy.jpg',
                     sources: [
                         {
                             src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
@@ -105,15 +100,23 @@ document.addEventListener('DOMContentLoaded', () => {
                             size: '1080'
                         }
                     ],
-                    tracks: [],
+                    tracks: [
+                        {
+                            kind: 'captions',
+                            label: 'Test',
+                            srclang: 'al',
+                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt'
+                        }
+                    ],
                     previewThumbnails: {
-                        image: ''
+                        image: 'https://img-vh.doodcdn.co/slides/b152cb0c0e39e020.jpg',
                     }
                 }, {
                     type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
+                    title: 'Enola 2',
+                    length: 183,
+                    code: 'enola',
+                    poster: 'https://carousel-slider.uiinitiative.com/images/justice-league.jpg',
                     sources: [
                         {
                             src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
@@ -127,288 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ],
                     tracks: [],
                     previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #9',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #10',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    },
-                    playing: true
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
-                    }
-                }, {
-                    type: 'video',
-                    title: 'Example video #2',
-                    length: 120,
-                    poster: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
-                    sources: [
-                        {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
-                            type: 'video/mp4',
-                            size: '720'
-                        }, {
-                            src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
-                            type: 'video/mp4',
-                            size: '1080'
-                        }
-                    ],
-                    tracks: [],
-                    previewThumbnails: {
-                        image: ''
+                        image: 'https://img-vh.doodcdn.co/slides/b152cb0c0e39e020.jpg',
                     }
                 }
             ]

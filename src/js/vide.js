@@ -1201,6 +1201,15 @@ class Vide {
                     removeElement(this.elements.controls);
                     removeElement(this.elements.wrapper);
 
+                    removeElement(this.elements.bottomControls)
+                    removeElement(this.elements.audioTracksMenu)
+                    removeElement(this.elements.captionsMenu)
+                    removeElement(this.elements.playlist)
+                    removeElement(this.elements.qualityMenu)
+                    removeElement(this.elements.speedMenu)
+                    removeElement(this.elements.topControls)
+                    removeElement(this.elements.topControls)
+
                     // Clear for GC
                     this.elements.buttons.play = null;
                     this.elements.captions = null;

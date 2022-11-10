@@ -6,6 +6,7 @@ import { createElement, toggleHidden, toggleClass } from '../utils/elements'
 
 import { on, off } from '../utils/events'
 import is from '../utils/is'
+import {getPercentage} from '../utils/strings'
 
 class Playlist {
     constructor(player) {
@@ -63,6 +64,13 @@ class Playlist {
             const index = data.list.findIndex(item => !!item?.playing)
             slider.go(index)
         }
+
+        // Disable / enable player key shortcuts
+        if (toggle) {
+            on.call(player, document, 'keydown', this.keyShortcuts, false)
+        } else {
+            off.call(player, document, 'keydown', this.keyShortcuts, false)
+        }
     }
 
     createList = () => {
@@ -75,10 +83,23 @@ class Playlist {
             hidden: true
         })
 
-        // const header = createElement('span', {
-        //     class: 'title'
-        // })
-        // header.innerText = 'Playlist'
+        on.call(player, playlist, 'click dblclick', (event) => {
+            event.preventDefault()
+            event.stopPropagation()
+
+            const { elements: { playlist } } = player
+
+            if (event.target !== playlist)
+                return false
+
+            if (!playlist.includes(event.target))
+                return false
+        }, false)
+
+        const header = createElement('h2', {
+            class: 'title'
+        })
+        header.innerText = 'Please choose a video from the playlist below!'
 
         const closeButton = controls.createButton.call(player, 'close', {
             class: 'close'
@@ -120,22 +141,46 @@ class Playlist {
             })
 
             const title = createElement('h4')
-            title.innerText = item.title
+
+            const watchedBefore = Number(localStorage?.getItem(`watched_${item?.code}`) || 0)
+            const percentageValue = getPercentage(watchedBefore, item.length)
+
+            const formattedLength = controls.formatTime(item.length, false)
+            const formattedWatched = controls.formatTime(watchedBefore, false)
 
             const length = createElement('span')
-            length.innerText = controls.formatTime(item.length, false)
+            length.innerText = `${formattedWatched} / ${formattedLength}`
 
-            const playIcon = controls.createIcon.call(player, item?.playing ? 'pause' : 'play-alt')
+            //const playIcon = controls.createIcon.call(player, item?.playing ? 'pause' : 'play-alt')
             const playButton = createElement('button', {
                 type: 'button',
                 class: 'plyr__control'
             })
 
-            title.appendChild(length)
-            content.appendChild(title)
+            if (item.code === player?.config?.code) {
+                const headline = createElement('small')
+                headline.innerText = 'Currently playing'
 
-            playButton.appendChild(playIcon)
+                title.appendChild(headline)
+            }
+
+            title.innerHTML += item.title
+
+            const progress = createElement('div', {
+                class: 'progress'
+            })
+            const innerProgress = createElement('div', {
+                class: 'progress__inner'
+            })
+
+            innerProgress.style.width = percentageValue + '%'
+
+            progress.appendChild(innerProgress)
+            title.appendChild(length)
+
+            content.appendChild(title)
             content.appendChild(playButton)
+            content.appendChild(progress)
 
             innerContent.appendChild(image)
             innerContent.appendChild(content)
@@ -143,14 +188,14 @@ class Playlist {
             video.appendChild(innerContent)
             list.appendChild(video)
 
-            if (item?.playing)
+            if (item?.code === player?.config?.code)
                 start = index
         })
 
-        //playlist.appendChild(header)
         tracks.appendChild(list)
         slider.appendChild(tracks)
 
+        playlist.appendChild(header)
         playlist.appendChild(slider)
         playlist.appendChild(closeButton)
 
@@ -186,6 +231,41 @@ class Playlist {
 
         splide.mount()
         this.slider = splide
+
+        on.call(player, document, 'keydown', this.keyShortcuts, false)
+
+        splide.on('click', (slide, event) => {
+            const { slider, config, player } = this
+
+            if (slider)
+                slider.go(slide.index)
+
+            const itemIndex = slide.isClone ? slide.slideIndex : slide.index
+            const item = config.list.find((item, index) => index === itemIndex)
+
+            if (player.config.code === item.code)
+                return
+
+            player.config.code = item.code
+            player.source = item
+
+            this.toggleList(false)
+        })
+    }
+
+    keyShortcuts = (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+
+        const { slider } = this
+
+        if (event.code === 'ArrowRight' || event.key === 'ArrowRight' || event.keyCode === 39)
+            slider.go('>')
+
+        if (event.code === 'ArrowLeft' || event.key === 'ArrowLeft' || event.keyCode === 37)
+            slider.go('<')
+
+        return false
     }
 }
 
