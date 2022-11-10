@@ -217,8 +217,10 @@ class Playlist {
             cloneStatus: false,
             slideFocus: true,
             updateOnMove: true,
+            trimSpace: true,
             breakpoints: {
                 1024: {
+                    type: config.list.length > 3 ? 'loop' : 'slide',
                     direction: 'ttb',
                     height: 'calc(100vh - 20px)',
                     perPage: 3,

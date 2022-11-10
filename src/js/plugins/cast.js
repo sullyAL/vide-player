@@ -31,7 +31,7 @@ class Cast {
     load = () => {
         const { config } = this
 
-        if (!config.enabled)
+        if (!config.enabled || !this.isSupported)
             return
 
         if (!chrome?.cast) {
