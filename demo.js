@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'volume',
             'brand',
             'pip',
-            'cast',
+            //'cast',
             'captionsMenu',
             //'audioTracksMenu',
             'qualityMenu',

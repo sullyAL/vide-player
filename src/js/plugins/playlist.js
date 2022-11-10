@@ -206,7 +206,7 @@ class Playlist {
         // Initiate slider
         const splide = new Splide('.splide', {
             focus: 'center',
-            type: 'loop',
+            type: config.list.length > 5 ? 'loop' : 'slide',
             drag: 'free',
             autoHeight: true,
             pagination: false,
