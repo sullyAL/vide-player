@@ -68,6 +68,7 @@ class Playlist {
         // Disable / enable player key shortcuts
         if (toggle) {
             on.call(player, document, 'keydown', this.keyShortcuts, false)
+            player.pause()
         } else {
             off.call(player, document, 'keydown', this.keyShortcuts, false)
         }
@@ -80,7 +81,7 @@ class Playlist {
 
         const playlist = createElement('div', {
             class: 'playList',
-            hidden: true
+            //hidden: true
         })
 
         on.call(player, playlist, 'click dblclick', (event) => {

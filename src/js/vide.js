@@ -1210,8 +1210,6 @@ class Vide {
                     removeElement(this.elements.topControls)
                     removeElement(this.elements.container.querySelector('.plyr__controls__center'))
 
-                    console.log(this.elements)
-
                     // Clear for GC
                     this.elements.buttons.play = null
                     this.elements.captions = null
