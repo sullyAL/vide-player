@@ -1,11 +1,12 @@
 {
     "name": "vide-player",
-    "version": "1.0.6",
+    "version": "1.0.8",
     "private": false,
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "webpack --env production --progress",
-        "watch": "webpack --env development --progress"
+        "watch": "webpack --env development --progress",
+        "prod": "webpack --env production --progress && npm publish"
     },
     "main": "dist/vide.js",
     "types": "src/js/vide.d.ts",

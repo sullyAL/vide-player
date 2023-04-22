@@ -3,14 +3,15 @@
  */
 
 import controls from '../controls'
-import { createElement } from '../utils/elements';
-import { triggerEvent, on } from '../utils/events';
-import i18n from '../utils/i18n';
-import is from '../utils/is';
-import loadScript from '../utils/load-script';
-import { silencePromise } from '../utils/promise';
-import { formatTime } from '../utils/time';
-import { buildUrlParams } from '../utils/urls';
+import { createElement, toggleClass } from '../utils/elements'
+import { triggerEvent, on } from '../utils/events'
+import i18n from '../utils/i18n'
+import is from '../utils/is'
+import loadScript from '../utils/load-script'
+import { silencePromise } from '../utils/promise'
+import { formatTime } from '../utils/time'
+import { buildUrlParams } from '../utils/urls'
+import html5 from '../html5'
 
 class Cast {
     constructor (player) {
@@ -20,6 +21,9 @@ class Cast {
             contentType: player?.config?.cast?.contentType || 'video/mp4',
             src: player?.config?.cast?.src || player.media.currentSrc
         }
+        this.remotePlayerController = null
+        this.castPlayer = null
+        this.paused = false
         this.playing = false
         this.initialized = false
         this.events = {}
@@ -67,6 +71,7 @@ class Cast {
             const container = elements.container.querySelector('.plyr__controls.plyr__controls__top')
 
             const button = controls.createButton.call(this.player, 'cast', defaultAttributes)
+            elements.buttons.chromeCast = button
 
             on.call(this.player, button, 'click', () => {
                 this.connect()
@@ -104,10 +109,19 @@ class Cast {
      * Remote player controller
      * @returns {cast.framework.RemotePlayerController}
      */
-    get playerController() {
-        const castPlayer = new cast.framework.RemotePlayer()
+    setupPlayerController() {
+        const { elements } = this.player
 
-        return new cast.framework.RemotePlayerController(castPlayer)
+        const player = new cast.framework.RemotePlayer()
+        this.castPlayer = player
+        this.playing = true
+        this.remotePlayerController =  new cast.framework.RemotePlayerController(player)
+
+        // Set state
+        Array.from(elements.buttons.play || []).forEach((target) => {
+            Object.assign(target, { pressed: true })
+            target.setAttribute('aria-label', i18n.get('play', this.config))
+        })
     }
 
     /**
@@ -157,15 +171,20 @@ class Cast {
 
         const { elements } = this.player
 
-        const bottomContainer = elements.container.querySelector('.plyr__controls.plyr__controls__top')
-        const centerContainer = elements.container.querySelector('.plyr__controls.plyr__controls__center')
-        const poster = elements.container.querySelector('.plyr__poster')
+        // Change button
+        elements?.buttons?.chromeCast?.classList?.add('plyr__control--pressed')
+
+        // hide elements
+        const bottomContainer = elements.container.querySelector('.plyr__controls.plyr__controls__bottom')
+        const poster = elements.poster
 
         elements.container.classList.add(this.player.config.classNames.hideControls)
 
-        poster.style.zIndex = '99999999'
+        poster.style.opacity = 1
         bottomContainer.style.display = 'none'
-        //centerContainer.style.display = 'none'
+        elements.buttons.pip.style.display = 'none'
+
+        toggleClass(elements.container, 'vide__chromeCast', true)
     }
 
     /**
@@ -173,12 +192,25 @@ class Cast {
      * @returns {Promise<void>}
      */
     loadMedia = () => {
+        const player = this.player
         const mediaInfo = new chrome.cast.media.MediaInfo(this.config.src, this.config.contentType)
         const request = new chrome.cast.media.LoadRequest(mediaInfo)
+
+        // Track cast state
+        const context = this.castContext
+        context.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, () => {
+            const status = this.status
+
+            if (status === 'NOT_CONNECTED') {
+                this.normalPlayer()
+            }
+        })
 
         this.castSession.loadMedia(request)
             .then(() => {
                 console.log('Load succeed')
+                player.pause()
+                this.setupPlayerController()
                 this.listeners()
             })
             .catch(error => {
@@ -187,13 +219,62 @@ class Cast {
     }
 
     /**
+     * Revert back to main player
+     */
+    normalPlayer = () => {
+        const { elements, media } = this.player
+
+        // Change button
+        elements?.buttons?.chromeCast?.classList?.remove('plyr__control--pressed')
+
+        // hide elements
+        const bottomContainer = elements.container.querySelector('.plyr__controls.plyr__controls__bottom')
+        const poster = elements.poster
+
+        elements.container.classList.add(this.player.config.classNames.hideControls)
+
+        poster.style.opacity = 0
+        bottomContainer.style.display = ''
+        elements.buttons.pip.style.display = ''
+
+        toggleClass(elements.container, 'vide__chromeCast', false)
+        html5.setup.call(this.player)
+    }
+
+    /**
      * Listens to video player cast controls
      */
     listeners = () => {
         const player = this.player
-        const playerController = this.playerController
-        const { media, paused, volume } = player
+        const playerController = this.remotePlayerController
+        const { media } = player
 
+        const events = [
+            cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED,
+            cast.framework.RemotePlayerEventType.IS_MUTED_CHANGED,
+            cast.framework.RemotePlayerEventType.VOLUME_LEVEL_CHANGED
+        ]
+
+        // add events
+        events.forEach(event => {
+            playerController.addEventListener(event, () => {
+                switch (event) {
+                    case cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED:
+                        this.paused = this.castPlayer.isPaused
+                        this.playing = !this.castPlayer.isPaused
+
+                        // Set state
+                        Array.from(this.player.elements.buttons.play || []).forEach((target) => {
+                            Object.assign(target, { pressed: this.playing })
+                            target.setAttribute('aria-label', i18n.get(this.playing ? 'pause' : 'play', this.config))
+                        })
+
+                        break
+                    default:
+                        // do nothing
+                }
+            })
+        })
 
         media.play = () => {
             return playerController.playOrPause()
@@ -205,7 +286,7 @@ class Cast {
 
         media.stop = () => {
             return playerController.stop()
-            player.currentTime = 0
+
         }
 
         // Seeking
@@ -217,9 +298,6 @@ class Cast {
             set(time) {
                 media.seeking = true
                 triggerEvent.call(player, media, 'seeking')
-
-                console.log(playerController)
-
                 playerController.seek(time)
             },
         })

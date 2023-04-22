@@ -221,6 +221,14 @@ const controls = {
                 props.iconPressed = 'pause';
                 break;
 
+            case 'cast':
+                props.toggle = true;
+                props.label = 'cast';
+                props.labelPressed = 'cast-connected';
+                props.icon = 'cast';
+                props.iconPressed = 'cast-connected';
+                break;
+
             case 'mute':
                 props.toggle = true;
                 props.label = 'mute';
