@@ -49,8 +49,10 @@ class Cast {
     }
 
     initiate = () => {
-        // Return if chrome cast not  present or not supported
-        if (!chrome?.cast || !this.isSupported)
+        const { config } = this
+
+        // Return if chrome cast not  present
+        if (!config.enabled || !this.isSupported)
             return
 
         this.castContext.setOptions({

@@ -42,6 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
         keyboard: {
             global: true,
         },
+        sources: [
+            {
+                src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
+                type: 'video/mp4',
+                size: '720'
+            }, {
+                src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4',
+                type: 'video/mp4',
+                size: '1080'
+            }
+        ],
         previewThumbnails: {
             enabled: true,
             //frames: preview,
@@ -157,7 +168,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         image: 'https://img-vh.doodcdn.co/slides/b152cb0c0e39e020.jpg',
                     }
                 }
-            ]
+            ],
+            onChange: (item) => {
+                console.log(item)
+            }
+        },
+        isHLS: false,
+        fullscreen: {
+            iosNative: true
         }
     })
 

@@ -120,6 +120,13 @@
         opacity: 0.8;
         position: relative;
 
+        &--isPlaying {
+
+            .playList__item__inner {
+                border-color: $plyr-color-main;
+            }
+        }
+
         * {
             transition: all 0.3s ease;
         }
@@ -132,6 +139,8 @@
             -webkit-transition: transform .9s ease-out;
             transition: transform .9s ease-out;
             width: 100%;
+            border: 2px solid transparent;
+            border-radius: 5px;
         }
 
         &.is-active {
@@ -168,6 +177,9 @@
             width: 100%;
             line-height: 1;
             text-shadow: 0 2px 12px 0 rgba(#000, 20%);
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
 
             small {
                 display: block;
@@ -198,9 +210,9 @@
             right: 0;
             width: 100%;
             padding: 10px;
-            //background: rgba(#1F2937, 50%);
-            //backdrop-filter: blur(2px);
-            //-webkit-backdrop-filter: blur(2px);
+            background: rgba(#1F2937, 50%);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
         }
 
         .plyr__control {

@@ -103,7 +103,7 @@ const source = {
                 ui.addStyleHook.call(this);
 
                 // Set new sources for html5
-                if (this.isHTML5) {
+                if (this.isHTML5 && !this?.config?.isHLS) {
                     source.insertElements.call(this, 'source', sources);
                 }
 

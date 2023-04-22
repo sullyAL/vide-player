@@ -47,8 +47,10 @@ const defaults = {
     // Playlist
     playlist: {
         enabled: false,
-        list: []
+        list: [],
+        onChange: null
     },
+    isHLS: false,
 
     // Click video container to play/pause
     clickToPlay: true,

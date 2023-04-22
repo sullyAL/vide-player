@@ -2,18 +2,27 @@ import '@splidejs/splide/css'
 import Splide from '@splidejs/splide'
 
 import controls from '../controls'
-import { createElement, toggleHidden, toggleClass } from '../utils/elements'
+import {createElement, toggleHidden, toggleClass, removeElement} from '../utils/elements'
 
 import { on, off } from '../utils/events'
 import is from '../utils/is'
-import {getPercentage} from '../utils/strings'
+
+import { getPercentage } from '../utils/strings'
+import PreviewThumbnails from './preview-thumbnails'
+
+import source from '../source'
+import support from '../support'
+import ui from '../ui'
+import media from '../media'
+import html5 from '../html5'
 
 class Playlist {
     constructor(player) {
         this.player = player
         this.config = {
             enabled: player?.config?.playlist?.enabled && player?.config?.playlist?.list.length > 0 || false,
-            list: player?.config?.playlist?.list || []
+            list: player?.config?.playlist?.list || [],
+            onChange: player?.config?.playlist?.onChange || null
         }
         this.show = false
         this.slider = null
@@ -79,6 +88,7 @@ class Playlist {
         event.preventDefault()
         event.stopPropagation()
 
+        const { player } = this
         const { elements: { playlist } } = player
 
         if (event.target !== playlist.container)
@@ -159,7 +169,7 @@ class Playlist {
         let start = 0
         config.list.forEach((item, index) => {
             const video = createElement('div', {
-                class: `playList__item splide__slide ${item?.playing ? 'playList__item--isPlaying' : ''}`
+                class: `playList__item splide__slide ${item.code === player?.config?.code ? 'playList__item--isPlaying' : ''}`
             })
 
             const innerContent = createElement('div', {
@@ -284,6 +294,144 @@ class Playlist {
         })
     }
 
+    reloadHLS = (item) => {
+        const { player } = this
+
+        // Set video title
+        player.config.title = item.title
+
+        // Setup captions
+        if (Object.keys(item).includes('tracks')) {
+            source.insertElements.call(player, 'track', item.tracks)
+        }
+
+        // Update previewThumbnails config & reload plugin
+        if (!is.empty(item.previewThumbnails)) {
+            Object.assign(player.config.previewThumbnails, item.previewThumbnails);
+
+            // Cleanup previewThumbnails plugin if it was loaded
+            if (player.previewThumbnails && player.previewThumbnails.loaded) {
+                player.previewThumbnails.destroy()
+                player.previewThumbnails = null
+            }
+
+            // Create new instance if it is still enabled
+            if (player.config.previewThumbnails.enabled) {
+                player.previewThumbnails = new PreviewThumbnails(player)
+            }
+        }
+
+        // Update the fullscreen support
+        player.fullscreen.update()
+
+        // Update poster
+        player.poster = item.poster
+    }
+
+    resetVideo = (quality = [], item = null) => {
+        const { player } = this
+
+        // Cancel current network requests
+        html5.cancelRequests.call(player)
+
+        // Destroy instance and re-setup
+        player.destroy.call(
+            player,
+            () => {
+                // Reset quality options
+                player.options.quality = quality
+
+                // Remove elements
+                removeElement(player.media)
+                player.media = null
+
+                // Reset class name
+                if (is.element(player.elements.container)) {
+                    player.elements.container.removeAttribute('class')
+                }
+
+                // Set the type and provider
+                Object.assign(this, {
+                    provider: 'html5',
+                    type: 'video',
+                    // Check for support
+                    supported: support.check(type, 'html5', player.config.playsinline),
+                    // Create new element
+                    media: createElement('div', {}),
+                })
+
+                // Inject the new element
+                player.elements.container.appendChild(player.media)
+
+                // Autoplay the new source?
+                if (is.boolean(item?.autoplay)) {
+                    player.config.autoplay = item?.autoplay
+                }
+
+                // Set attributes for audio and video
+                if (player.isHTML5) {
+                    if (player.config.crossorigin) {
+                        player.media.setAttribute('crossorigin', '')
+                    }
+                    if (player.config.autoplay) {
+                        player.media.setAttribute('autoplay', '')
+                    }
+                    if (!is.empty(item?.poster)) {
+                        player.poster = item?.poster
+                    }
+                    if (player.config.loop.active) {
+                        player.media.setAttribute('loop', '')
+                    }
+                    if (player.config.muted) {
+                        player.media.setAttribute('muted', '')
+                    }
+                    if (player.config.playsinline) {
+                        player.media.setAttribute('playsinline', '');
+                    }
+                }
+
+                // Restore class hook
+                ui.addStyleHook.call(player)
+
+                // Set video title
+                player.config.title = item?.title
+
+                // Set up from scratch
+                media.setup.call(player)
+
+                // Setup captions
+                if (Object.keys(item).includes('tracks')) {
+                    source.insertElements.call(player, 'track', item?.tracks)
+                }
+
+                // Update previewThumbnails config & reload plugin
+                if (!is.empty(item?.previewThumbnails)) {
+                    Object.assign(player.config.previewThumbnails, item?.previewThumbnails)
+
+                    // Cleanup previewThumbnails plugin if it was loaded
+                    if (player.previewThumbnails && player.previewThumbnails.loaded) {
+                        player.previewThumbnails.destroy()
+                        player.previewThumbnails = null
+                    }
+
+                    // Create new instance if it is still enabled
+                    if (player.config.previewThumbnails.enabled) {
+                        player.previewThumbnails = new PreviewThumbnails(player)
+                    }
+                }
+
+                // Update the fullscreen support
+                player.fullscreen.update()
+
+                // Update playlist
+                if (player?.config?.playlist?.enabled && player?.config?.playlist?.list?.length > 0) {
+                    player.playlist = new Playlist(player)
+                }
+            },
+            true
+        )
+    }
+
     playVideo = (itemIndex = -1) => {
         if (itemIndex < 0)
             return
@@ -302,7 +450,12 @@ class Playlist {
         this.toggleList(false)
         this.destroyEvents()
 
-        player.source = item
+        // Check if is hls
+        if (!player?.config?.isHLS) {
+            player.source = item
+        }
+
+        config.onChange(item, player)
     }
 
     keyShortcuts = (event) => {
