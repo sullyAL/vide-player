@@ -31,7 +31,7 @@ class Cast {
     load = () => {
         const { config } = this
 
-        if (!config.enabled || !this.isSupported)
+        if (!config.enabled)
             return
 
         if (!chrome?.cast) {
@@ -49,8 +49,8 @@ class Cast {
     }
 
     initiate = () => {
-        // Return if chrome cast not  present
-        if (!chrome?.cast)
+        // Return if chrome cast not  present or not supported
+        if (!chrome?.cast || !this.isSupported)
             return
 
         this.castContext.setOptions({
