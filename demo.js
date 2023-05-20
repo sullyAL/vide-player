@@ -67,7 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
             seconds: 10
         },
         continueWatching: {
-            enabled: false
+            enabled: false,
+            title: 'Resume playing?',
+            description: 'Video left at [time]'
         },
         cast: {
             enabled: true

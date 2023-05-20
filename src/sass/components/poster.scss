@@ -2,8 +2,8 @@
 // Faux poster overlay
 // --------------------------------------------------------------
 
-.plyr__poster {
-    background-color: var(--plyr-video-background, $plyr-video-background);
+.vide__poster {
+    background-color: var(--vide-video-background, $vide-video-background);
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -17,21 +17,21 @@
     z-index: 1;
 }
 
-.plyr--stopped.plyr__poster-enabled, .vide.hasWatchHistory, .vide.playlistOpened  {
+.vide--stopped.vide__poster-enabled, .vide.hasWatchHistory, .vide.playlistOpened  {
 
-    .plyr__poster {
+    .vide__poster {
         opacity: 1;
     }
 }
 
 .vide.hasWatchHistory, .vide.playlistOpened {
 
-    .plyr__poster {
+    .vide__poster {
         z-index: 1000;
     }
 }
 
 // Allow interaction with YouTube controls while paused
-.plyr--youtube.plyr--paused.plyr__poster-enabled:not(.plyr--stopped) .plyr__poster {
+.vide--youtube.vide--paused.vide__poster-enabled:not(.vide--stopped) .vide__poster {
     display: none;
 }

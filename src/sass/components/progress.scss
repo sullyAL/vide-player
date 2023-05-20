@@ -3,7 +3,7 @@
 // --------------------------------------------------------------
 
 // Offset the range thumb in order to be able to calculate the relative progress (#954)
-$plyr-progress-offset: $plyr-range-thumb-height;
+$vide-progress-offset: $vide-range-thumb-height;
 
 .vide__progress {
     left: 0;
@@ -116,7 +116,7 @@ $plyr-progress-offset: $plyr-range-thumb-height;
     .vide__progress {
         width: 0%;
         border-radius: 0;
-        background: $plyr-color-main;
+        background: $vide-color-main;
         //background: rgba(#00b2ff, 40%);
         backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(2px);
@@ -134,7 +134,7 @@ $plyr-progress-offset: $plyr-range-thumb-height;
             content: "";
             width: 6px;
             height: 12px;
-            background: $plyr-color-main;
+            background: $vide-color-main;
             border: 2px solid #fff;
             box-shadow: 0 2px 4px 0 rgba(#fff, 20%);
             display: block;
@@ -190,7 +190,7 @@ $plyr-progress-offset: $plyr-range-thumb-height;
     &::-webkit-progress-value {
         background: rgba(white, 40%);
         border-radius: 100px;
-        min-width: $plyr-range-track-height;
+        min-width: $vide-range-track-height;
         transition: width 0.2s ease;
     }
 
@@ -198,7 +198,7 @@ $plyr-progress-offset: $plyr-range-thumb-height;
     &::-moz-progress-bar {
         background: transparent;
         border-radius: 100px;
-        min-width: $plyr-range-track-height;
+        min-width: $vide-range-track-height;
         transition: width 0.2s ease;
     }
 
@@ -210,40 +210,40 @@ $plyr-progress-offset: $plyr-range-thumb-height;
 }
 
 // Loading state
-.plyr--loading .vide__progress__buffer {
-    animation: plyr-progress 1s linear infinite;
+.vide--loading .vide__progress__buffer {
+    animation: vide-progress 1s linear infinite;
     background-image: linear-gradient(
                     -45deg,
-                    $plyr-progress-loading-background 25%,
+                    $vide-progress-loading-background 25%,
                     transparent 25%,
                     transparent 50%,
-                    $plyr-progress-loading-background 50%,
-                    $plyr-progress-loading-background 75%,
+                    $vide-progress-loading-background 50%,
+                    $vide-progress-loading-background 75%,
                     transparent 75%,
                     transparent
     );
     background-repeat: repeat-x;
-    background-size: $plyr-progress-loading-size $plyr-progress-loading-size;
+    background-size: $vide-progress-loading-size $vide-progress-loading-size;
     color: transparent;
 }
 
-.plyr--video.plyr--loading .vide__progress__buffer {
-    background-color: $plyr-video-progress-buffered-background;
+.vide--video.vide--loading .vide__progress__buffer {
+    background-color: $vide-video-progress-buffered-background;
 }
 
-.plyr--audio.plyr--loading .vide__progress__buffer {
-    background-color: $plyr-audio-progress-buffered-background;
+.vide--audio.vide--loading .vide__progress__buffer {
+    background-color: $vide-audio-progress-buffered-background;
 }
 
 // Markers
-.plyr__progress__marker {
-    background-color: $plyr-progress-marker-background;
+.vide__progress__marker {
+    background-color: $vide-progress-marker-background;
     border-radius: 0;
-    height: $plyr-range-track-height;
+    height: $vide-range-track-height;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: $plyr-progress-marker-width;
+    width: $vide-progress-marker-width;
     z-index: 3;
 }
 

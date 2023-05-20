@@ -1,5 +1,5 @@
 // ==========================================================================
-// Plyr supported types and providers
+// vide supported types and providers
 // ==========================================================================
 
 export const providers = {

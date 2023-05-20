@@ -1,5 +1,5 @@
 // ==========================================================================
-// Plyr UI
+// vide UI
 // ==========================================================================
 
 import captions from './captions';
@@ -148,7 +148,7 @@ const ui = {
         });
 
         // Set iframe title
-        // https://github.com/sampotts/plyr/issues/124
+        // https://github.com/sampotts/vide/issues/124
         if (this.isEmbed) {
             const iframe = getElement.call(this, 'iframe');
 
@@ -251,7 +251,7 @@ const ui = {
         clearTimeout(this.timers.loading);
 
         // show poster when loading
-        //const poster = this.elements.container.querySelector('.plyr__poster')
+        //const poster = this.elements.container.querySelector('.vide__poster')
         //poster.style.opacity = this.loading ? 1 : 0
 
         // Timer to prevent flicker when seeking
@@ -312,8 +312,8 @@ const ui = {
     migrateStyles() {
         // Loop through values (as they are the keys when the object is spread 🤔)
         Object.values({ ...this.media.style })
-            // We're only fussed about Plyr specific properties
-            .filter((key) => !is.empty(key) && is.string(key) && key.startsWith('--plyr'))
+            // We're only fussed about vide specific properties
+            .filter((key) => !is.empty(key) && is.string(key) && key.startsWith('--vide'))
             .forEach((key) => {
                 // Set on the container
                 this.elements.container.style.setProperty(key, this.media.style.getPropertyValue(key));

@@ -1,16 +1,16 @@
-// Type definitions for plyr 3.5
-// Project: https://plyr.io
+// Type definitions for vide 3.5
+// Project: https://vide.io
 // Definitions by: ondratra <https://github.com/ondratra>
 // TypeScript Version: 3.0
 
-export = Plyr;
-export as namespace Plyr;
+export = vide;
+export as namespace vide;
 
-declare class Plyr {
+declare class vide {
   /**
    * Setup a new instance
    */
-  static setup(targets: NodeList | HTMLElement | HTMLElement[] | string, options?: Plyr.Options): Plyr[];
+  static setup(targets: NodeList | HTMLElement | HTMLElement[] | string, options?: vide.Options): vide[];
 
   /**
    * Check for support
@@ -18,9 +18,9 @@ declare class Plyr {
    * @param provider
    * @param playsInline Whether the player has the playsinline attribute (only applicable to iOS 10+)
    */
-  static supported(mediaType?: Plyr.MediaType, provider?: Plyr.Provider, playsInline?: boolean): Plyr.Support;
+  static supported(mediaType?: vide.MediaType, provider?: vide.Provider, playsInline?: boolean): vide.Support;
 
-  constructor(targets: NodeList | HTMLElement | HTMLElement[] | string, options?: Plyr.Options);
+  constructor(targets: NodeList | HTMLElement | HTMLElement[] | string, options?: vide.Options);
 
   /**
    * Indicates if the current player is HTML5.
@@ -105,7 +105,7 @@ declare class Plyr {
   /**
    * Gets or sets the current source for the player.
    */
-  source: Plyr.SourceInfo;
+  source: vide.SourceInfo;
 
   /**
    * Gets or sets the current poster image URL for the player.
@@ -141,19 +141,19 @@ declare class Plyr {
   /**
    * Access Elements cache
    */
-  elements: Plyr.Elements;
+  elements: vide.Elements;
 
   /**
    * Returns the current video Provider
    */
-  readonly provider: Plyr.Provider;
+  readonly provider: vide.Provider;
 
   /**
    * Returns the native API for Vimeo or Youtube players
    */
   readonly embed?: any;
 
-  readonly fullscreen: Plyr.FullscreenControl;
+  readonly fullscreen: vide.FullscreenControl;
 
   /**
    * Start playback.
@@ -214,7 +214,7 @@ declare class Plyr {
   /**
    * Sets the preview thumbnails for the current source.
    */
-  setPreviewThumbnails(source: Plyr.PreviewThumbnailsOptions): void;
+  setPreviewThumbnails(source: vide.PreviewThumbnailsOptions): void;
 
   /**
    * Toggle the controls (video only). Takes optional truthy value to force it on/off.
@@ -224,17 +224,17 @@ declare class Plyr {
   /**
    * Add an event listener for the specified event.
    */
-  on<K extends keyof Plyr.PlyrEventMap>(event: K, callback: (this: this, event: Plyr.PlyrEventMap[K]) => void): void;
+  on<K extends keyof vide.videEventMap>(event: K, callback: (this: this, event: vide.videEventMap[K]) => void): void;
 
   /**
    * Add an event listener for the specified event once.
    */
-  once<K extends keyof Plyr.PlyrEventMap>(event: K, callback: (this: this, event: Plyr.PlyrEventMap[K]) => void): void;
+  once<K extends keyof vide.videEventMap>(event: K, callback: (this: this, event: vide.videEventMap[K]) => void): void;
 
   /**
    * Remove an event listener for the specified event.
    */
-  off<K extends keyof Plyr.PlyrEventMap>(event: K, callback: (this: this, event: Plyr.PlyrEventMap[K]) => void): void;
+  off<K extends keyof vide.videEventMap>(event: K, callback: (this: this, event: vide.videEventMap[K]) => void): void;
 
   /**
    * Check support for a mime type.
@@ -249,54 +249,54 @@ declare class Plyr {
   destroy(callback?: (...args: any[]) => void, soft?: boolean): void;
 }
 
-declare namespace Plyr {
+declare namespace vide {
   type MediaType = 'audio' | 'video';
   type Provider = 'html5' | 'youtube' | 'vimeo';
   type StandardEventMap = {
-    progress: PlyrEvent;
-    playing: PlyrEvent;
-    play: PlyrEvent;
-    pause: PlyrEvent;
-    timeupdate: PlyrEvent;
-    volumechange: PlyrEvent;
-    seeking: PlyrEvent;
-    seeked: PlyrEvent;
-    ratechange: PlyrEvent;
-    ended: PlyrEvent;
-    enterfullscreen: PlyrEvent;
-    exitfullscreen: PlyrEvent;
-    captionsenabled: PlyrEvent;
-    captionsdisabled: PlyrEvent;
-    languagechange: PlyrEvent;
-    controlshidden: PlyrEvent;
-    controlsshown: PlyrEvent;
-    ready: PlyrEvent;
+    progress: videEvent;
+    playing: videEvent;
+    play: videEvent;
+    pause: videEvent;
+    timeupdate: videEvent;
+    volumechange: videEvent;
+    seeking: videEvent;
+    seeked: videEvent;
+    ratechange: videEvent;
+    ended: videEvent;
+    enterfullscreen: videEvent;
+    exitfullscreen: videEvent;
+    captionsenabled: videEvent;
+    captionsdisabled: videEvent;
+    languagechange: videEvent;
+    controlshidden: videEvent;
+    controlsshown: videEvent;
+    ready: videEvent;
   };
   // For retrocompatibility, we keep StandardEvent
-  type StandardEvent = keyof Plyr.StandardEventMap;
+  type StandardEvent = keyof vide.StandardEventMap;
   type Html5EventMap = {
-    loadstart: PlyrEvent;
-    loadeddata: PlyrEvent;
-    loadedmetadata: PlyrEvent;
-    canplay: PlyrEvent;
-    canplaythrough: PlyrEvent;
-    stalled: PlyrEvent;
-    waiting: PlyrEvent;
-    emptied: PlyrEvent;
-    cuechange: PlyrEvent;
-    error: PlyrEvent;
+    loadstart: videEvent;
+    loadeddata: videEvent;
+    loadedmetadata: videEvent;
+    canplay: videEvent;
+    canplaythrough: videEvent;
+    stalled: videEvent;
+    waiting: videEvent;
+    emptied: videEvent;
+    cuechange: videEvent;
+    error: videEvent;
   };
   // For retrocompatibility, we keep Html5Event
-  type Html5Event = keyof Plyr.Html5EventMap;
+  type Html5Event = keyof vide.Html5EventMap;
   type YoutubeEventMap = {
-    statechange: PlyrStateChangeEvent;
-    qualitychange: PlyrEvent;
-    qualityrequested: PlyrEvent;
+    statechange: videStateChangeEvent;
+    qualitychange: videEvent;
+    qualityrequested: videEvent;
   };
   // For retrocompatibility, we keep YoutubeEvent
-  type YoutubeEvent = keyof Plyr.YoutubeEventMap;
+  type YoutubeEvent = keyof vide.YoutubeEventMap;
 
-  type PlyrEventMap = StandardEventMap & Html5EventMap & YoutubeEventMap;
+  type videEventMap = StandardEventMap & Html5EventMap & YoutubeEventMap;
 
   interface FullscreenControl {
     /**
@@ -328,7 +328,7 @@ declare namespace Plyr {
   interface Options {
       title: string
       /**
-     * Completely disable Plyr. This would allow you to do a User Agent check or similar to programmatically enable or disable Plyr for a certain UA. Example below.
+     * Completely disable vide. This would allow you to do a User Agent check or similar to programmatically enable or disable vide for a certain UA. Example below.
      */
     enabled?: boolean;
 
@@ -366,7 +366,7 @@ declare namespace Plyr {
     iconUrl?: string;
 
     /**
-     * Specify the id prefix for the icons used in the default controls (e.g. plyr-play would be plyr).
+     * Specify the id prefix for the icons used in the default controls (e.g. vide-play would be vide).
      * This is to prevent clashes if you're using your own SVG sprite but with the default controls.
      * Most people can ignore this option.
      */
@@ -460,7 +460,7 @@ declare namespace Plyr {
      * Allows binding of event listeners to the controls before the default handlers. See the defaults.js for available listeners.
      * If your handler prevents default on the event (event.preventDefault()), the default handler will not fire.
      */
-    listeners?: {[key: string]: (error: PlyrEvent) => void};
+    listeners?: {[key: string]: (error: videEvent) => void};
 
     /**
      * active: Toggles if captions should be active by default. language: Sets the default language to load (if available). 'auto' uses the browser language.
@@ -654,7 +654,7 @@ declare namespace Plyr {
 
     /**
      * An array of track objects. Each element in the array is mapped directly to a track element and any keys mapped directly to HTML attributes so as in the example above,
-     * it will render as <track kind="captions" label="English" srclang="en" src="https://cdn.selz.com/plyr/1.0/example_captions_en.vtt" default> and similar for the French version.
+     * it will render as <track kind="captions" label="English" srclang="en" src="https://cdn.selz.com/vide/1.0/example_captions_en.vtt" default> and similar for the French version.
      * Booleans are converted to HTML5 value-less attributes.
      */
     tracks?: Track[];
@@ -662,7 +662,7 @@ declare namespace Plyr {
     /**
      * Enable or disable preview thumbnails for current source
      */
-    previewThumbnails?: Plyr.PreviewThumbnailsOptions;
+    previewThumbnails?: vide.PreviewThumbnailsOptions;
   }
 
   interface Source {
@@ -700,8 +700,8 @@ declare namespace Plyr {
     default?: boolean;
   }
 
-  interface PlyrEvent extends CustomEvent {
-    readonly detail: {readonly plyr: Plyr};
+  interface videEvent extends CustomEvent {
+    readonly detail: {readonly vide: vide};
   }
 
   enum YoutubeState {
@@ -713,9 +713,9 @@ declare namespace Plyr {
     CUED = 5,
   }
 
-  interface PlyrStateChangeEvent extends CustomEvent {
+  interface videStateChangeEvent extends CustomEvent {
     readonly detail: {
-      readonly plyr: Plyr;
+      readonly vide: vide;
       readonly code: YoutubeState;
     };
   }

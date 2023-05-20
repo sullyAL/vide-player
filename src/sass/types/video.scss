@@ -5,14 +5,14 @@
 @use 'sass:math';
 
 // Container
-.plyr--video {
-    background: var(--plyr-video-background, $plyr-video-background);
+.vide--video {
+    background: var(--vide-video-background, $vide-video-background);
     overflow: hidden;
 
-    &.plyr--menu-open {
+    &.vide--menu-open {
         overflow: visible;
 
-        .plyr__progress__container, .time__controls {
+        .vide__progress__container, .time__controls {
             opacity: 0;
             transform: scale(0);
         }
@@ -37,7 +37,7 @@
         inset: 0;
         flex-direction: column;
 
-        .plyr__time {
+        .vide__time {
             width: 100%;
             text-align: center;
             color: #fff;
@@ -52,7 +52,7 @@
         h4 {
             margin: 0;
             font-size: 2rem;
-            color: $plyr-color-main;
+            color: $vide-color-main;
             text-shadow: 0 2px 12px 0 rgba(#000000, 20%);
         }
 
@@ -64,7 +64,7 @@
             gap: 15px;
         }
 
-        .plyr__control {
+        .vide__control {
             font-size: 0.8rem;
             border-radius: 3px;
             font-weight: 600;
@@ -163,8 +163,8 @@
     }
 }
 
-.plyr__video-wrapper {
-    background: var(--plyr-video-background, $plyr-video-background);
+.vide__video-wrapper {
+    background: var(--vide-video-background, $vide-video-background);
     height: 100%;
     margin: auto;
     overflow: hidden;
@@ -175,8 +175,8 @@
 // Default to 16:9 ratio but this is set by JavaScript based on config
 $embed-padding: (math.div(100, 16) * 9);
 
-.plyr__video-embed,
-.plyr__video-wrapper--fixed-ratio {
+.vide__video-embed,
+.vide__video-wrapper--fixed-ratio {
     @supports not (aspect-ratio: 16 / 9) {
         height: 0;
         padding-bottom: to-percentage($embed-padding);
@@ -186,8 +186,8 @@ $embed-padding: (math.div(100, 16) * 9);
     aspect-ratio: 16 / 9;
 }
 
-.plyr__video-embed iframe,
-.plyr__video-wrapper--fixed-ratio video {
+.vide__video-embed iframe,
+.vide__video-wrapper--fixed-ratio video {
     border: 0;
     height: 100%;
     left: 0;
@@ -197,7 +197,7 @@ $embed-padding: (math.div(100, 16) * 9);
 }
 
 // For Vimeo, if the full custom UI is supported
-.plyr--full-ui .plyr__video-embed > .plyr__video-embed__container {
+.vide--full-ui .vide__video-embed > .vide__video-embed__container {
     $height: 240;
     $offset: to-percentage(math.div($height - $embed-padding, math.div($height, 50)));
 
@@ -207,42 +207,42 @@ $embed-padding: (math.div(100, 16) * 9);
 }
 
 // Controls container
-.plyr--video .plyr__controls {
-    background: $plyr-video-controls-background;
+.vide--video .vide__controls {
+    background: $vide-video-controls-background;
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
-    color: $plyr-video-control-color;
+    color: $vide-video-control-color;
     left: 0;
-    padding: calc(#{$plyr-control-spacing} / 2);
+    padding: calc(#{$vide-control-spacing} / 2);
     position: absolute;
     right: 0;
     transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
     z-index: 50;
 
-    @media (min-width: $plyr-bp-sm) {
-        padding: $plyr-control-spacing;
+    @media (min-width: $vide-bp-sm) {
+        padding: $vide-control-spacing;
     }
 
     .clientLogo {
         position: absolute;
-        top: calc(#{$plyr-control-spacing} / 2);
-        right: calc(#{$plyr-control-spacing} / 2);
+        top: calc(#{$vide-control-spacing} / 2);
+        right: calc(#{$vide-control-spacing} / 2);
         height: 100%;
         width: auto;
         max-height: 38px;
 
-        @media (min-width: $plyr-bp-sm) {
-            top: $plyr-control-spacing;
-            right: $plyr-control-spacing;
+        @media (min-width: $vide-bp-sm) {
+            top: $vide-control-spacing;
+            right: $vide-control-spacing;
         }
     }
 
     &__top {
         top: 0;
-        background: $plyr-video-controls-background-top;
+        background: $vide-video-controls-background-top;
         justify-content: flex-start;
 
-        .plyr__controls__item:first-child {
+        .vide__controls__item:first-child {
             margin-left: 0;
             margin-right: 0;
         }
@@ -253,6 +253,7 @@ $embed-padding: (math.div(100, 16) * 9);
         z-index: 100;
         column-gap: 30px;
         padding-right: 17px;
+        transition: all 0.3s ease;
 
         .time__controls {
             width: 100%;
@@ -260,7 +261,7 @@ $embed-padding: (math.div(100, 16) * 9);
             align-items: center;
             justify-content: flex-end;
 
-            .plyr__time {
+            .vide__time {
                 margin-left: auto;
                 margin-right: 0;
                 padding: 0;
@@ -282,17 +283,17 @@ $embed-padding: (math.div(100, 16) * 9);
             margin: 0;
             padding: 15px 0 20px;
 
-            @media (max-width: ($plyr-bp-md - 1px)) {
+            @media (max-width: ($vide-bp-md - 1px)) {
                 margin: 0 0 5px;
                 padding: 5px 0;
             }
         }
 
-        .plyr__controls__item {
+        .vide__controls__item {
             padding: 0;
             margin: 5px 0 0;
 
-            &.plyr__progress__container {
+            &.vide__progress__container {
                 margin: 0;
                 padding: 0;
                 position: relative;
@@ -301,23 +302,23 @@ $embed-padding: (math.div(100, 16) * 9);
 
             &[data-vide="rewind"], &[data-vide="fast-forward"] {
 
-                @media (max-width: ($plyr-bp-md - 1px)) {
+                @media (max-width: ($vide-bp-md - 1px)) {
                     display: none;
                 }
             }
 
-            &.plyr__volume {
+            &.vide__volume {
                 margin-right: auto;
             }
 
-            .plyr__control {
+            .vide__control {
                 padding: 0;
             }
         }
 
-        .plyr__menu .plyr__menu__container {
+        .vide__menu .vide__menu__container {
 
-            .plyr__control {
+            .vide__control {
                 margin: 0 0 5px;
                 padding: 8px 10px;
             }
@@ -342,14 +343,77 @@ $embed-padding: (math.div(100, 16) * 9);
     }
 }
 
-// Hide controls
-.plyr--video.plyr--hide-controls {
+.vide {
 
-    .plyr__captions {
+    &--paused {
+
+        .vide__controls {
+
+            &__top {
+                opacity: 0;
+                z-index: -1;
+            }
+
+            &__bottom {
+                max-width: 400px;
+                background: transparent;
+                margin: 0 auto 10px;
+                width: 100%;
+                padding: 0;
+
+                .time__controls {
+                    justify-content: center;
+
+                    .vide__time {
+                        margin-left: 0;
+                    }
+                }
+
+                .vide__progress {
+                    margin: 0;
+
+                    &:after {
+                        border-radius: 3px;
+                        height: 6px;
+                    }
+
+                    input[type=range] {
+                        opacity: 0;
+                    }
+
+                    .vide__progress {
+                        border-radius: 3px;
+                        height: 6px;
+
+                        &:after {
+                            content: none;
+                        }
+                    }
+
+                    .vide__progress__buffer {
+                        display: none;
+                    }
+                }
+
+                .controlsContent {
+                    opacity: 0;
+                    z-index: -1;
+                    transform: scale(0);
+                }
+            }
+        }
+    }
+}
+
+
+// Hide controls
+.vide--video.vide--hide-controls {
+
+    .vide__captions {
         transform: translateY(-20px);
     }
 
-    .plyr__controls {
+    .vide__controls {
         opacity: 0;
         pointer-events: none;
 
@@ -361,7 +425,7 @@ $embed-padding: (math.div(100, 16) * 9);
                 opacity: 1;
                 padding: 0;
 
-                .plyr__progress__container {
+                .vide__progress__container {
 
                     .vide__progress {
                         margin: 0;
@@ -394,25 +458,25 @@ $embed-padding: (math.div(100, 16) * 9);
 }
 
 // Control elements
-.plyr--video .plyr__control {
+.vide--video .vide__control {
     // Hover and tab focus
-    &.plyr__tab-focus,
+    &.vide__tab-focus,
     &:hover,
     &[aria-expanded='true'] {
-        //background: $plyr-video-control-background-hover;
-        //color: $plyr-video-control-color-hover;
+        //background: $vide-video-control-background-hover;
+        //color: $vide-video-control-color-hover;
     }
 }
 
 // Large play button (video only)
-.plyr__control--overlaid {
+.vide__control--overlaid {
     border: 0;
     color: #fff;
     padding: 5px;
     display: block;
     border-radius: 100%;
 
-    @media (max-width: ($plyr-bp-md - 1px)) {
+    @media (max-width: ($vide-bp-md - 1px)) {
         padding: 10px;
     }
 
@@ -430,7 +494,7 @@ $embed-padding: (math.div(100, 16) * 9);
             filter: drop-shadow(1px 2px 5px rgba(0, 0, 0, 0.3));
         }
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($vide-bp-md - 1px)) {
             height: 80px;
             width: 80px;
         }
@@ -448,11 +512,11 @@ $embed-padding: (math.div(100, 16) * 9);
 
 .vide:not(.vide__chromeCast) {
 
-    .plyr__control--overlaid.plyr__control--seek {
+    .vide__control--overlaid.vide__control--seek {
         padding: 0;
         display: none;
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($vide-bp-md - 1px)) {
             display: block;
         }
 
@@ -460,7 +524,7 @@ $embed-padding: (math.div(100, 16) * 9);
             height: 80px;
             width: 80px;
 
-            @media (max-width: ($plyr-bp-md - 1px)) {
+            @media (max-width: ($vide-bp-md - 1px)) {
                 height: 50px;
                 width: 50px;
             }
@@ -468,9 +532,9 @@ $embed-padding: (math.div(100, 16) * 9);
     }
 }
 
-.plyr--video.plyr--hide-controls, .plyr--video.hidePlay {
+.vide--video.vide--hide-controls, .vide--video.hidePlay {
 
-    .plyr__control--overlaid {
+    .vide__control--overlaid {
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease;
@@ -486,43 +550,43 @@ $embed-padding: (math.div(100, 16) * 9);
     }
 }
 
-.plyr--full-ui.plyr--video .plyr__control--overlaid {
+.vide--full-ui.vide--video .vide__control--overlaid {
 
 }
 
 // Video range inputs
-.plyr--full-ui.plyr--video input[type='range'] {
+.vide--full-ui.vide--video input[type='range'] {
     &::-webkit-slider-runnable-track {
-        background-color: $plyr-video-range-track-background;
+        background-color: $vide-video-range-track-background;
     }
 
     &::-moz-range-track {
-        background-color: $plyr-video-range-track-background;
+        background-color: $vide-video-range-track-background;
     }
 
     &::-ms-track {
-        background-color: $plyr-video-range-track-background;
+        background-color: $vide-video-range-track-background;
     }
 
     // Pressed styles
     &:active {
         &::-webkit-slider-thumb {
-            @include plyr-range-thumb-active($plyr-video-range-thumb-active-shadow-color);
+            @include vide-range-thumb-active($vide-video-range-thumb-active-shadow-color);
         }
 
         &::-moz-range-thumb {
-            @include plyr-range-thumb-active($plyr-video-range-thumb-active-shadow-color);
+            @include vide-range-thumb-active($vide-video-range-thumb-active-shadow-color);
         }
 
         &::-ms-thumb {
-            @include plyr-range-thumb-active($plyr-video-range-thumb-active-shadow-color);
+            @include vide-range-thumb-active($vide-video-range-thumb-active-shadow-color);
         }
     }
 }
 
 // Progress
-.plyr--video .vide__progress__buffer {
-    color: $plyr-video-progress-buffered-background;
+.vide--video .vide__progress__buffer {
+    color: $vide-video-progress-buffered-background;
 }
 
 @keyframes scaleIn {

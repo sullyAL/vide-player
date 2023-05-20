@@ -2,15 +2,15 @@
 // Control buttons
 // --------------------------------------------------------------
 
-.plyr__control {
+.vide__control {
     background: transparent;
     border: 0;
-    border-radius: $plyr-control-radius;
+    border-radius: $vide-control-radius;
     color: inherit;
     cursor: pointer;
-    padding: $plyr-control-padding;
+    padding: $vide-control-padding;
     position: relative;
-    min-width: $plyr-control-icon-size;
+    min-width: $vide-control-icon-size;
 
     use {
 
@@ -19,7 +19,7 @@
         }
     }
 
-    @media (max-width: ($plyr-bp-md - 1px)) {
+    @media (max-width: ($vide-bp-md - 1px)) {
         padding: 5px
     }
 
@@ -49,12 +49,12 @@
         margin: 0 2px;
         position: relative;
 
-        .plyr__menu__value {
+        .vide__menu__value {
             position: absolute;
             //top: 50%;
             //left: 50%;
             //transform: translate(-50%, -50%);
-            background: $plyr-color-main;
+            background: $vide-color-main;
             color: #fff;
             top: -5px;
             right: 0;
@@ -90,13 +90,13 @@
     svg {
         display: block;
         fill: currentColor;
-        height: $plyr-control-icon-size;
+        height: $vide-control-icon-size;
         pointer-events: none;
         width: auto;
         transition: transform 0.3s ease;
         transform-origin: center;
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($vide-bp-md - 1px)) {
             height: 18px;
             width: auto;
         }
@@ -108,8 +108,8 @@
     }
 
     // Tab focus
-    &.plyr__tab-focus {
-        @include plyr-tab-focus;
+    &.vide__tab-focus {
+        @include vide-tab-focus;
     }
 
     &.skipButton {
@@ -130,7 +130,7 @@
         font-weight: 600;
         padding: 12px 20px;
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($vide-bp-md - 1px)) {
             bottom: 6.5rem;
             right: 1rem;
         }
@@ -151,7 +151,7 @@
 }
 
 // Remove any link styling
-a.plyr__control {
+a.vide__control {
     text-decoration: none;
 
     &::after,
@@ -161,9 +161,9 @@ a.plyr__control {
 }
 
 // Change icons on state change
-.plyr__control:not(.plyr__control--pressed) .icon--pressed,
-.plyr__control.plyr__control--pressed .icon--not-pressed,
-.plyr__control:not(.plyr__control--pressed) .label--pressed,
-.plyr__control.plyr__control--pressed .label--not-pressed {
+.vide__control:not(.vide__control--pressed) .icon--pressed,
+.vide__control.vide__control--pressed .icon--not-pressed,
+.vide__control:not(.vide__control--pressed) .label--pressed,
+.vide__control.vide__control--pressed .label--not-pressed {
     display: none;
 }

@@ -15,7 +15,7 @@
     margin: 0 auto;
     padding: 10px 0;
 
-    @media (max-width: ($plyr-bp-md - 1px)) {
+    @media (max-width: ($vide-bp-md - 1px)) {
         padding: 80px 0 20px;
     }
 
@@ -47,11 +47,11 @@
         margin: 0 auto 50px;
         font-weight: 600;
 
-        @media (max-width: ($plyr-bp-lg - 1px)) {
+        @media (max-width: ($vide-bp-lg - 1px)) {
             display: none;
         }
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($vide-bp-md - 1px)) {
             top: 10px;
             left: 10px;
             display: block;
@@ -67,7 +67,7 @@
         padding: 25px 0;
         width: 100%;
 
-        @media (max-width: ($plyr-bp-lg - 1px)) {
+        @media (max-width: ($vide-bp-lg - 1px)) {
             font-size: 0.7rem;
             height: 100%;
             padding: 0 25px;
@@ -76,11 +76,11 @@
 
         .splide__track {
 
-            @media (min-width: $plyr-bp-lg) {
+            @media (min-width: $vide-bp-lg) {
                 padding: 25% 0;
             }
 
-            @media (max-width: ($plyr-bp-lg - 1px)) {
+            @media (max-width: ($vide-bp-lg - 1px)) {
                 padding: 0 50px;
             }
         }
@@ -123,7 +123,7 @@
         &--isPlaying {
 
             .playList__item__inner {
-                border-color: $plyr-color-main;
+                border-color: $vide-color-main;
             }
         }
 
@@ -150,12 +150,12 @@
             .playList__item__inner {
                 transform: scale(1.4);
 
-                @media (max-width: ($plyr-bp-lg - 1px)) {
+                @media (max-width: ($vide-bp-lg - 1px)) {
                     transform: scale(1.35);
                 }
             }
 
-            .plyr__control {
+            .vide__control {
                 transform: translate(-50%, -50%) scale(1);
                 opacity: 1;
             }
@@ -186,7 +186,7 @@
                 font-size: 8px;
                 font-weight: 700;
                 margin: 0 0 2px;
-                color: $plyr-color-main;
+                color: $vide-color-main;
                 text-shadow: 0 2px 12px 0 rgba(#000, 20%);
             }
 
@@ -215,7 +215,7 @@
             -webkit-backdrop-filter: blur(2px);
         }
 
-        .plyr__control {
+        .vide__control {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -253,7 +253,7 @@
                 top: 0;
                 left: 0;
                 bottom: 0;
-                background: $plyr-color-main;
+                background: $vide-color-main;
                 border-radius: 0 0 0 5px;
             }
         }
@@ -280,7 +280,7 @@
         font-size: 0.8rem;
         height: 40px;
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($vide-bp-md - 1px)) {
             top: 20px;
             right: 20px;
         }

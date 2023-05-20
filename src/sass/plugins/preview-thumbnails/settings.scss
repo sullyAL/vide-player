@@ -2,16 +2,16 @@
 // Preview Thumbnails
 // --------------------------------------------------------------
 
-$plyr-preview-padding: $plyr-tooltip-padding !default;
-$plyr-preview-background: $plyr-tooltip-background !default;
-$plyr-preview-radius: $plyr-tooltip-radius !default;
-$plyr-preview-shadow: $plyr-tooltip-shadow !default;
-$plyr-preview-arrow-size: $plyr-tooltip-arrow-size !default;
-$plyr-preview-image-background: $plyr-color-gray-200 !default;
-$plyr-preview-time-container-background: var(
-  --plyr-video-controls-background,
+$vide-preview-padding: $vide-tooltip-padding !default;
+$vide-preview-background: $vide-tooltip-background !default;
+$vide-preview-radius: $vide-tooltip-radius !default;
+$vide-preview-shadow: $vide-tooltip-shadow !default;
+$vide-preview-arrow-size: $vide-tooltip-arrow-size !default;
+$vide-preview-image-background: $vide-color-gray-200 !default;
+$vide-preview-time-container-background: var(
+  --vide-video-controls-background,
   linear-gradient(rgba(#000, 0), rgba(#000, 0.75))
 ) !default;
-$plyr-preview-time-container-padding: 20px 6px 6px !default;
-$plyr-preview-time-color: #fff;
-$plyr-preview-time-font-size: $plyr-font-size-time !default;
+$vide-preview-time-container-padding: 20px 6px 6px !default;
+$vide-preview-time-color: #fff;
+$vide-preview-time-font-size: $vide-font-size-time !default;

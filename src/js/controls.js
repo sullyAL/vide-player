@@ -1,5 +1,5 @@
 // ==========================================================================
-// Plyr controls
+// vide controls
 // TODO: This needs to be split into smaller files and cleaned up
 // ==========================================================================
 import RangeTouch from 'rangetouch';
@@ -124,7 +124,7 @@ const controls = {
         const path = `${iconPath}-${type}`;
 
         // Set `href` attributes
-        // https://github.com/sampotts/plyr/issues/460
+        // https://github.com/sampotts/vide/issues/460
         // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/xlink:href
         if ('href' in use) {
             use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', path);
@@ -347,7 +347,7 @@ const controls = {
                     step: 0.01,
                     value: 0,
                     autocomplete: 'off',
-                    // A11y fixes for https://github.com/sampotts/plyr/issues/905
+                    // A11y fixes for https://github.com/sampotts/vide/issues/905
                     role: 'slider',
                     'aria-label': i18n.get(type, this.config),
                     'aria-valuemin': 0,
@@ -673,7 +673,7 @@ const controls = {
 
     // Show watched box
     showWatchedInput(event) {
-        const player = event.detail.plyr
+        const player = event.detail.vide
 
         // Check if feature is enabled
         if (!player?.config?.continueWatching?.enabled)
@@ -713,7 +713,11 @@ const controls = {
 
                 const timeElement = controls.createTime.call(player, 'watchedBefore')
                 const time = controls.formatTime(watchedBefore, false)
-                timeElement.innerHTML = `<h4>Resume playing?</h4><p>You left at <strong>${time}</strong>, please click the "continue watching" button below to start where you left.</p>`
+
+                const title = player?.config?.continueWatching?.title || 'Resume playing?'
+                const description = player?.config?.continueWatching?.description || 'You left at [time], please click the "continue watching" button below to start where you left.'
+
+                timeElement.innerHTML = `<h4>${title}</h4><p>${description.replace('[time]', '<strong>'+time+'</strong>')}</p>`
 
                 watchedBeforeElement.appendChild(timeElement)
                 const buttons = createElement('div', {
@@ -877,7 +881,7 @@ const controls = {
             return;
         }
 
-        // Set aria values for https://github.com/sampotts/plyr/issues/905
+        // Set aria values for https://github.com/sampotts/vide/issues/905
         if (matches(range, this.config.selectors.inputs.seek)) {
             range.setAttribute('aria-valuenow', this.currentTime);
             const currentTime = controls.formatTime(this.currentTime);
@@ -1375,7 +1379,8 @@ const controls = {
             return;
         }
 
-        const currentSpeed = this.storage.get('speed')
+        const localSpeed = this.storage.get('speed')
+        const currentSpeed = this.options.speed.includes(localSpeed) ? this.options.speed : this.config.speed.selected
 
         // Create items
         this.options.speed.forEach((speed) => {
@@ -1438,7 +1443,7 @@ const controls = {
         } else if (is.keyboardEvent(input) && input.key === 'Escape') {
             show = false;
         } else if (is.event(input)) {
-            // If Plyr is in a shadowDOM, the event target is set to the component, instead of the
+            // If vide is in a shadowDOM, the event target is set to the component, instead of the
             // Element in the shadowDOM. The path, if available, is complete.
             const target = is.function(input.composedPath) ? input.composedPath()[0] : input.target;
             const isMenuItem = popup.contains(target);
@@ -1494,7 +1499,7 @@ const controls = {
 
     // Show a panel in the menu
     showMenuPanel(type = '', tabFocus = false, key = 'settings') {
-        const target = this.elements.container.querySelector(`#plyr-${type}-${this.id}`);
+        const target = this.elements.container.querySelector(`#vide-${type}-${this.id}`);
 
         // Nothing to show, bail
         if (!is.element(target)) {
@@ -1573,7 +1578,7 @@ const controls = {
         label.innerText = 'Subtitle size'
 
         const progress = createElement('div', {
-            class: 'plyr--range subtitleSizeWrapper__range'
+            class: 'vide--range subtitleSizeWrapper__range'
         })
 
         // Seek range slider
@@ -1583,7 +1588,7 @@ const controls = {
             max: 50,
             step: 1,
             value: captionsSize,
-            id: `plyr-seek-size`
+            id: `vide-seek-size`
         })
 
         if (captionsSize !== 15) {
@@ -1644,9 +1649,9 @@ const controls = {
         } : {})
 
         if (this.storage.get('showCaptionsBG')) {
-            this.elements?.captions?.classList.remove('plyr__captions--noBackground')
+            this.elements?.captions?.classList.remove('vide__captions--noBackground')
         } else {
-            this.elements?.captions?.classList.add('plyr__captions--noBackground')
+            this.elements?.captions?.classList.add('vide__captions--noBackground')
         }
 
         on.call(this, backgroundSwitchInput, 'change', (event) => {
@@ -1658,9 +1663,9 @@ const controls = {
             })
 
             if (event.target.checked) {
-                this.elements?.captions?.classList.remove('plyr__captions--noBackground')
+                this.elements?.captions?.classList.remove('vide__captions--noBackground')
             } else {
-                this.elements?.captions?.classList.add('plyr__captions--noBackground')
+                this.elements?.captions?.classList.add('vide__captions--noBackground')
             }
         }, false)
 
@@ -1682,9 +1687,9 @@ const controls = {
         } : {})
 
         if (this.storage.get('showMiniSeeker')) {
-            this.elements.bottomControls.classList.add('plyr__controls__bottom--hasMiniSeeker')
+            this.elements.bottomControls.classList.add('vide__controls__bottom--hasMiniSeeker')
         } else {
-            this.elements.bottomControls.classList.remove('plyr__controls__bottom--hasMiniSeeker')
+            this.elements.bottomControls.classList.remove('vide__controls__bottom--hasMiniSeeker')
         }
 
         on.call(this, miniSeekerSwitchInput, 'change', (event) => {
@@ -1696,9 +1701,9 @@ const controls = {
             })
 
             if (event.target.checked) {
-                this.elements.bottomControls.classList.add('plyr__controls__bottom--hasMiniSeeker')
+                this.elements.bottomControls.classList.add('vide__controls__bottom--hasMiniSeeker')
             } else {
-                this.elements.bottomControls.classList.remove('plyr__controls__bottom--hasMiniSeeker')
+                this.elements.bottomControls.classList.remove('vide__controls__bottom--hasMiniSeeker')
             }
         }, false)
 
@@ -1739,7 +1744,7 @@ const controls = {
 
         // Create center container
         const centerContainer = createElement('div', {
-            class: 'plyr__controls plyr__controls__center'
+            class: 'vide__controls vide__controls__center'
         });
 
         // Add seek buttons
@@ -1754,7 +1759,7 @@ const controls = {
 
         // Create bottom container
         const bottomContainer = createElement('div', {
-            class: 'plyr__controls plyr__controls__bottom'
+            class: 'vide__controls vide__controls__bottom'
         })
         this.elements.bottomControls = bottomContainer
 
@@ -1770,7 +1775,7 @@ const controls = {
 
         // Create top container
         const topContainer = createElement('div', {
-            class: 'plyr__controls plyr__controls__top'
+            class: 'vide__controls vide__controls__top'
         })
         this.elements.topControls = topContainer
 
@@ -1779,7 +1784,7 @@ const controls = {
         this.elements.controls = container;
 
         // Default item attributes
-        const defaultAttributes = { class: 'plyr__controls__item' };
+        const defaultAttributes = { class: 'vide__controls__item' };
 
         // Loop through controls in order
         dedupe(is.array(this.config.controls) ? this.config.controls : []).forEach((control) => {
@@ -1791,7 +1796,7 @@ const controls = {
             // Rewind button
             if (control === 'rewind') {
                 const button = createButton.call(this, 'rewind', {
-                    class: 'plyr__control plyr__control--overlaid plyr__control--seek plyr__control--rewind'
+                    class: 'vide__control vide__control--overlaid vide__control--seek vide__control--rewind'
                 })
 
                 on.call(this, button, 'click', () => {
@@ -1818,7 +1823,7 @@ const controls = {
             // Fast-forward button
             if (control === 'fast-forward') {
                 const button = createButton.call(this, 'fast-forward', {
-                    class: 'plyr__control plyr__control--overlaid plyr__control--seek plyr__control--forward'
+                    class: 'vide__control vide__control--overlaid vide__control--seek vide__control--forward'
                 })
 
                 on.call(this, button, 'click', () => {
@@ -1833,7 +1838,7 @@ const controls = {
             // Progress
             if (control === 'progress') {
                 const progressContainer = createElement('div', {
-                    class: `${defaultAttributes.class} plyr__progress__container`,
+                    class: `${defaultAttributes.class} vide__progress__container`,
                 });
 
                 const progress = createElement('div', getAttributesFromSelector(this.config.selectors.progress));
@@ -1841,7 +1846,7 @@ const controls = {
                 // Seek range slider
                 progress.appendChild(
                     createRange.call(this, 'seek', {
-                        id: `plyr-seek-${data.id}`,
+                        id: `vide-seek-${data.id}`,
                     }),
                 );
 
@@ -1901,7 +1906,7 @@ const controls = {
                     volume = createElement(
                         'div',
                         extend({}, defaultAttributes, {
-                            class: `${defaultAttributes.class} plyr__volume`.trim(),
+                            class: `${defaultAttributes.class} vide__volume`.trim(),
                         }),
                     );
 
@@ -1932,7 +1937,7 @@ const controls = {
                             this,
                             'volume',
                             extend(attributes, {
-                                id: `plyr-volume-${data.id}`,
+                                id: `vide-volume-${data.id}`,
                             }),
                         ),
                     );
@@ -1948,7 +1953,7 @@ const controls = {
                 const wrapper = createElement(
                     'div',
                     extend({}, defaultAttributes, {
-                        class: `${defaultAttributes.class} plyr__menu`.trim(),
+                        class: `${defaultAttributes.class} vide__menu`.trim(),
                         hidden: '',
                     }),
                 );
@@ -1956,14 +1961,14 @@ const controls = {
                 wrapper.appendChild(
                     createButton.call(this, 'captions-menu', {
                         'aria-haspopup': true,
-                        'aria-controls': `plyr-captionsMenu-${data.id}`,
+                        'aria-controls': `vide-captionsMenu-${data.id}`,
                         'aria-expanded': false,
                     }),
                 );
 
                 const popup = createElement('div', {
-                    class: 'plyr__menu__container plyr__menu__container--captionsMenu',
-                    id: `plyr-captionsMenu-${data.id}`,
+                    class: 'vide__menu__container vide__menu__container--captionsMenu',
+                    id: `vide-captionsMenu-${data.id}`,
                     hidden: '',
                 });
 
@@ -2014,7 +2019,7 @@ const controls = {
 
                     // Build the panes
                     const pane = createElement('div', {
-                        id: `plyr-captionsMenu-${data.id}-${type}`,
+                        id: `vide-captionsMenu-${data.id}-${type}`,
                         class: 'menuInnerContent'
                     });
 
@@ -2165,7 +2170,7 @@ const controls = {
             //     const wrapper = createElement(
             //         'div',
             //         extend({}, defaultAttributes, {
-            //             class: `${defaultAttributes.class} plyr__menu`.trim(),
+            //             class: `${defaultAttributes.class} vide__menu`.trim(),
             //             hidden: '',
             //         }),
             //     );
@@ -2173,14 +2178,14 @@ const controls = {
             //     wrapper.appendChild(
             //         createButton.call(this, 'speed-menu', {
             //             'aria-haspopup': true,
-            //             'aria-controls': `plyr-speedMenu-${data.id}`,
+            //             'aria-controls': `vide-speedMenu-${data.id}`,
             //             'aria-expanded': false,
             //         }),
             //     );
             //
             //     const popup = createElement('div', {
-            //         class: 'plyr__menu__container plyr__menu__container--speedMenu',
-            //         id: `plyr-speedMenu-${data.id}`,
+            //         class: 'vide__menu__container vide__menu__container--speedMenu',
+            //         id: `vide-speedMenu-${data.id}`,
             //         hidden: '',
             //     });
             //
@@ -2222,7 +2227,7 @@ const controls = {
             //
             //         // Build the panes
             //         const pane = createElement('div', {
-            //             id: `plyr-speedMenu-${data.id}-${type}`
+            //             id: `vide-speedMenu-${data.id}-${type}`
             //         });
             //
             //         // Create title
@@ -2276,7 +2281,7 @@ const controls = {
                 const wrapper = createElement(
                     'div',
                     extend({}, defaultAttributes, {
-                        class: `${defaultAttributes.class} plyr__menu`.trim(),
+                        class: `${defaultAttributes.class} vide__menu`.trim(),
                         hidden: '',
                     }),
                 );
@@ -2284,14 +2289,14 @@ const controls = {
                 wrapper.appendChild(
                     createButton.call(this, 'quality-menu', {
                         'aria-haspopup': true,
-                        'aria-controls': `plyr-qualityMenu-${data.id}`,
+                        'aria-controls': `vide-qualityMenu-${data.id}`,
                         'aria-expanded': false,
                     }),
                 );
 
                 const popup = createElement('div', {
-                    class: 'plyr__menu__container',
-                    id: `plyr-qualityMenu-${data.id}`,
+                    class: 'vide__menu__container',
+                    id: `vide-qualityMenu-${data.id}`,
                     hidden: '',
                 });
 
@@ -2333,7 +2338,7 @@ const controls = {
 
                     // Build the panes
                     const pane = createElement('div', {
-                        id: `plyr-qualityMenu-${data.id}-${type}`
+                        id: `vide-qualityMenu-${data.id}-${type}`
                     });
 
                     // Create title
@@ -2387,7 +2392,7 @@ const controls = {
                 const wrapper = createElement(
                     'div',
                     extend({}, defaultAttributes, {
-                        class: `${defaultAttributes.class} plyr__menu`.trim(),
+                        class: `${defaultAttributes.class} vide__menu`.trim(),
                         hidden: '',
                     }),
                 );
@@ -2395,14 +2400,14 @@ const controls = {
                 wrapper.appendChild(
                     createButton.call(this, 'audio-tracks-menu', {
                         'aria-haspopup': true,
-                        'aria-controls': `plyr-audioTracksMenu-${data.id}`,
+                        'aria-controls': `vide-audioTracksMenu-${data.id}`,
                         'aria-expanded': false,
                     }),
                 );
 
                 const popup = createElement('div', {
-                    class: 'plyr__menu__container',
-                    id: `plyr-audioTracksMenu-${data.id}`,
+                    class: 'vide__menu__container',
+                    id: `vide-audioTracksMenu-${data.id}`,
                     hidden: '',
                 });
 
@@ -2444,7 +2449,7 @@ const controls = {
 
                     // Build the panes
                     const pane = createElement('div', {
-                        id: `plyr-audioTracks-${data.id}-${type}`
+                        id: `vide-audioTracks-${data.id}-${type}`
                     })
 
                     // Go back via keyboard
@@ -2491,7 +2496,7 @@ const controls = {
                 const wrapper = createElement(
                     'div',
                     extend({}, defaultAttributes, {
-                        class: `${defaultAttributes.class} plyr__menu`.trim(),
+                        class: `${defaultAttributes.class} vide__menu`.trim(),
                         //hidden: '',
                     }),
                 );
@@ -2499,14 +2504,14 @@ const controls = {
                 wrapper.appendChild(
                     createButton.call(this, 'settings', {
                         'aria-haspopup': true,
-                        'aria-controls': `plyr-settings-${data.id}`,
+                        'aria-controls': `vide-settings-${data.id}`,
                         'aria-expanded': false,
                     }),
                 );
 
                 const popup = createElement('div', {
-                    class: 'plyr__menu__container plyr__menu__container--settings',
-                    id: `plyr-settings-${data.id}`,
+                    class: 'vide__menu__container vide__menu__container--settings',
+                    id: `vide-settings-${data.id}`,
                     hidden: '',
                 });
 
@@ -2527,7 +2532,7 @@ const controls = {
                     // Build the panes
                     const pane = createElement('div', {
                         class: 'menuInnerContent',
-                        id: `plyr-settings-${data.id}-${type}`,
+                        id: `vide-settings-${data.id}-${type}`,
                     })
 
                     // Create title
@@ -2681,7 +2686,7 @@ const controls = {
 
             // Only load external sprite using AJAX
             if (icon.cors) {
-                loadSprite(icon.url, 'sprite-plyr');
+                loadSprite(icon.url, 'sprite-vide');
             }
         }
 

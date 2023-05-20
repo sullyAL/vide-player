@@ -41,7 +41,7 @@ class Fullscreen {
             const { controls, bottomControls, topControls } = this.player.elements
 
             // Stop full screen if control button
-            if (event.target.classList.contains('plyr__control') || event.target.querySelector('.plyr__control'))
+            if (event.target.classList.contains('vide__control') || event.target.querySelector('.vide__control'))
                 return
 
             // Ignore double click in controls
@@ -157,7 +157,7 @@ class Fullscreen {
             button.pressed = this.active;
         }
 
-        // Always trigger events on the plyr / media element (not a fullscreen container) and let them bubble up
+        // Always trigger events on the vide / media element (not a fullscreen container) and let them bubble up
         const target = this.target === this.player.media ? this.target : this.player.elements.container;
         // Trigger an event
         triggerEvent.call(this.player, target, this.active ? 'enterfullscreen' : 'exitfullscreen', true);

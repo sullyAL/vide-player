@@ -115,7 +115,7 @@ class Ads {
             this.clearSafetyTimer('onAdsManagerLoaded()');
         });
 
-        // Set listeners on the Plyr instance
+        // Set listeners on the vide instance
         this.listeners();
 
         // Setup the IMA SDK
@@ -170,7 +170,7 @@ class Ads {
         // Set playback for iOS10+
         google.ima.settings.setDisableCustomPlaybackForIOS10Plus(this.player.config.playsinline);
 
-        // We assume the adContainer is the video container of the plyr element that will house the ads
+        // We assume the adContainer is the video container of the vide element that will house the ads
         this.elements.displayContainer = new google.ima.AdDisplayContainer(this.elements.container, this.player.media);
 
         // Create ads loader
@@ -358,13 +358,13 @@ class Ads {
                 //     title: 'View From A Blue Moon',
                 //     sources: [{
                 //         src:
-                // 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.mp4', type:
+                // 'https://cdn.vide.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.mp4', type:
                 // 'video/mp4', }], poster:
-                // 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg', tracks:
+                // 'https://cdn.vide.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg', tracks:
                 // [ { kind: 'captions', label: 'English', srclang: 'en', src:
-                // 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt',
+                // 'https://cdn.vide.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt',
                 // default: true, }, { kind: 'captions', label: 'French', srclang: 'fr', src:
-                // 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt', }, ],
+                // 'https://cdn.vide.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt', }, ],
                 // };
 
                 // TODO: So there is still this thing where a video should only be allowed to start
@@ -422,7 +422,7 @@ class Ads {
     };
 
     /**
-     * Setup hooks for Plyr and window events. This ensures
+     * Setup hooks for vide and window events. This ensures
      * the mid- and post-roll launch at the correct time. And
      * resize the advertisement when the player resizes
      */

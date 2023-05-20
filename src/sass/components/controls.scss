@@ -3,19 +3,19 @@
 // --------------------------------------------------------------
 
 // Hide native controls
-.plyr--full-ui ::-webkit-media-controls {
+.vide--full-ui ::-webkit-media-controls {
     display: none;
 }
 
 // Playback controls
-.plyr__controls {
+.vide__controls {
     align-items: center;
     display: flex;
     justify-content: flex-end;
     text-align: center;
     flex-wrap: wrap;
 
-    .plyr__progress__container {
+    .vide__progress__container {
         flex: auto;
         min-width: 0; // Fix for Edge issue where content would overflow
         width: 100%;
@@ -24,21 +24,21 @@
     }
 
     // Spacing
-    .plyr__controls__item {
-        margin-left: calc(#{$plyr-control-spacing} / 4);
+    .vide__controls__item {
+        margin-left: calc(#{$vide-control-spacing} / 4);
 
         &:first-child {
             margin-left: 0;
             margin-right: auto;
         }
 
-        &.plyr__progress__container {
+        &.vide__progress__container {
             padding: 0;
             margin-left: 0;
         }
 
-        &.plyr__time {
-            padding: 0 calc(#{$plyr-control-spacing} / 2);
+        &.vide__time {
+            padding: 0 calc(#{$vide-control-spacing} / 2);
         }
 
         &.vide__brand {
@@ -53,9 +53,9 @@
             }
         }
 
-        &.plyr__progress__container:first-child,
-        &.plyr__time:first-child,
-        &.plyr__time + .plyr__time {
+        &.vide__progress__container:first-child,
+        &.vide__time:first-child,
+        &.vide__time + .vide__time {
             padding-left: 0;
         }
     }
@@ -67,19 +67,19 @@
 
     &__top {
 
-        .plyr__menu__container {
+        .vide__menu__container {
             bottom: auto;
             top: 100%;
             margin: 0;
 
-            @media (max-width: ($plyr-bp-md - 1px)) {
+            @media (max-width: ($vide-bp-md - 1px)) {
                 top: 37px;
             }
 
             &--speedMenu {
                 top: 4rem;
 
-                @media (max-width: ($plyr-bp-md - 1px)) {
+                @media (max-width: ($vide-bp-md - 1px)) {
                     top: 50px;
                     left: 10px;
                     right: 10px;
@@ -97,15 +97,15 @@
     display: none;
 }
 
-.plyr--captions-enabled [data-vide='captions'],
-.plyr--pip-supported [data-vide='pip'],
-.plyr--airplay-supported [data-vide='airplay'],
-.plyr--fullscreen-enabled [data-vide='fullscreen'] {
+.vide--captions-enabled [data-vide='captions'],
+.vide--pip-supported [data-vide='pip'],
+.vide--airplay-supported [data-vide='airplay'],
+.vide--fullscreen-enabled [data-vide='fullscreen'] {
     display: inline-block;
 }
 
 
-.plyr, .plyr .vide, .vide {
+.vide, .vide .vide, .vide {
 
     &__seekButton {
         position: absolute;

@@ -4,16 +4,16 @@
 
 // Base
 .vide {
-  @include plyr-font-smoothing($plyr-font-smoothing);
+  @include vide-font-smoothing($vide-font-smoothing);
 
   align-items: center;
   direction: ltr;
   display: flex;
   flex-direction: column;
-  font-family: $plyr-font-family;
+  font-family: $vide-font-family;
   font-variant-numeric: tabular-nums; // Force monosace-esque number widths
-  font-weight: $plyr-font-weight-regular;
-  line-height: $plyr-line-height;
+  font-weight: $vide-font-weight-regular;
+  line-height: $vide-line-height;
   max-width: 100%;
   min-width: 200px;
   position: relative;
@@ -44,8 +44,8 @@
 
 // border-box everything
 // http://paulirish.com/2012/box-sizing-border-box-ftw/
-@if $plyr-border-box {
-  .plyr--full-ui {
+@if $vide-border-box {
+  .vide--full-ui {
     box-sizing: border-box;
 
     *,
@@ -57,8 +57,8 @@
 }
 
 // Fix 300ms delay
-@if $plyr-touch-action {
-  .plyr--full-ui {
+@if $vide-touch-action {
+  .vide--full-ui {
     a,
     button,
     input,

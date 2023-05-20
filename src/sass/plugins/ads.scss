@@ -2,7 +2,7 @@
 // Advertisements
 // ==========================================================================
 
-.plyr__ads {
+.vide__ads {
   border-radius: inherit;
   bottom: 0;
   cursor: pointer;
@@ -23,16 +23,16 @@
 
   // The countdown label
   &::after {
-    background: $plyr-color-gray-900;
+    background: $vide-color-gray-900;
     border-radius: 2px;
-    bottom: $plyr-control-spacing;
+    bottom: $vide-control-spacing;
     color: #fff;
     content: attr(data-badge-text);
     font-size: 11px;
     padding: 2px 6px;
     pointer-events: none;
     position: absolute;
-    right: $plyr-control-spacing;
+    right: $vide-control-spacing;
     z-index: 3;
   }
 
@@ -42,10 +42,10 @@
 }
 
 // Advertisement cue's for the progress bar
-.plyr__cues {
+.vide__cues {
   background: currentColor;
   display: block;
-  height: $plyr-range-track-height;
+  height: $vide-range-track-height;
   left: 0;
   opacity: 0.8;
   position: absolute;

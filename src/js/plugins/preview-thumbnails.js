@@ -10,7 +10,7 @@ import { formatTime } from '../utils/time';
  * Scrubbing: Click and drag the seek bar (desktop and mobile): shows the preview image over the entire video, as if the video is scrubbing at very high speed
  *
  * Notes:
- * - Thumbs are set via JS settings on Plyr init, not HTML5 'track' property. Using the track property would be a bit gross, because it doesn't support custom 'kinds'. kind=metadata might be used for something else, and we want to allow multiple thumbnails tracks. Tracks must have a unique combination of 'kind' and 'label'. We would have to do something like kind=metadata,label=thumbnails1 / kind=metadata,label=thumbnails2. Square peg, round hole
+ * - Thumbs are set via JS settings on vide init, not HTML5 'track' property. Using the track property would be a bit gross, because it doesn't support custom 'kinds'. kind=metadata might be used for something else, and we want to allow multiple thumbnails tracks. Tracks must have a unique combination of 'kind' and 'label'. We would have to do something like kind=metadata,label=thumbnails1 / kind=metadata,label=thumbnails2. Square peg, round hole
  * - VTT info: the image URL is relative to the VTT, not the current document. But if the url starts with a slash, it will naturally be relative to the current domain. https://support.jwplayer.com/articles/how-to-add-preview-thumbnails
  * - This implementation uses multiple separate img elements. Other implementations use background-image on one element. This would be nice and simple, but Firefox and Safari have flickering issues with replacing backgrounds of larger images. It seems that YouTube perhaps only avoids this because they don't have the option for high-res previews (even the fullscreen ones, when mousedown/seeking). Images appear over the top of each other, and previous ones are discarded once the new ones have been rendered
  */
@@ -32,7 +32,7 @@ const fitRatio = (ratio, outer) => {
 class PreviewThumbnails {
     /**
      * PreviewThumbnails constructor.
-     * @param {Plyr} player
+     * @param {vide} player
      * @return {PreviewThumbnails}
      */
     constructor(player) {
@@ -260,7 +260,7 @@ class PreviewThumbnails {
     };
 
     /**
-     * Setup hooks for Plyr and window events
+     * Setup hooks for vide and window events
      */
     listeners = () => {
         // Hide thumbnail preview - on mouse click, mouse leave (in listeners.js for now), and video play/seek. All four are required, e.g., for buffering
@@ -281,7 +281,7 @@ class PreviewThumbnails {
      * Create HTML elements for image containers
      */
     render = () => {
-        // Create HTML element: plyr__preview-thumbnail-container
+        // Create HTML element: vide__preview-thumbnail-container
         this.elements.thumb.container = createElement('div', {
             class: this.player.config.classNames.previewThumbnails.thumbContainer,
         });
@@ -307,7 +307,7 @@ class PreviewThumbnails {
             this.player.elements.progress.appendChild(this.elements.thumb.container);
         }
 
-        // Create HTML element: plyr__preview-scrubbing-container
+        // Create HTML element: vide__preview-scrubbing-container
         this.elements.scrubbing.container = createElement('div', {
             class: this.player.config.classNames.previewThumbnails.scrubbingContainer,
         });

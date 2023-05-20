@@ -4,14 +4,14 @@
 
 @import './settings';
 
-.plyr__preview-thumb {
+.vide__preview-thumb {
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     background: rgba(#1F2937, 70%);
     border-radius: 5px;
     bottom: 100%;
-    box-shadow: $plyr-preview-shadow;
-    margin-bottom: calc(#{$plyr-preview-padding} * 2);
+    box-shadow: $vide-preview-shadow;
+    margin-bottom: calc(#{$vide-preview-padding} * 2);
     opacity: 0;
     padding: 0;
     pointer-events: none;
@@ -63,8 +63,8 @@
     // Seek time text
     &__time-container {
         background: rgba(#000, 10%);
-        border-bottom-left-radius: calc(#{$plyr-preview-radius} - 1px);
-        border-bottom-right-radius: calc(#{$plyr-preview-radius} - 1px);
+        border-bottom-left-radius: calc(#{$vide-preview-radius} - 1px);
+        border-bottom-right-radius: calc(#{$vide-preview-radius} - 1px);
         bottom: 0;
         left: 0;
         line-height: 1.1;
@@ -76,14 +76,14 @@
         padding: 5px 10px;
 
         span {
-            color: $plyr-preview-time-color;
-            font-size: $plyr-preview-time-font-size;
+            color: $vide-preview-time-color;
+            font-size: $vide-preview-time-font-size;
             font-weight: 600;
         }
     }
 }
 
-.plyr__preview-scrubbing {
+.vide__preview-scrubbing {
     bottom: 0;
     filter: blur(1px);
     height: 100% !important;

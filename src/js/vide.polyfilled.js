@@ -1,13 +1,13 @@
 // ==========================================================================
-// Plyr Polyfilled Build
-// plyr.js v3.7.2
-// https://github.com/sampotts/plyr
+// vide Polyfilled Build
+// vide.js v3.7.2
+// https://github.com/sampotts/vide
 // License: The MIT License (MIT)
 // ==========================================================================
 
 import 'custom-event-polyfill';
 import 'url-polyfill';
 
-import Plyr from './vide';
+import vide from './vide';
 
-export default Plyr;
+export default vide;

@@ -3,16 +3,16 @@
 // ==========================================================================
 
 // Loading
-$plyr-progress-loading-size: var(--plyr-progress-loading-size, 25px) !default;
-$plyr-progress-loading-background: var(--plyr-progress-loading-background, rgba($plyr-color-gray-900, 0.6)) !default;
+$vide-progress-loading-size: var(--vide-progress-loading-size, 25px) !default;
+$vide-progress-loading-background: var(--vide-progress-loading-background, rgba($vide-color-gray-900, 0.6)) !default;
 
 // Markers
-$plyr-progress-marker-background: var(--plyr-progress-marker-background, #fff) !default;
-$plyr-progress-marker-width: var(--plyr-progress-marker-width, 3px) !default;
+$vide-progress-marker-background: var(--vide-progress-marker-background, #fff) !default;
+$vide-progress-marker-width: var(--vide-progress-marker-width, 3px) !default;
 
 // Buffered
-$plyr-video-progress-buffered-background: var(--plyr-video-progress-buffered-background, rgba(#fff, 0.25)) !default;
-$plyr-audio-progress-buffered-background: var(
-  --plyr-audio-progress-buffered-background,
-  rgba($plyr-color-gray-200, 0.6)
+$vide-video-progress-buffered-background: var(--vide-video-progress-buffered-background, rgba(#fff, 0.25)) !default;
+$vide-audio-progress-buffered-background: var(
+  --vide-audio-progress-buffered-background,
+  rgba($vide-color-gray-200, 0.6)
 ) !default;

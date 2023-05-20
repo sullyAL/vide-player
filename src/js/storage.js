@@ -1,5 +1,5 @@
 // ==========================================================================
-// Plyr storage
+// vide storage
 // ==========================================================================
 
 import is from './utils/is';
@@ -21,7 +21,7 @@ class Storage {
       const test = '___test';
 
       // Try to use it (it might be disabled, e.g. user is in private mode)
-      // see: https://github.com/sampotts/plyr/issues/131
+      // see: https://github.com/sampotts/vide/issues/131
       window.localStorage.setItem(test, test);
       window.localStorage.removeItem(test);
 

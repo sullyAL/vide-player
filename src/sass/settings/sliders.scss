@@ -3,36 +3,36 @@
 // ==========================================================================
 
 // Thumb
-$plyr-range-thumb-height: var(--plyr-range-thumb-height, 8px) !default;
-$plyr-range-thumb-background: var(--plyr-range-thumb-background, #fff) !default;
-$plyr-range-thumb-shadow: var(
-  --plyr-range-thumb-shadow,
+$vide-range-thumb-height: var(--vide-range-thumb-height, 8px) !default;
+$vide-range-thumb-background: var(--vide-range-thumb-background, #fff) !default;
+$vide-range-thumb-shadow: var(
+  --vide-range-thumb-shadow,
   none
 ) !default;
 
 // Active state
-$plyr-range-thumb-active-shadow-width: var(--plyr-range-thumb-active-shadow-width, 2px) !default;
+$vide-range-thumb-active-shadow-width: var(--vide-range-thumb-active-shadow-width, 2px) !default;
 
 // Track
-$plyr-range-track-height: var(--plyr-range-track-height, 6px) !default;
+$vide-range-track-height: var(--vide-range-track-height, 6px) !default;
 
 // Fill
-$plyr-range-fill-background: var(--plyr-range-fill-background, var(--plyr-color-main, $plyr-color-main)) !default;
+$vide-range-fill-background: var(--vide-range-fill-background, var(--vide-color-main, $vide-color-main)) !default;
 
 // Type specific
-$plyr-video-range-track-background: var(
-  --plyr-video-range-track-background,
-  $plyr-video-progress-buffered-background
+$vide-video-range-track-background: var(
+  --vide-video-range-track-background,
+  $vide-video-progress-buffered-background
 ) !default;
-$plyr-video-range-thumb-active-shadow-color: var(
-  --plyr-audio-range-thumb-active-shadow-color,
+$vide-video-range-thumb-active-shadow-color: var(
+  --vide-audio-range-thumb-active-shadow-color,
   rgba(#fff, 0.5)
 ) !default;
-$plyr-audio-range-track-background: var(
-  --plyr-audio-range-track-background,
-  $plyr-audio-progress-buffered-background
+$vide-audio-range-track-background: var(
+  --vide-audio-range-track-background,
+  $vide-audio-progress-buffered-background
 ) !default;
-$plyr-audio-range-thumb-active-shadow-color: var(
-  --plyr-audio-range-thumb-active-shadow-color,
-  rgba($plyr-color-gray-900, 0.1)
+$vide-audio-range-thumb-active-shadow-color: var(
+  --vide-audio-range-thumb-active-shadow-color,
+  rgba($vide-color-gray-900, 0.1)
 ) !default;

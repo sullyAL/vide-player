@@ -4,14 +4,14 @@
 
 // Nicer focus styles
 // ---------------------------------------
-@mixin plyr-tab-focus($color: $plyr-tab-focus-color) {
+@mixin vide-tab-focus($color: $vide-tab-focus-color) {
   outline: $color dotted 3px;
   outline-offset: 2px;
 }
 
 // Font smoothing
 // ---------------------------------------
-@mixin plyr-font-smoothing($mode: true) {
+@mixin vide-font-smoothing($mode: true) {
   @if $mode {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -20,16 +20,16 @@
 
 // <input type="range"> styling
 // ---------------------------------------
-@mixin plyr-range-track() {
+@mixin vide-range-track() {
   background: transparent;
   border: 0;
   border-radius: 0;
-  height: $plyr-range-track-height;
+  height: $vide-range-track-height;
   transition: box-shadow 0.3s ease;
   user-select: none;
 }
 
-@mixin plyr-range-thumb() {
+@mixin vide-range-thumb() {
   top: 4px;
   position: relative;
   border-radius: 6px;
@@ -37,18 +37,18 @@
   transition: all 0.3s ease;
   width: 6px;
   height: 12px;
-  background: $plyr-color-main;
+  background: $vide-color-main;
   border: 2px solid #fff;
   box-shadow: 0 2px 4px 0 rgba(#fff, 20%);
 }
 
-@mixin plyr-range-thumb-active($color) {
-  box-shadow: $plyr-range-thumb-shadow, 0 0 0 $plyr-range-thumb-active-shadow-width $color;
+@mixin vide-range-thumb-active($color) {
+  box-shadow: $vide-range-thumb-shadow, 0 0 0 $vide-range-thumb-active-shadow-width $color;
 }
 
 // Fullscreen styles
 // ---------------------------------------
-@mixin plyr-fullscreen-active() {
+@mixin vide-fullscreen-active() {
   background: #000;
   border-radius: 0 !important;
   height: 100%;
@@ -60,7 +60,7 @@
   }
 
   // Display correct icon
-  .plyr__control .icon--exit-fullscreen {
+  .vide__control .icon--exit-fullscreen {
     display: block;
 
     + svg {
@@ -69,14 +69,14 @@
   }
 
   // Hide cursor in fullscreen when controls hidden
-  &.plyr--hide-controls {
+  &.vide--hide-controls {
     cursor: none;
   }
 
   // Large captions in full screen on larger screens
-  @media (min-width: $plyr-bp-lg) {
-    .plyr__captions {
-      font-size: $plyr-font-size-captions-large;
+  @media (min-width: $vide-bp-lg) {
+    .vide__captions {
+      font-size: $vide-font-size-captions-large;
     }
   }
 }

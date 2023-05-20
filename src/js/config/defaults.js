@@ -77,7 +77,7 @@ const defaults = {
     },
 
     // Blank video (used to prevent errors on source change)
-    blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
+    blankVideo: 'https://cdn.vide.io/static/blank.mp4',
 
     // Quality default
     quality: {
@@ -118,7 +118,7 @@ const defaults = {
     captions: {
         active: false,
         language: 'auto',
-        // Listen to new tracks added after Plyr is initialized.
+        // Listen to new tracks added after vide is initialized.
         // This is needed for streaming captions, but may result in unselectable options
         update: false,
         upload: true
@@ -329,9 +329,9 @@ const defaults = {
         container: '.vide',
         controls: {
             container: null,
-            wrapper: '.plyr__controls',
-            top: '.plyr__controls--top',
-            bottom: '.plyr__controls--bottom'
+            wrapper: '.vide__controls',
+            top: '.vide__controls--top',
+            bottom: '.vide__controls--bottom'
         },
         labels: '[data-vide]',
         buttons: {
@@ -367,94 +367,94 @@ const defaults = {
             audioTracks: '[data-vide="audio-tracks"]',
         },
         display: {
-            invertedTime: '.plyr__time--inverted',
-            currentTime: '.plyr__time--current',
-            duration: '.plyr__time--duration',
+            invertedTime: '.vide__time--inverted',
+            currentTime: '.vide__time--current',
+            duration: '.vide__time--duration',
             buffer: '.vide__progress__buffer',
             loop: '.vide__progress__loop', // Used later
-            volume: '.plyr__volume--display',
+            volume: '.vide__volume--display',
         },
         progress: '.vide__progress',
-        captions: '.plyr__captions',
-        audioTracks: '.plyr__audioTracks',
-        caption: '.plyr__caption',
+        captions: '.vide__captions',
+        audioTracks: '.vide__audioTracks',
+        caption: '.vide__caption',
     },
 
     // Class hooks added to the player in different states
     classNames: {
-        type: 'plyr--{0}',
-        provider: 'plyr--{0}',
-        video: 'plyr__video-wrapper',
-        embed: 'plyr__video-embed',
-        videoFixedRatio: 'plyr__video-wrapper--fixed-ratio',
-        embedContainer: 'plyr__video-embed__container',
-        poster: 'plyr__poster',
-        posterEnabled: 'plyr__poster-enabled',
-        ads: 'plyr__ads',
-        control: 'plyr__control',
-        controlPressed: 'plyr__control--pressed',
-        playing: 'plyr--playing',
-        paused: 'plyr--paused',
-        stopped: 'plyr--stopped',
-        loading: 'plyr--loading',
-        hover: 'plyr--hover',
+        type: 'vide--{0}',
+        provider: 'vide--{0}',
+        video: 'vide__video-wrapper',
+        embed: 'vide__video-embed',
+        videoFixedRatio: 'vide__video-wrapper--fixed-ratio',
+        embedContainer: 'vide__video-embed__container',
+        poster: 'vide__poster',
+        posterEnabled: 'vide__poster-enabled',
+        ads: 'vide__ads',
+        control: 'vide__control',
+        controlPressed: 'vide__control--pressed',
+        playing: 'vide--playing',
+        paused: 'vide--paused',
+        stopped: 'vide--stopped',
+        loading: 'vide--loading',
+        hover: 'vide--hover',
         tooltip: 'vide__tooltip',
-        cues: 'plyr__cues',
+        cues: 'vide__cues',
         marker: 'vide__progress__marker',
-        hidden: 'plyr__sr-only',
-        hideControls: 'plyr--hide-controls',
-        isIos: 'plyr--is-ios',
-        isTouch: 'plyr--is-touch',
-        uiSupported: 'plyr--full-ui',
-        noTransition: 'plyr--no-transition',
+        hidden: 'vide__sr-only',
+        hideControls: 'vide--hide-controls',
+        isIos: 'vide--is-ios',
+        isTouch: 'vide--is-touch',
+        uiSupported: 'vide--full-ui',
+        noTransition: 'vide--no-transition',
         display: {
-            time: 'plyr__time',
+            time: 'vide__time',
         },
         menu: {
-            value: 'plyr__menu__value',
-            badge: 'plyr__badge',
-            open: 'plyr--menu-open',
+            value: 'vide__menu__value',
+            badge: 'vide__badge',
+            open: 'vide--menu-open',
         },
         captions: {
-            enabled: 'plyr--captions-enabled',
-            active: 'plyr--captions-active',
+            enabled: 'vide--captions-enabled',
+            active: 'vide--captions-active',
         },
         fullscreen: {
-            enabled: 'plyr--fullscreen-enabled',
-            fallback: 'plyr--fullscreen-fallback',
+            enabled: 'vide--fullscreen-enabled',
+            fallback: 'vide--fullscreen-fallback',
         },
         pip: {
-            supported: 'plyr--pip-supported',
-            active: 'plyr--pip-active',
+            supported: 'vide--pip-supported',
+            active: 'vide--pip-active',
         },
         airplay: {
-            supported: 'plyr--airplay-supported',
-            active: 'plyr--airplay-active',
+            supported: 'vide--airplay-supported',
+            active: 'vide--airplay-active',
         },
-        tabFocus: 'plyr__tab-focus',
+        tabFocus: 'vide__tab-focus',
         previewThumbnails: {
             // Tooltip thumbs
-            thumbContainer: 'plyr__preview-thumb',
-            thumbContainerShown: 'plyr__preview-thumb--is-shown',
-            imageContainer: 'plyr__preview-thumb__image-container',
-            timeContainer: 'plyr__preview-thumb__time-container',
+            thumbContainer: 'vide__preview-thumb',
+            thumbContainerShown: 'vide__preview-thumb--is-shown',
+            imageContainer: 'vide__preview-thumb__image-container',
+            timeContainer: 'vide__preview-thumb__time-container',
             // Scrubbing
-            scrubbingContainer: 'plyr__preview-scrubbing',
-            scrubbingContainerShown: 'plyr__preview-scrubbing--is-shown',
+            scrubbingContainer: 'vide__preview-scrubbing',
+            scrubbingContainerShown: 'vide__preview-scrubbing--is-shown',
         },
     },
 
     // Embed attributes
     attributes: {
         embed: {
-            provider: 'data-plyr-provider',
-            id: 'data-plyr-embed-id',
-            hash: 'data-plyr-embed-hash',
+            provider: 'data-vide-provider',
+            id: 'data-vide-embed-id',
+            hash: 'data-vide-embed-hash',
         },
     },
 
     // Advertisements plugin
-    // Register for an account here: http://vi.ai/publisher-video-monetization/?aid=plyrio
+    // Register for an account here: http://vi.ai/publisher-video-monetization/?aid=videio
     ads: {
         enabled: false,
         publisherId: '',
@@ -483,7 +483,7 @@ const defaults = {
         title: false,
         speed: true,
         transparent: false,
-        // Custom settings from Plyr
+        // Custom settings from vide
         customControls: true,
         referrerPolicy: null, // https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/referrerPolicy
         // Whether the owner of the video has a Pro or Business account
@@ -497,7 +497,7 @@ const defaults = {
         showinfo: 0, // Hide info
         iv_load_policy: 3, // Hide annotations
         modestbranding: 1, // Hide logos as much as possible (they still show one in the corner when paused)
-        // Custom settings from Plyr
+        // Custom settings from vide
         customControls: true,
         noCookie: false, // Whether to use an alternative version of YouTube without cookies
     },

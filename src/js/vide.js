@@ -66,7 +66,7 @@ class Vide {
             options || {},
             (() => {
                 try {
-                    return JSON.parse(this.media.getAttribute('data-plyr-config'));
+                    return JSON.parse(this.media.getAttribute('data-vide-config'));
                 } catch (_) {
                     return {};
                 }
@@ -148,7 +148,7 @@ class Vide {
         }
 
         // Bail if the element is initialized
-        if (this.media.plyr) {
+        if (this.media.vide) {
             this.debug.warn('Target already setup');
             return;
         }
@@ -283,7 +283,7 @@ class Vide {
         this.storage = new Storage(this);
 
         // Store reference
-        this.media.plyr = this;
+        this.media.vide = this;
 
         // Wrap media
         if (!is.element(this.elements.container)) {
@@ -1208,7 +1208,7 @@ class Vide {
                     removeElement(this.elements.qualityMenu)
                     removeElement(this.elements.speedMenu)
                     removeElement(this.elements.topControls)
-                    removeElement(this.elements.container.querySelector('.plyr__controls__center'))
+                    removeElement(this.elements.container.querySelector('.vide__controls__center'))
 
                     // Clear for GC
                     this.elements.buttons.play = null

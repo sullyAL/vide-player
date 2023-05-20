@@ -2,8 +2,8 @@
 // Time
 // --------------------------------------------------------------
 
-.plyr__time {
-    font-size: $plyr-font-size-time;
+.vide__time {
+    font-size: $vide-font-size-time;
 
     &--current, &--duration {
         width: 100px;
@@ -15,7 +15,7 @@
         font-weight: 400;
         text-align: right;
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($vide-bp-md - 1px)) {
             font-size: 0.7rem;
         }
     }
@@ -31,10 +31,11 @@
 }
 
 // Media duration hidden on small screens
-.plyr__time + .plyr__time {
+.vide__time + .vide__time {
     // Add a slash in before
     &::before {
         content: '\2044';
         margin-right: 5px;
+        margin-left: 5px;
     }
 }

@@ -3,59 +3,59 @@
 // --------------------------------------------------------------
 
 // Container
-.plyr--audio {
+.vide--audio {
   display: block;
 }
 
 // Controls container
-.plyr--audio .plyr__controls {
-  background: $plyr-audio-controls-background;
+.vide--audio .vide__controls {
+  background: $vide-audio-controls-background;
   border-radius: inherit;
-  color: $plyr-audio-control-color;
-  padding: $plyr-control-spacing;
+  color: $vide-audio-control-color;
+  padding: $vide-control-spacing;
 }
 
 // Control elements
-.plyr--audio .plyr__control {
-  &.plyr__tab-focus,
+.vide--audio .vide__control {
+  &.vide__tab-focus,
   &:hover,
   &[aria-expanded='true'] {
-    background: $plyr-audio-control-background-hover;
-    color: $plyr-audio-control-color-hover;
+    background: $vide-audio-control-background-hover;
+    color: $vide-audio-control-color-hover;
   }
 }
 
 // Range inputs
-.plyr--full-ui.plyr--audio input[type='range'] {
+.vide--full-ui.vide--audio input[type='range'] {
   &::-webkit-slider-runnable-track {
-    background-color: $plyr-audio-range-track-background;
+    background-color: $vide-audio-range-track-background;
   }
 
   &::-moz-range-track {
-    background-color: $plyr-audio-range-track-background;
+    background-color: $vide-audio-range-track-background;
   }
 
   &::-ms-track {
-    background-color: $plyr-audio-range-track-background;
+    background-color: $vide-audio-range-track-background;
   }
 
   // Pressed styles
   &:active {
     &::-webkit-slider-thumb {
-      @include plyr-range-thumb-active($plyr-audio-range-thumb-active-shadow-color);
+      @include vide-range-thumb-active($vide-audio-range-thumb-active-shadow-color);
     }
 
     &::-moz-range-thumb {
-      @include plyr-range-thumb-active($plyr-audio-range-thumb-active-shadow-color);
+      @include vide-range-thumb-active($vide-audio-range-thumb-active-shadow-color);
     }
 
     &::-ms-thumb {
-      @include plyr-range-thumb-active($plyr-audio-range-thumb-active-shadow-color);
+      @include vide-range-thumb-active($vide-audio-range-thumb-active-shadow-color);
     }
   }
 }
 
 // Progress
-.plyr--audio .vide__progress__buffer {
-  color: $plyr-audio-progress-buffered-background;
+.vide--audio .vide__progress__buffer {
+  color: $vide-audio-progress-buffered-background;
 }

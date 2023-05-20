@@ -2,7 +2,7 @@
 // Volume
 // --------------------------------------------------------------
 
-.plyr__volume {
+.vide__volume {
     align-items: center;
     display: flex;
     position: relative;
@@ -45,7 +45,7 @@
 }
 
 // Auto size on iOS as there's no slider
-.plyr--is-ios .plyr__volume {
+.vide--is-ios .vide__volume {
     min-width: 0;
     width: auto;
 }

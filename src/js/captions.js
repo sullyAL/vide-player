@@ -1,5 +1,5 @@
 // ==========================================================================
-// Plyr Captions
+// vide Captions
 // TODO: Create as class
 // ==========================================================================
 
@@ -50,9 +50,9 @@ const captions = {
             insertAfter(this.elements.captions, this.elements.wrapper);
 
             if (this.storage.get('showCaptionsBG')) {
-                this.elements?.captions?.classList.remove('plyr__captions--noBackground')
+                this.elements?.captions?.classList.remove('vide__captions--noBackground')
             } else {
-                this.elements?.captions?.classList.add('plyr__captions--noBackground')
+                this.elements?.captions?.classList.add('vide__captions--noBackground')
             }
 
             const captionsSize = this.storage.get('captionsSize') || 15

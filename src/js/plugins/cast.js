@@ -67,8 +67,8 @@ class Cast {
         if (this.isSupported && this.config.enabled) {
             const { elements } = this.player
 
-            const defaultAttributes = { class: 'plyr__controls__item' }
-            const container = elements.container.querySelector('.plyr__controls.plyr__controls__top')
+            const defaultAttributes = { class: 'vide__controls__item' }
+            const container = elements.container.querySelector('.vide__controls.vide__controls__top')
 
             const button = controls.createButton.call(this.player, 'cast', defaultAttributes)
             elements.buttons.chromeCast = button
@@ -172,10 +172,10 @@ class Cast {
         const { elements } = this.player
 
         // Change button
-        elements?.buttons?.chromeCast?.classList?.add('plyr__control--pressed')
+        elements?.buttons?.chromeCast?.classList?.add('vide__control--pressed')
 
         // hide elements
-        const bottomContainer = elements.container.querySelector('.plyr__controls.plyr__controls__bottom')
+        const bottomContainer = elements.container.querySelector('.vide__controls.vide__controls__bottom')
         const poster = elements.poster
 
         elements.container.classList.add(this.player.config.classNames.hideControls)
@@ -225,10 +225,10 @@ class Cast {
         const { elements, media } = this.player
 
         // Change button
-        elements?.buttons?.chromeCast?.classList?.remove('plyr__control--pressed')
+        elements?.buttons?.chromeCast?.classList?.remove('vide__control--pressed')
 
         // hide elements
-        const bottomContainer = elements.container.querySelector('.plyr__controls.plyr__controls__bottom')
+        const bottomContainer = elements.container.querySelector('.vide__controls.vide__controls__bottom')
         const poster = elements.poster
 
         elements.container.classList.add(this.player.config.classNames.hideControls)

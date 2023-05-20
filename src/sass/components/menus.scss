@@ -2,28 +2,28 @@
 // Menus
 // --------------------------------------------------------------
 
-.plyr__menu {
+.vide__menu {
     display: flex; // Edge fix
     position: relative;
 
     // Animate the icon
-    .plyr__control svg {
+    .vide__control svg {
         transition: transform 0.3s ease;
     }
 
-    .plyr__control[aria-expanded='true'] {
+    .vide__control[aria-expanded='true'] {
 
         // Hide tooltip
-        .plyr__tooltip {
+        .vide__tooltip {
             display: none;
         }
     }
 
     // The actual menu container
     &__container {
-        animation: plyr-popup 0.3s ease;
+        animation: vide-popup 0.3s ease;
         border-radius: 0;
-        font-size: $plyr-font-size-base;
+        font-size: $vide-font-size-base;
         position: absolute;
         text-align: left;
         white-space: nowrap;
@@ -35,7 +35,7 @@
         left: 50%;
         padding: 0;
 
-        @media (max-width: ($plyr-bp-md - 1px)) {
+        @media (max-width: ($vide-bp-md - 1px)) {
             left: 0 !important;
             right: 0 !important;
             bottom: 3rem;
@@ -61,7 +61,7 @@
                 font-size: 20px;
             }
 
-            @media (max-width: ($plyr-bp-md - 1px)) {
+            @media (max-width: ($vide-bp-md - 1px)) {
                 font-size: 14px;
                 padding: 10px 20px;
             }
@@ -83,7 +83,7 @@
                 height: 34px;
                 margin: 0;
 
-                @media (max-width: ($plyr-bp-md - 1px)) {
+                @media (max-width: ($vide-bp-md - 1px)) {
                     width: 40px;
                     height: 24px;
                 }
@@ -106,7 +106,7 @@
                     transition: .4s;
                     border-radius: 34px;
 
-                    @media (max-width: ($plyr-bp-md - 1px)) {
+                    @media (max-width: ($vide-bp-md - 1px)) {
                         border-radius: 24px;
                     }
 
@@ -122,7 +122,7 @@
                         transition: .4s;
                         border-radius: 50%;
 
-                        @media (max-width: ($plyr-bp-md - 1px)) {
+                        @media (max-width: ($vide-bp-md - 1px)) {
                             height: 16px;
                             width: 16px;
                         }
@@ -130,11 +130,11 @@
                 }
 
                 input:checked + span {
-                    background-color: $plyr-color-main;
+                    background-color: $vide-color-main;
                 }
 
                 input:focus + span {
-                    box-shadow: 0 0 1px $plyr-color-main;
+                    box-shadow: 0 0 1px $vide-color-main;
                 }
 
                 input:checked + span:before {
@@ -142,7 +142,7 @@
                     -ms-transform: translateX(26px);
                     transform: translateX(26px);
 
-                    @media (max-width: ($plyr-bp-md - 1px)) {
+                    @media (max-width: ($vide-bp-md - 1px)) {
                         -webkit-transform: translateX(16px);
                         -ms-transform: translateX(16px);
                         transform: translateX(16px);
@@ -247,7 +247,7 @@
                 max-height: 600px;
             }
 
-            @media (max-width: ($plyr-bp-md - 1px)) {
+            @media (max-width: ($vide-bp-md - 1px)) {
                 max-height: calc(100% - 40px);
                 padding: 15px;
             }
@@ -274,11 +274,11 @@
         }
 
         // Options
-        .plyr__control {
+        .vide__control {
             align-items: center;
-            color: $plyr-menu-color;
+            color: $vide-menu-color;
             display: flex;
-            font-size: $plyr-font-size-menu;
+            font-size: $vide-font-size-menu;
             padding: 8px 10px;
             user-select: none;
             width: 100%;
@@ -288,7 +288,7 @@
                 font-size: 16px;
             }
 
-            @media (max-width: ($plyr-bp-md - 1px)) {
+            @media (max-width: ($vide-bp-md - 1px)) {
                 font-size: 14px;
                 padding: 6px 8px;
             }
@@ -309,7 +309,7 @@
             }
         }
 
-        .plyr__control[role='menuitemradio'] {
+        .vide__control[role='menuitemradio'] {
 
             &::before {
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7' /%3E%3C/svg%3E");
@@ -317,7 +317,7 @@
                 display: block;
                 flex-shrink: 0;
                 height: 16px;
-                margin-right: $plyr-control-spacing;
+                margin-right: $vide-control-spacing;
                 transition: all 0.3s ease;
                 width: 16px;
                 opacity: 0;
@@ -333,13 +333,13 @@
         }
 
         // Option value
-        .plyr__menu__value {
+        .vide__menu__value {
             align-items: center;
             display: flex;
             margin-left: auto;
-            margin-right: calc((#{$plyr-control-padding} - 2) * -1);
+            margin-right: calc((#{$vide-control-padding} - 2) * -1);
             overflow: hidden;
-            padding-left: calc(#{$plyr-control-padding} * 3.5);
+            padding-left: calc(#{$vide-control-padding} * 3.5);
             pointer-events: none;
         }
 
@@ -351,7 +351,7 @@
             bottom: 3.5rem;
             right: 0.5rem;
 
-            @media (max-width: ($plyr-bp-md - 1px)) {
+            @media (max-width: ($vide-bp-md - 1px)) {
                 left: 2px;
                 right: 2px;
             }
@@ -366,7 +366,7 @@
                 min-width: 390px;
                 justify-content: center;
 
-                .plyr__control {
+                .vide__control {
                     width: auto;
                     padding: 5px 20px !important;
                     margin: 0;
@@ -375,7 +375,7 @@
                     padding-top: 40px;
                     font-size: 16px;
 
-                    @media (max-width: ($plyr-bp-md - 1px)) {
+                    @media (max-width: ($vide-bp-md - 1px)) {
                         font-size: 14px;
                     }
 
@@ -488,8 +488,8 @@
 
                 &:hover {
                     background: rgba(#1F2937, 80%);
-                    color: $plyr-color-main;
-                    fill: $plyr-color-main;
+                    color: $vide-color-main;
+                    fill: $vide-color-main;
                 }
             }
         }

@@ -1,5 +1,5 @@
 // ==========================================================================
-// Plyr HTML5 helpers
+// vide HTML5 helpers
 // ==========================================================================
 
 import support from './support';
@@ -120,7 +120,7 @@ const html5 = {
   },
 
   // Cancel current network requests
-  // See https://github.com/sampotts/plyr/issues/174
+  // See https://github.com/sampotts/vide/issues/174
   cancelRequests() {
     if (!this.isHTML5) {
       return;
@@ -136,7 +136,7 @@ const html5 = {
 
     // Load the new empty source
     // This will cancel existing requests
-    // See https://github.com/sampotts/plyr/issues/174
+    // See https://github.com/sampotts/vide/issues/174
     this.media.load();
 
     // Debugging

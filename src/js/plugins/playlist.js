@@ -43,7 +43,7 @@ class Playlist {
         const { player } = this
         const { elements: { buttons, playlist } } = player
 
-        const defaultAttributes = { class: 'plyr__controls__item' }
+        const defaultAttributes = { class: 'vide__controls__item' }
         const button = controls.createButton.call(player, 'playlist', defaultAttributes)
 
         const parent = buttons.fullscreen.parentNode
@@ -198,7 +198,7 @@ class Playlist {
             const playIcon = controls.createIcon.call(player, 'play-alt')
             const playButton = createElement('button', {
                 type: 'button',
-                class: 'plyr__control'
+                class: 'vide__control'
             })
 
             on.call(player, playButton, 'click dblclick', (event) => this.play(event, index), false)
@@ -251,8 +251,6 @@ class Playlist {
         container.appendChild(playlist)
         elements.playlist.container = playlist
         elements.playlist.closeButton = closeButton
-
-        console.log(start)
 
         // Initiate slider
         const splide = new Splide('.splide', {

@@ -2,17 +2,17 @@
 // Slider inputs - <input type="range">
 // --------------------------------------------------------------
 
-.plyr--full-ui input[type='range'] {
+.vide--full-ui input[type='range'] {
     appearance: none;
     background: transparent;
     border: 0;
-    border-radius: calc(#{$plyr-range-thumb-height} * 2);
+    border-radius: calc(#{$vide-range-thumb-height} * 2);
     cursor: pointer;
 
     // `color` property is used in JS to populate lower fill for WebKit
-    color: $plyr-range-fill-background;
+    color: $vide-range-fill-background;
     display: block;
-    height: calc((#{$plyr-range-thumb-active-shadow-width} * 2) + #{$plyr-range-thumb-height});
+    height: calc((#{$vide-range-thumb-active-shadow-width} * 2) + #{$vide-range-thumb-height});
     margin: 0;
     min-width: 0;
     padding: 0;
@@ -20,52 +20,52 @@
     width: 100%;
 
     &::-webkit-slider-runnable-track {
-        @include plyr-range-track;
+        @include vide-range-track;
 
         background-image: linear-gradient(to right, currentColor var(--value, 0%), transparent var(--value, 0%));
     }
 
     &::-webkit-slider-thumb {
-        @include plyr-range-thumb;
+        @include vide-range-thumb;
 
         appearance: none;
-        margin-top: calc(((#{$plyr-range-thumb-height} - #{$plyr-range-track-height}) / 2) * -1);
+        margin-top: calc(((#{$vide-range-thumb-height} - #{$vide-range-track-height}) / 2) * -1);
     }
 
     // Mozilla
     &::-moz-range-track {
-        @include plyr-range-track;
+        @include vide-range-track;
     }
 
     &::-moz-range-thumb {
-        @include plyr-range-thumb;
+        @include vide-range-thumb;
     }
 
     &::-moz-range-progress {
         background: currentColor;
-        border-radius: calc(#{$plyr-range-track-height} / 2);
-        height: $plyr-range-track-height;
+        border-radius: calc(#{$vide-range-track-height} / 2);
+        height: $vide-range-track-height;
     }
 
     // Microsoft
     &::-ms-track {
-        @include plyr-range-track;
+        @include vide-range-track;
 
         color: transparent;
     }
 
     &::-ms-fill-upper {
-        @include plyr-range-track;
+        @include vide-range-track;
     }
 
     &::-ms-fill-lower {
-        @include plyr-range-track;
+        @include vide-range-track;
 
         background: currentColor;
     }
 
     &::-ms-thumb {
-        @include plyr-range-thumb;
+        @include vide-range-thumb;
 
         // For some reason, Edge uses the -webkit margin above
         margin-top: 0;
@@ -84,17 +84,17 @@
         outline: 0;
     }
 
-    &.plyr__tab-focus {
+    &.vide__tab-focus {
         &::-webkit-slider-runnable-track {
-            @include plyr-tab-focus;
+            @include vide-tab-focus;
         }
 
         &::-moz-range-track {
-            @include plyr-tab-focus;
+            @include vide-tab-focus;
         }
 
         &::-ms-track {
-            @include plyr-tab-focus;
+            @include vide-tab-focus;
         }
     }
 }

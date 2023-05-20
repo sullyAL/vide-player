@@ -2,33 +2,33 @@
 // Controls
 // ==========================================================================
 
-$plyr-control-icon-size: var(--plyr-control-icon-size, 24px) !default;
-$plyr-control-spacing: var(--plyr-control-spacing, 10px) !default;
-$plyr-control-padding: calc(#{$plyr-control-spacing} * 0.7);
-$plyr-control-padding: var(--plyr-control-padding, $plyr-control-padding) !default;
-$plyr-control-radius: var(--plyr-control-radius, 0) !default;
-$plyr-control-toggle-checked-background: var(
-  --plyr-control-toggle-checked-background,
-  var(--plyr-color-main, $plyr-color-main)
+$vide-control-icon-size: var(--vide-control-icon-size, 24px) !default;
+$vide-control-spacing: var(--vide-control-spacing, 10px) !default;
+$vide-control-padding: calc(#{$vide-control-spacing} * 0.7);
+$vide-control-padding: var(--vide-control-padding, $vide-control-padding) !default;
+$vide-control-radius: var(--vide-control-radius, 0) !default;
+$vide-control-toggle-checked-background: var(
+  --vide-control-toggle-checked-background,
+  var(--vide-color-main, $vide-color-main)
 ) !default;
-$plyr-video-controls-background: var(
-  --plyr-video-controls-background,
+$vide-video-controls-background: var(
+  --vide-video-controls-background,
   linear-gradient(rgba(#000, 0), rgba(#000, 0.75))
 ) !default;
-$plyr-video-controls-background-top: var(
-                --plyr-video-controls-background-top,
+$vide-video-controls-background-top: var(
+                --vide-video-controls-background-top,
                 linear-gradient(rgba(#000, 0.5), rgba(#000, 0))
 ) !default;
-$plyr-video-control-color: var(--plyr-video-control-color, #fff) !default;
-$plyr-video-control-color-hover: var(--plyr-video-control-color-hover, #fff) !default;
-$plyr-video-control-background-hover: var(
-  --plyr-video-control-background-hover,
-  var(--plyr-color-main, $plyr-color-main)
+$vide-video-control-color: var(--vide-video-control-color, #fff) !default;
+$vide-video-control-color-hover: var(--vide-video-control-color-hover, #fff) !default;
+$vide-video-control-background-hover: var(
+  --vide-video-control-background-hover,
+  var(--vide-color-main, $vide-color-main)
 ) !default;
-$plyr-audio-controls-background: var(--plyr-audio-controls-background, #fff) !default;
-$plyr-audio-control-color: var(--plyr-audio-control-color, $plyr-color-gray-700) !default;
-$plyr-audio-control-color-hover: var(--plyr-audio-control-color-hover, #fff) !default;
-$plyr-audio-control-background-hover: var(
-  --plyr-audio-control-background-hover,
-  var(--plyr-color-main, $plyr-color-main)
+$vide-audio-controls-background: var(--vide-audio-controls-background, #fff) !default;
+$vide-audio-control-color: var(--vide-audio-control-color, $vide-color-gray-700) !default;
+$vide-audio-control-color-hover: var(--vide-audio-control-color-hover, #fff) !default;
+$vide-audio-control-background-hover: var(
+  --vide-audio-control-background-hover,
+  var(--vide-color-main, $vide-color-main)
 ) !default;
